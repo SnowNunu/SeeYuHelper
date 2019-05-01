@@ -177,6 +177,7 @@
 		26FE8E911F9514D100EC8BE0 /* TZProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 26FE8E791F9514D100EC8BE0 /* TZProgressView.m */; };
 		26FE8E921F9514D100EC8BE0 /* TZVideoPlayerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26FE8E7B1F9514D100EC8BE0 /* TZVideoPlayerController.m */; };
 		26FE8E931F9514D100EC8BE0 /* UIView+Layout.m in Sources */ = {isa = PBXBuildFile; fileRef = 26FE8E7D1F9514D100EC8BE0 /* UIView+Layout.m */; };
+		29AFCAD7068B297A4D630669 /* Pods_SeeYuHelper_SeeYuHelperUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21C4A8E278D0173482AAE2EE /* Pods_SeeYuHelper_SeeYuHelperUITests.framework */; };
 		7B0228A5223A16470045E25F /* NSString+PinYin4Cocoa.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B022898223A16470045E25F /* NSString+PinYin4Cocoa.m */; };
 		7B0228A6223A16470045E25F /* unicode_to_hanyu_pinyin.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7B022899223A16470045E25F /* unicode_to_hanyu_pinyin.txt */; };
 		7B0228A7223A16470045E25F /* PinyinHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B02289D223A16470045E25F /* PinyinHelper.m */; };
@@ -420,9 +421,8 @@
 		7BF37C3C2272F9790042BC4F /* SYSocketManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF37C3B2272F9790042BC4F /* SYSocketManager.m */; };
 		7BF37C3F227349D90042BC4F /* SYMomentsEditVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF37C3E227349D90042BC4F /* SYMomentsEditVC.m */; };
 		7BF37C4222734A380042BC4F /* SYMomentsEditVM.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF37C4122734A380042BC4F /* SYMomentsEditVM.m */; };
-		864BB5E20D5521374F720EC0 /* Pods_SeeYu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94F38DBDD0C5EE456B831E4A /* Pods_SeeYu.framework */; };
-		AD21F790DBB21B99763DBF6A /* Pods_SeeYu_SeeYuUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F007961429C86520F15C504 /* Pods_SeeYu_SeeYuUITests.framework */; };
-		FF517F8EEC68B750C774C0C7 /* Pods_SeeYu_SeeYuTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F609A3FCDE82ED766B6FC1F9 /* Pods_SeeYu_SeeYuTests.framework */; };
+		F93D0BA951E11EE4A5F4DA6A /* Pods_SeeYuHelper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B052E40186FE4D3B74193DA /* Pods_SeeYuHelper.framework */; };
+		FD9281C59328D9D054FD2195 /* Pods_SeeYuHelper_SeeYuHelperTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42B4CB3AECDBE67664AFFA51 /* Pods_SeeYuHelper_SeeYuHelperTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -444,6 +444,7 @@
 
 /* Begin PBXFileReference section */
 		1155F086797DBAE6A4893338 /* Pods-SeeYu-SeeYuTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SeeYu-SeeYuTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SeeYu-SeeYuTests/Pods-SeeYu-SeeYuTests.release.xcconfig"; sourceTree = "<group>"; };
+		21C4A8E278D0173482AAE2EE /* Pods_SeeYuHelper_SeeYuHelperUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SeeYuHelper_SeeYuHelperUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		26003FF11F988B81000621B0 /* SYButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SYButton.h; sourceTree = "<group>"; };
 		26003FF21F988B81000621B0 /* SYButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SYButton.m; sourceTree = "<group>"; };
 		26003FF41F988BA1000621B0 /* SYImageView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SYImageView.h; sourceTree = "<group>"; };
@@ -464,15 +465,15 @@
 		2605C5D21F6632AA00B1F66E /* SYContactsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYContactsVC.m; sourceTree = "<group>"; };
 		2605C5D41F6633AC00B1F66E /* SYContactsVM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYContactsVM.h; sourceTree = "<group>"; };
 		2605C5D51F6633AC00B1F66E /* SYContactsVM.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYContactsVM.m; sourceTree = "<group>"; };
-		26064AB31F5D9A1400566B95 /* SeeYu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SeeYu.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		26064AB31F5D9A1400566B95 /* SeeYuHelper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SeeYuHelper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		26064AB71F5D9A1400566B95 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		26064AB91F5D9A1400566B95 /* SYAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SYAppDelegate.h; sourceTree = "<group>"; };
 		26064ABA1F5D9A1400566B95 /* SYAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SYAppDelegate.m; sourceTree = "<group>"; };
 		26064AC71F5D9A1400566B95 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		26064ACC1F5D9A1400566B95 /* SeeYuTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SeeYuTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		26064ACC1F5D9A1400566B95 /* SeeYuHelperTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SeeYuHelperTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		26064AD01F5D9A1400566B95 /* SeeYuTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SeeYuTests.m; sourceTree = "<group>"; };
 		26064AD21F5D9A1400566B95 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		26064AD71F5D9A1400566B95 /* SeeYuUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SeeYuUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		26064AD71F5D9A1400566B95 /* SeeYuHelperUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SeeYuHelperUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		26064ADB1F5D9A1400566B95 /* SeeYuUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SeeYuUITests.m; sourceTree = "<group>"; };
 		26064ADD1F5D9A1400566B95 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		26064AFA1F5DB52900566B95 /* SYNavigationControllerStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYNavigationControllerStack.h; sourceTree = "<group>"; };
@@ -544,7 +545,7 @@
 		26225D941F6556970074BFC3 /* SYViewModelServices.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYViewModelServices.h; sourceTree = "<group>"; };
 		26225D951F6557290074BFC3 /* SYViewModelServicesImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYViewModelServicesImpl.h; sourceTree = "<group>"; };
 		26225D961F6557290074BFC3 /* SYViewModelServicesImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYViewModelServicesImpl.m; sourceTree = "<group>"; };
-		26225D981F6557F40074BFC3 /* SeeYu.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SeeYu.pch; sourceTree = "<group>"; };
+		26225D981F6557F40074BFC3 /* SeeYuHelper.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SeeYuHelper.pch; sourceTree = "<group>"; };
 		26225D991F65589E0074BFC3 /* SYConstant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYConstant.h; sourceTree = "<group>"; };
 		26225D9A1F65589E0074BFC3 /* SYConstant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYConstant.m; sourceTree = "<group>"; };
 		26225D9C1F65594D0074BFC3 /* SYMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYMacros.h; sourceTree = "<group>"; };
@@ -795,8 +796,11 @@
 		26FE8E7B1F9514D100EC8BE0 /* TZVideoPlayerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZVideoPlayerController.m; sourceTree = "<group>"; };
 		26FE8E7C1F9514D100EC8BE0 /* UIView+Layout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Layout.h"; sourceTree = "<group>"; };
 		26FE8E7D1F9514D100EC8BE0 /* UIView+Layout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Layout.m"; sourceTree = "<group>"; };
+		3B052E40186FE4D3B74193DA /* Pods_SeeYuHelper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SeeYuHelper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3C1015AFFF3C2EE820FA44DA /* Pods-SeeYuHelper-SeeYuHelperTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SeeYuHelper-SeeYuHelperTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SeeYuHelper-SeeYuHelperTests/Pods-SeeYuHelper-SeeYuHelperTests.release.xcconfig"; sourceTree = "<group>"; };
+		42B4CB3AECDBE67664AFFA51 /* Pods_SeeYuHelper_SeeYuHelperTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SeeYuHelper_SeeYuHelperTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		47CB4A37535CDA4F99D6D368 /* Pods-SeeYuHelper-SeeYuHelperUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SeeYuHelper-SeeYuHelperUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SeeYuHelper-SeeYuHelperUITests/Pods-SeeYuHelper-SeeYuHelperUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		5199ACCDE3914E9780CBE096 /* Pods-SeeYu-SeeYuUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SeeYu-SeeYuUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SeeYu-SeeYuUITests/Pods-SeeYu-SeeYuUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		5F007961429C86520F15C504 /* Pods_SeeYu_SeeYuUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SeeYu_SeeYuUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6AC95F3A9ABF83B9A3CDD57C /* Pods-SeeYu-SeeYuTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SeeYu-SeeYuTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SeeYu-SeeYuTests/Pods-SeeYu-SeeYuTests.debug.xcconfig"; sourceTree = "<group>"; };
 		7B022895223A16470045E25F /* PinyinHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PinyinHelper.h; sourceTree = "<group>"; };
 		7B022896223A16470045E25F /* HanyuPinyinOutputFormat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HanyuPinyinOutputFormat.h; sourceTree = "<group>"; };
@@ -872,7 +876,6 @@
 		7B2A219E2276B67B00EC8614 /* backBtn@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "backBtn@3x.png"; sourceTree = "<group>"; };
 		7B2A219F2276B67B00EC8614 /* CYWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CYWebViewController.h; sourceTree = "<group>"; };
 		7B2A21A02276B67B00EC8614 /* UINavigationBar+Awesome.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationBar+Awesome.m"; sourceTree = "<group>"; };
-		7B2AEBD921E88EDF000E7DD9 /* SeeYu.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SeeYu.entitlements; sourceTree = "<group>"; };
 		7B2E76BD223F460200D8F1CD /* SYAnchorsOrderVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SYAnchorsOrderVC.h; sourceTree = "<group>"; };
 		7B2E76BE223F460200D8F1CD /* SYAnchorsOrderVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SYAnchorsOrderVC.m; sourceTree = "<group>"; };
 		7B2E76C0223F464600D8F1CD /* SYAnchorsOrderVM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SYAnchorsOrderVM.h; sourceTree = "<group>"; };
@@ -1274,17 +1277,20 @@
 		7BEB77C822784CCC008869A1 /* SYSigninInfoModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SYSigninInfoModel.m; sourceTree = "<group>"; };
 		7BEB77CA22785C8A008869A1 /* SYSigninModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SYSigninModel.h; sourceTree = "<group>"; };
 		7BEB77CB22785C8A008869A1 /* SYSigninModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SYSigninModel.m; sourceTree = "<group>"; };
+		7BEB77D122798C12008869A1 /* SeeYuHelper.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SeeYuHelper.entitlements; sourceTree = "<group>"; };
 		7BF37C3A2272F9790042BC4F /* SYSocketManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SYSocketManager.h; sourceTree = "<group>"; };
 		7BF37C3B2272F9790042BC4F /* SYSocketManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SYSocketManager.m; sourceTree = "<group>"; };
 		7BF37C3D227349D90042BC4F /* SYMomentsEditVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SYMomentsEditVC.h; sourceTree = "<group>"; };
 		7BF37C3E227349D90042BC4F /* SYMomentsEditVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SYMomentsEditVC.m; sourceTree = "<group>"; };
 		7BF37C4022734A380042BC4F /* SYMomentsEditVM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SYMomentsEditVM.h; sourceTree = "<group>"; };
 		7BF37C4122734A380042BC4F /* SYMomentsEditVM.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SYMomentsEditVM.m; sourceTree = "<group>"; };
-		94F38DBDD0C5EE456B831E4A /* Pods_SeeYu.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SeeYu.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		971B7041FF0A7CD187AB3BEE /* Pods-SeeYu.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SeeYu.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SeeYu/Pods-SeeYu.debug.xcconfig"; sourceTree = "<group>"; };
+		A0F41E4A4A920427F73A6E15 /* Pods-SeeYuHelper-SeeYuHelperTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SeeYuHelper-SeeYuHelperTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SeeYuHelper-SeeYuHelperTests/Pods-SeeYuHelper-SeeYuHelperTests.debug.xcconfig"; sourceTree = "<group>"; };
+		A74ED93B836D4236BB12C986 /* Pods-SeeYuHelper.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SeeYuHelper.release.xcconfig"; path = "Pods/Target Support Files/Pods-SeeYuHelper/Pods-SeeYuHelper.release.xcconfig"; sourceTree = "<group>"; };
 		AB79D87EFBDD8EDD42D99FD8 /* Pods-SeeYu-SeeYuUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SeeYu-SeeYuUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SeeYu-SeeYuUITests/Pods-SeeYu-SeeYuUITests.release.xcconfig"; sourceTree = "<group>"; };
+		B18A5B9133E068FD85C9CFBB /* Pods-SeeYuHelper.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SeeYuHelper.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SeeYuHelper/Pods-SeeYuHelper.debug.xcconfig"; sourceTree = "<group>"; };
+		D1803971AFDB93DDC88379E3 /* Pods-SeeYuHelper-SeeYuHelperUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SeeYuHelper-SeeYuHelperUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SeeYuHelper-SeeYuHelperUITests/Pods-SeeYuHelper-SeeYuHelperUITests.release.xcconfig"; sourceTree = "<group>"; };
 		F49C783E35B10A317A86E4D1 /* Pods-SeeYu.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SeeYu.release.xcconfig"; path = "Pods/Target Support Files/Pods-SeeYu/Pods-SeeYu.release.xcconfig"; sourceTree = "<group>"; };
-		F609A3FCDE82ED766B6FC1F9 /* Pods_SeeYu_SeeYuTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SeeYu_SeeYuTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1292,7 +1298,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				864BB5E20D5521374F720EC0 /* Pods_SeeYu.framework in Frameworks */,
+				F93D0BA951E11EE4A5F4DA6A /* Pods_SeeYuHelper.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1300,7 +1306,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FF517F8EEC68B750C774C0C7 /* Pods_SeeYu_SeeYuTests.framework in Frameworks */,
+				FD9281C59328D9D054FD2195 /* Pods_SeeYuHelper_SeeYuHelperTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1308,7 +1314,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AD21F790DBB21B99763DBF6A /* Pods_SeeYu_SeeYuUITests.framework in Frameworks */,
+				29AFCAD7068B297A4D630669 /* Pods_SeeYuHelper_SeeYuHelperUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1318,9 +1324,9 @@
 		26064AAA1F5D9A1400566B95 = {
 			isa = PBXGroup;
 			children = (
-				26064AB51F5D9A1400566B95 /* SeeYu */,
-				26064ACF1F5D9A1400566B95 /* SeeYuTests */,
-				26064ADA1F5D9A1400566B95 /* SeeYuUITests */,
+				26064AB51F5D9A1400566B95 /* SeeYuHelper */,
+				26064ACF1F5D9A1400566B95 /* SeeYuHelperTests */,
+				26064ADA1F5D9A1400566B95 /* SeeYuHelperUITests */,
 				26064AB41F5D9A1400566B95 /* Products */,
 				E368DFC08996A6D47EB35CDB /* Pods */,
 				DB1E4F3D3B653F9FE4DEFF73 /* Frameworks */,
@@ -1330,17 +1336,17 @@
 		26064AB41F5D9A1400566B95 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				26064AB31F5D9A1400566B95 /* SeeYu.app */,
-				26064ACC1F5D9A1400566B95 /* SeeYuTests.xctest */,
-				26064AD71F5D9A1400566B95 /* SeeYuUITests.xctest */,
+				26064AB31F5D9A1400566B95 /* SeeYuHelper.app */,
+				26064ACC1F5D9A1400566B95 /* SeeYuHelperTests.xctest */,
+				26064AD71F5D9A1400566B95 /* SeeYuHelperUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		26064AB51F5D9A1400566B95 /* SeeYu */ = {
+		26064AB51F5D9A1400566B95 /* SeeYuHelper */ = {
 			isa = PBXGroup;
 			children = (
-				7B2AEBD921E88EDF000E7DD9 /* SeeYu.entitlements */,
+				7BEB77D122798C12008869A1 /* SeeYuHelper.entitlements */,
 				26064AB91F5D9A1400566B95 /* SYAppDelegate.h */,
 				26064ABA1F5D9A1400566B95 /* SYAppDelegate.m */,
 				26064AE91F5DA1F800566B95 /* Model */,
@@ -1355,34 +1361,34 @@
 				7BA3260921DFA62000B7A352 /* Assets.xcassets */,
 				26064AB61F5D9A1400566B95 /* Supporting Files */,
 			);
-			path = SeeYu;
+			path = SeeYuHelper;
 			sourceTree = "<group>";
 		};
 		26064AB61F5D9A1400566B95 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
 				26064AB71F5D9A1400566B95 /* main.m */,
-				26225D981F6557F40074BFC3 /* SeeYu.pch */,
+				26225D981F6557F40074BFC3 /* SeeYuHelper.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		26064ACF1F5D9A1400566B95 /* SeeYuTests */ = {
+		26064ACF1F5D9A1400566B95 /* SeeYuHelperTests */ = {
 			isa = PBXGroup;
 			children = (
 				26064AD01F5D9A1400566B95 /* SeeYuTests.m */,
 				26064AD21F5D9A1400566B95 /* Info.plist */,
 			);
-			path = SeeYuTests;
+			path = SeeYuHelperTests;
 			sourceTree = "<group>";
 		};
-		26064ADA1F5D9A1400566B95 /* SeeYuUITests */ = {
+		26064ADA1F5D9A1400566B95 /* SeeYuHelperUITests */ = {
 			isa = PBXGroup;
 			children = (
 				26064ADB1F5D9A1400566B95 /* SeeYuUITests.m */,
 				26064ADD1F5D9A1400566B95 /* Info.plist */,
 			);
-			path = SeeYuUITests;
+			path = SeeYuHelperUITests;
 			sourceTree = "<group>";
 		};
 		26064AE91F5DA1F800566B95 /* Model */ = {
@@ -3967,9 +3973,9 @@
 			children = (
 				7BC56A6C226ECA42005C1F81 /* CoreImage.framework */,
 				7BE971C2225E36AD00FF6A25 /* RongCallKit.framework */,
-				94F38DBDD0C5EE456B831E4A /* Pods_SeeYu.framework */,
-				F609A3FCDE82ED766B6FC1F9 /* Pods_SeeYu_SeeYuTests.framework */,
-				5F007961429C86520F15C504 /* Pods_SeeYu_SeeYuUITests.framework */,
+				3B052E40186FE4D3B74193DA /* Pods_SeeYuHelper.framework */,
+				42B4CB3AECDBE67664AFFA51 /* Pods_SeeYuHelper_SeeYuHelperTests.framework */,
+				21C4A8E278D0173482AAE2EE /* Pods_SeeYuHelper_SeeYuHelperUITests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -3983,6 +3989,12 @@
 				1155F086797DBAE6A4893338 /* Pods-SeeYu-SeeYuTests.release.xcconfig */,
 				5199ACCDE3914E9780CBE096 /* Pods-SeeYu-SeeYuUITests.debug.xcconfig */,
 				AB79D87EFBDD8EDD42D99FD8 /* Pods-SeeYu-SeeYuUITests.release.xcconfig */,
+				B18A5B9133E068FD85C9CFBB /* Pods-SeeYuHelper.debug.xcconfig */,
+				A74ED93B836D4236BB12C986 /* Pods-SeeYuHelper.release.xcconfig */,
+				A0F41E4A4A920427F73A6E15 /* Pods-SeeYuHelper-SeeYuHelperTests.debug.xcconfig */,
+				3C1015AFFF3C2EE820FA44DA /* Pods-SeeYuHelper-SeeYuHelperTests.release.xcconfig */,
+				47CB4A37535CDA4F99D6D368 /* Pods-SeeYuHelper-SeeYuHelperUITests.debug.xcconfig */,
+				D1803971AFDB93DDC88379E3 /* Pods-SeeYuHelper-SeeYuHelperUITests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -3990,9 +4002,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		26064AB21F5D9A1400566B95 /* SeeYu */ = {
+		26064AB21F5D9A1400566B95 /* SeeYuHelper */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 26064AE01F5D9A1400566B95 /* Build configuration list for PBXNativeTarget "SeeYu" */;
+			buildConfigurationList = 26064AE01F5D9A1400566B95 /* Build configuration list for PBXNativeTarget "SeeYuHelper" */;
 			buildPhases = (
 				0B1E67646FBAB46D8CC14BFA /* [CP] Check Pods Manifest.lock */,
 				26064AAF1F5D9A1400566B95 /* Sources */,
@@ -4005,14 +4017,14 @@
 			);
 			dependencies = (
 			);
-			name = SeeYu;
+			name = SeeYuHelper;
 			productName = SeeYu;
-			productReference = 26064AB31F5D9A1400566B95 /* SeeYu.app */;
+			productReference = 26064AB31F5D9A1400566B95 /* SeeYuHelper.app */;
 			productType = "com.apple.product-type.application";
 		};
-		26064ACB1F5D9A1400566B95 /* SeeYuTests */ = {
+		26064ACB1F5D9A1400566B95 /* SeeYuHelperTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 26064AE31F5D9A1400566B95 /* Build configuration list for PBXNativeTarget "SeeYuTests" */;
+			buildConfigurationList = 26064AE31F5D9A1400566B95 /* Build configuration list for PBXNativeTarget "SeeYuHelperTests" */;
 			buildPhases = (
 				8A2071C5D8268FBABC59F3A8 /* [CP] Check Pods Manifest.lock */,
 				26064AC81F5D9A1400566B95 /* Sources */,
@@ -4026,14 +4038,14 @@
 			dependencies = (
 				26064ACE1F5D9A1400566B95 /* PBXTargetDependency */,
 			);
-			name = SeeYuTests;
+			name = SeeYuHelperTests;
 			productName = SeeYuTests;
-			productReference = 26064ACC1F5D9A1400566B95 /* SeeYuTests.xctest */;
+			productReference = 26064ACC1F5D9A1400566B95 /* SeeYuHelperTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		26064AD61F5D9A1400566B95 /* SeeYuUITests */ = {
+		26064AD61F5D9A1400566B95 /* SeeYuHelperUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 26064AE61F5D9A1400566B95 /* Build configuration list for PBXNativeTarget "SeeYuUITests" */;
+			buildConfigurationList = 26064AE61F5D9A1400566B95 /* Build configuration list for PBXNativeTarget "SeeYuHelperUITests" */;
 			buildPhases = (
 				748D37CD935E850473BDF270 /* [CP] Check Pods Manifest.lock */,
 				26064AD31F5D9A1400566B95 /* Sources */,
@@ -4047,9 +4059,9 @@
 			dependencies = (
 				26064AD91F5D9A1400566B95 /* PBXTargetDependency */,
 			);
-			name = SeeYuUITests;
+			name = SeeYuHelperUITests;
 			productName = SeeYuUITests;
-			productReference = 26064AD71F5D9A1400566B95 /* SeeYuUITests.xctest */;
+			productReference = 26064AD71F5D9A1400566B95 /* SeeYuHelperUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -4089,7 +4101,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 26064AAE1F5D9A1400566B95 /* Build configuration list for PBXProject "SeeYu" */;
+			buildConfigurationList = 26064AAE1F5D9A1400566B95 /* Build configuration list for PBXProject "SeeYuHelper" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -4102,9 +4114,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				26064AB21F5D9A1400566B95 /* SeeYu */,
-				26064ACB1F5D9A1400566B95 /* SeeYuTests */,
-				26064AD61F5D9A1400566B95 /* SeeYuUITests */,
+				26064AB21F5D9A1400566B95 /* SeeYuHelper */,
+				26064ACB1F5D9A1400566B95 /* SeeYuHelperTests */,
+				26064AD61F5D9A1400566B95 /* SeeYuHelperUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -4171,7 +4183,7 @@
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-SeeYu-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-SeeYuHelper-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -4184,7 +4196,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SeeYu/Pods-SeeYu-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-SeeYuHelper/Pods-SeeYuHelper-resources.sh",
 				"${PODS_ROOT}/RongCloudIM/RongCloudIM/RongCloud.bundle",
 				"${PODS_ROOT}/RongCloudIM/RongCloudIM/en.lproj",
 				"${PODS_ROOT}/RongCloudIM/RongCloudIM/zh-Hans.lproj",
@@ -4203,7 +4215,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SeeYu/Pods-SeeYu-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SeeYuHelper/Pods-SeeYuHelper-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		61FAD040FFD11C4AFA111DC4 /* [CP] Copy Pods Resources */ = {
@@ -4212,7 +4224,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SeeYu-SeeYuUITests/Pods-SeeYu-SeeYuUITests-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-SeeYuHelper-SeeYuHelperUITests/Pods-SeeYuHelper-SeeYuHelperUITests-resources.sh",
 				"${PODS_ROOT}/RongCloudIM/RongCloudIM/RongCloud.bundle",
 				"${PODS_ROOT}/RongCloudIM/RongCloudIM/en.lproj",
 				"${PODS_ROOT}/RongCloudIM/RongCloudIM/zh-Hans.lproj",
@@ -4231,7 +4243,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SeeYu-SeeYuUITests/Pods-SeeYu-SeeYuUITests-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SeeYuHelper-SeeYuHelperUITests/Pods-SeeYuHelper-SeeYuHelperUITests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		748D37CD935E850473BDF270 /* [CP] Check Pods Manifest.lock */ = {
@@ -4245,7 +4257,7 @@
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-SeeYu-SeeYuUITests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-SeeYuHelper-SeeYuHelperUITests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -4258,7 +4270,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SeeYu-SeeYuUITests/Pods-SeeYu-SeeYuUITests-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-SeeYuHelper-SeeYuHelperUITests/Pods-SeeYuHelper-SeeYuHelperUITests-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
 				"${BUILT_PRODUCTS_DIR}/ActionSheetPicker-3.0/ActionSheetPicker_3_0.framework",
 				"${BUILT_PRODUCTS_DIR}/BlocksKit/BlocksKit.framework",
@@ -4381,7 +4393,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SeeYu-SeeYuUITests/Pods-SeeYu-SeeYuUITests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SeeYuHelper-SeeYuHelperUITests/Pods-SeeYuHelper-SeeYuHelperUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		8A2071C5D8268FBABC59F3A8 /* [CP] Check Pods Manifest.lock */ = {
@@ -4395,7 +4407,7 @@
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-SeeYu-SeeYuTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-SeeYuHelper-SeeYuHelperTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -4408,7 +4420,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SeeYu-SeeYuTests/Pods-SeeYu-SeeYuTests-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-SeeYuHelper-SeeYuHelperTests/Pods-SeeYuHelper-SeeYuHelperTests-resources.sh",
 				"${PODS_ROOT}/RongCloudIM/RongCloudIM/RongCloud.bundle",
 				"${PODS_ROOT}/RongCloudIM/RongCloudIM/en.lproj",
 				"${PODS_ROOT}/RongCloudIM/RongCloudIM/zh-Hans.lproj",
@@ -4427,7 +4439,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SeeYu-SeeYuTests/Pods-SeeYu-SeeYuTests-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SeeYuHelper-SeeYuHelperTests/Pods-SeeYuHelper-SeeYuHelperTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		D7CFF80ED10617A757312352 /* [CP] Embed Pods Frameworks */ = {
@@ -4436,7 +4448,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SeeYu/Pods-SeeYu-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-SeeYuHelper/Pods-SeeYuHelper-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
 				"${BUILT_PRODUCTS_DIR}/ActionSheetPicker-3.0/ActionSheetPicker_3_0.framework",
 				"${BUILT_PRODUCTS_DIR}/BlocksKit/BlocksKit.framework",
@@ -4559,7 +4571,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SeeYu/Pods-SeeYu-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SeeYuHelper/Pods-SeeYuHelper-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		DD3D17E8141AD6941437CC1F /* [CP] Embed Pods Frameworks */ = {
@@ -4568,7 +4580,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SeeYu-SeeYuTests/Pods-SeeYu-SeeYuTests-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-SeeYuHelper-SeeYuHelperTests/Pods-SeeYuHelper-SeeYuHelperTests-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
 				"${BUILT_PRODUCTS_DIR}/ActionSheetPicker-3.0/ActionSheetPicker_3_0.framework",
 				"${BUILT_PRODUCTS_DIR}/BlocksKit/BlocksKit.framework",
@@ -4691,7 +4703,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SeeYu-SeeYuTests/Pods-SeeYu-SeeYuTests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SeeYuHelper-SeeYuHelperTests/Pods-SeeYuHelper-SeeYuHelperTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -5110,12 +5122,12 @@
 /* Begin PBXTargetDependency section */
 		26064ACE1F5D9A1400566B95 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 26064AB21F5D9A1400566B95 /* SeeYu */;
+			target = 26064AB21F5D9A1400566B95 /* SeeYuHelper */;
 			targetProxy = 26064ACD1F5D9A1400566B95 /* PBXContainerItemProxy */;
 		};
 		26064AD91F5D9A1400566B95 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 26064AB21F5D9A1400566B95 /* SeeYu */;
+			target = 26064AB21F5D9A1400566B95 /* SeeYuHelper */;
 			targetProxy = 26064AD81F5D9A1400566B95 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -5229,17 +5241,17 @@
 		};
 		26064AE11F5D9A1400566B95 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 971B7041FF0A7CD187AB3BEE /* Pods-SeeYu.debug.xcconfig */;
+			baseConfigurationReference = B18A5B9133E068FD85C9CFBB /* Pods-SeeYuHelper.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
-				CODE_SIGN_ENTITLEMENTS = SeeYu/SeeYu.entitlements;
+				CODE_SIGN_ENTITLEMENTS = SeeYuHelper/SeeYuHelper.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = SRLXHCX26Y;
 				ENABLE_BITCODE = NO;
-				GCC_PREFIX_HEADER = "$(SRCROOT)/SeeYu/SeeYu.pch";
+				GCC_PREFIX_HEADER = "$(SRCROOT)/SeeYuHelper/SeeYuHelper.pch";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/AFNetworking/AFNetworking.framework/Headers\"",
@@ -5303,11 +5315,11 @@
 					"\"${PODS_ROOT}/Headers/Public/LxDBAnything\"",
 					"\"$(SRCROOT)/../\"",
 				);
-				INFOPLIST_FILE = SeeYu/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/SeeYuHelper/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.fljj.SeeYu;
+				PRODUCT_BUNDLE_IDENTIFIER = com.fljj.SeeYuHelper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				WARNING_CFLAGS = (
@@ -5320,17 +5332,17 @@
 		};
 		26064AE21F5D9A1400566B95 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F49C783E35B10A317A86E4D1 /* Pods-SeeYu.release.xcconfig */;
+			baseConfigurationReference = A74ED93B836D4236BB12C986 /* Pods-SeeYuHelper.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
-				CODE_SIGN_ENTITLEMENTS = SeeYu/SeeYu.entitlements;
+				CODE_SIGN_ENTITLEMENTS = SeeYuHelper/SeeYuHelper.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = SRLXHCX26Y;
 				ENABLE_BITCODE = NO;
-				GCC_PREFIX_HEADER = "$(SRCROOT)/SeeYu/SeeYu.pch";
+				GCC_PREFIX_HEADER = "$(SRCROOT)/SeeYuHelper/SeeYuHelper.pch";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/AFNetworking/AFNetworking.framework/Headers\"",
@@ -5393,10 +5405,10 @@
 					"\"${PODS_ROOT}/Headers/Public\"",
 					"\"${PODS_ROOT}/Headers/Public/LxDBAnything\"",
 				);
-				INFOPLIST_FILE = SeeYu/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/SeeYuHelper/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.fljj.SeeYu;
+				PRODUCT_BUNDLE_IDENTIFIER = com.fljj.SeeYuHelper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				WARNING_CFLAGS = (
@@ -5409,7 +5421,7 @@
 		};
 		26064AE41F5D9A1400566B95 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6AC95F3A9ABF83B9A3CDD57C /* Pods-SeeYu-SeeYuTests.debug.xcconfig */;
+			baseConfigurationReference = A0F41E4A4A920427F73A6E15 /* Pods-SeeYuHelper-SeeYuHelperTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = SRLXHCX26Y;
@@ -5417,13 +5429,13 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = CoderMikeHe.SeeYuTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SeeYu.app/SeeYu";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SeeYuHelper.app/SeeYuHelper";
 			};
 			name = Debug;
 		};
 		26064AE51F5D9A1400566B95 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1155F086797DBAE6A4893338 /* Pods-SeeYu-SeeYuTests.release.xcconfig */;
+			baseConfigurationReference = 3C1015AFFF3C2EE820FA44DA /* Pods-SeeYuHelper-SeeYuHelperTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = SRLXHCX26Y;
@@ -5431,13 +5443,13 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = CoderMikeHe.SeeYuTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SeeYu.app/SeeYu";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SeeYuHelper.app/SeeYuHelper";
 			};
 			name = Release;
 		};
 		26064AE71F5D9A1400566B95 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5199ACCDE3914E9780CBE096 /* Pods-SeeYu-SeeYuUITests.debug.xcconfig */;
+			baseConfigurationReference = 47CB4A37535CDA4F99D6D368 /* Pods-SeeYuHelper-SeeYuHelperUITests.debug.xcconfig */;
 			buildSettings = {
 				DEVELOPMENT_TEAM = SRLXHCX26Y;
 				INFOPLIST_FILE = SeeYuUITests/Info.plist;
@@ -5450,7 +5462,7 @@
 		};
 		26064AE81F5D9A1400566B95 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AB79D87EFBDD8EDD42D99FD8 /* Pods-SeeYu-SeeYuUITests.release.xcconfig */;
+			baseConfigurationReference = D1803971AFDB93DDC88379E3 /* Pods-SeeYuHelper-SeeYuHelperUITests.release.xcconfig */;
 			buildSettings = {
 				DEVELOPMENT_TEAM = SRLXHCX26Y;
 				INFOPLIST_FILE = SeeYuUITests/Info.plist;
@@ -5464,7 +5476,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		26064AAE1F5D9A1400566B95 /* Build configuration list for PBXProject "SeeYu" */ = {
+		26064AAE1F5D9A1400566B95 /* Build configuration list for PBXProject "SeeYuHelper" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				26064ADE1F5D9A1400566B95 /* Debug */,
@@ -5473,7 +5485,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		26064AE01F5D9A1400566B95 /* Build configuration list for PBXNativeTarget "SeeYu" */ = {
+		26064AE01F5D9A1400566B95 /* Build configuration list for PBXNativeTarget "SeeYuHelper" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				26064AE11F5D9A1400566B95 /* Debug */,
@@ -5482,7 +5494,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		26064AE31F5D9A1400566B95 /* Build configuration list for PBXNativeTarget "SeeYuTests" */ = {
+		26064AE31F5D9A1400566B95 /* Build configuration list for PBXNativeTarget "SeeYuHelperTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				26064AE41F5D9A1400566B95 /* Debug */,
@@ -5491,7 +5503,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		26064AE61F5D9A1400566B95 /* Build configuration list for PBXNativeTarget "SeeYuUITests" */ = {
+		26064AE61F5D9A1400566B95 /* Build configuration list for PBXNativeTarget "SeeYuHelperUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				26064AE71F5D9A1400566B95 /* Debug */,

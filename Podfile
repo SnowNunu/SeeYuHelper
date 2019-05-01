@@ -3,7 +3,7 @@ platform :ios, '8.0'
 use_frameworks!
 ## ignore warning
 inhibit_all_warnings!
-target 'SeeYu' do
+target 'SeeYuHelper' do
 #YYKit
 #pod 'YYKit'                             , '1.0.9'
 # YYKit 的一套分类
@@ -187,10 +187,10 @@ pod 'HYBNetworking', '~> 3.3.0'
 
 pod 'Reveal-SDK','~> 17',:configurations => ['Debug']
 
-target 'SeeYuTests' do
+target 'SeeYuHelperTests' do
 end
 
-target 'SeeYuUITests' do
+target 'SeeYuHelperUITests' do
 end
 
 end

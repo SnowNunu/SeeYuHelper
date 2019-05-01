@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "26064AB21F5D9A1400566B95"
-               BuildableName = "SeeYu.app"
-               BlueprintName = "SeeYu"
-               ReferencedContainer = "container:SeeYu.xcodeproj">
+               BuildableName = "SeeYuHelper.app"
+               BlueprintName = "SeeYuHelper"
+               ReferencedContainer = "container:SeeYuHelper.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "26064ACB1F5D9A1400566B95"
-               BuildableName = "SeeYuTests.xctest"
-               BlueprintName = "SeeYuTests"
-               ReferencedContainer = "container:SeeYu.xcodeproj">
+               BuildableName = "SeeYuHelperTests.xctest"
+               BlueprintName = "SeeYuHelperTests"
+               ReferencedContainer = "container:SeeYuHelper.xcodeproj">
             </BuildableReference>
          </TestableReference>
          <TestableReference
@@ -43,9 +43,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "26064AD61F5D9A1400566B95"
-               BuildableName = "SeeYuUITests.xctest"
-               BlueprintName = "SeeYuUITests"
-               ReferencedContainer = "container:SeeYu.xcodeproj">
+               BuildableName = "SeeYuHelperUITests.xctest"
+               BlueprintName = "SeeYuHelperUITests"
+               ReferencedContainer = "container:SeeYuHelper.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -53,9 +53,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "26064AB21F5D9A1400566B95"
-            BuildableName = "SeeYu.app"
-            BlueprintName = "SeeYu"
-            ReferencedContainer = "container:SeeYu.xcodeproj">
+            BuildableName = "SeeYuHelper.app"
+            BlueprintName = "SeeYuHelper"
+            ReferencedContainer = "container:SeeYuHelper.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -79,9 +79,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "26064AB21F5D9A1400566B95"
-            BuildableName = "SeeYu.app"
-            BlueprintName = "SeeYu"
-            ReferencedContainer = "container:SeeYu.xcodeproj">
+            BuildableName = "SeeYuHelper.app"
+            BlueprintName = "SeeYuHelper"
+            ReferencedContainer = "container:SeeYuHelper.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -98,9 +98,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "26064AB21F5D9A1400566B95"
-            BuildableName = "SeeYu.app"
-            BlueprintName = "SeeYu"
-            ReferencedContainer = "container:SeeYu.xcodeproj">
+            BuildableName = "SeeYuHelper.app"
+            BlueprintName = "SeeYuHelper"
+            ReferencedContainer = "container:SeeYuHelper.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
@@ -109,6 +109,7 @@
    </AnalyzeAction>
    <ArchiveAction
       buildConfiguration = "Release"
+      customArchiveName = "SeeYuHelper"
       revealArchiveInOrganizer = "YES">
    </ArchiveAction>
 </Scheme>
