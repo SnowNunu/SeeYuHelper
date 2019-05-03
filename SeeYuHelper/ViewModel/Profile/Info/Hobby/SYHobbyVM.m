@@ -19,7 +19,7 @@
 
 - (void)initialize {
     [super initialize];
-    self.title = @"添加标签";
+    self.title = @"资料完善";
     self.backTitle = @"";
     self.prefersNavigationBarBottomLineHidden = YES;
     @weakify(self)

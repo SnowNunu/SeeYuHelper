@@ -104,7 +104,7 @@
     
     UIButton *submitBtn = [UIButton new];
     [submitBtn setBackgroundColor:SYColor(159, 105, 235)];
-    [submitBtn setTitle:@"提交" forState:UIControlStateNormal];
+    [submitBtn setTitle:@"完成" forState:UIControlStateNormal];
     [submitBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     _submitBtn = submitBtn;
     [self.view addSubview:submitBtn];

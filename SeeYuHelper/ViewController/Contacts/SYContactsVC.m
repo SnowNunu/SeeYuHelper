@@ -74,7 +74,7 @@
 }
 
 - (void)testWebSocket {
-    [[SYSocketManager shareManager] sy_open:@"ws://192.168.31.23:8088/ws" connect:^{
+    [[SYSocketManager shareManager] sy_open:@"ws://192.168.31.24:8089/ws" connect:^{
         [[SYSocketManager shareManager] sy_send:@"fuck you!"];
     } receive:^(id  _Nonnull message, SYSocketReceiveType type) {
         NSLog(@"%@",message);

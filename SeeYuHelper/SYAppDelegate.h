@@ -10,6 +10,9 @@
 #import "SYNavigationControllerStack.h"
 #import "SYViewModelServicesImpl.h"
 #import "RCCallBaseViewController.h"
+#import "SYSocketManager.h"
+#import "SYSocketResponseModel.h"
+#import "SYUser.h"
 
 @interface SYAppDelegate : UIResponder <UIApplicationDelegate>
 
@@ -34,6 +37,12 @@
 - (void)presentVC:(UIViewController *)vc withAnimation:(CATransition *)animation;
 
 - (void)dismissVC:(UIViewController *)vc;
+
+- (void)startWebSocketService:(NSString *)url;
+
+- (void)sendMessageByWebSocketService:(NSString *) message;
+
+- (void)stopWebSocketService;
 
 @end
 

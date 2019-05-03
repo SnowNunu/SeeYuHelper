@@ -27,6 +27,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.edgesForExtendedLayout = UIRectEdgeNone;
     [self _setupSubviews];
     [self _makeSubViewsConstraints];
     [self.viewModel.requestUserShowInfoCommand execute:nil];
@@ -47,13 +48,13 @@
                 self.videoTips1Label.hidden = YES;
                 self.videoTips2Label.hidden = YES;
                 self.playBtn.hidden = NO;
-                [self.modifyVideoBtn setTitle:@"修改视频" forState:UIControlStateNormal];
+                [self.modifyVideoBtn setTitle:@"完成" forState:UIControlStateNormal];
                 self.videoImageView.image = [UIImage sy_thumbnailImageForVideo:[NSURL URLWithString:model.showVideo] atTime:1];;
             }
         }
     }];
     [[self.modifyVideoBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
-        if (self.viewModel.model.showVideo == nil || ![self.viewModel.model.showVideoStatus isEqualToString:@"0"]) {
+        if (self.viewModel.model.showVideo == nil) {
             YLShortVideoVC *videoVC = [YLShortVideoVC new];
             videoVC.shortVideoBack = ^(NSURL *videoUrl) {
                 self.videoTips1Label.hidden = YES;
@@ -63,7 +64,7 @@
             };
             [self presentViewController:videoVC animated:YES completion:nil];
         } else {
-            [MBProgressHUD sy_showTips:@"视频审核中,暂不能修改"];
+            [self.viewModel.enterHomePageViewCommand execute:nil];
         }
     }];
     [[self.playBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
@@ -121,7 +122,8 @@
 
 - (void)_makeSubViewsConstraints {
     [_videoImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.equalTo(self.view).offset(15);
+        make.left.equalTo(self.view).offset(15);
+        make.top.equalTo(self.view).offset(60);
         make.right.equalTo(self.view).offset(-15);
         make.height.equalTo(self.videoImageView.mas_width);
     }];
@@ -140,7 +142,7 @@
     }];
     [_modifyVideoBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.bottom.right.equalTo(self.view);
-        make.height.offset(40);
+        make.height.offset(49);
     }];
 }
 

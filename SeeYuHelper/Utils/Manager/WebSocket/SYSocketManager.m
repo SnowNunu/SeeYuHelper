@@ -40,8 +40,8 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         instance = [[self alloc] init];
-        instance.overtime = 1;
-        instance.reconnectCount = 5;
+        instance.overtime = 5;
+        instance.reconnectCount = 3;
     });
     return instance;
 }
@@ -92,7 +92,6 @@
     [SYSocketManager shareManager].urlString = urlStr;
     [self.webSocket close];
     self.webSocket.delegate = nil;
-    
     self.webSocket = [[SRWebSocket alloc] initWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlStr]]];
     self.webSocket.delegate = self;
     
@@ -139,7 +138,10 @@
     [SYSocketManager shareManager].sy_socketStatus = SYSocketStatusFailed;
     [SYSocketManager shareManager].failure ? [SYSocketManager shareManager].failure(error) : nil;
     // 重连
-    [self sy_reconnect];
+    if (!([error.userInfo[@"HTTPResponseStatusCode"] intValue] == 400)) {
+        // 账号密码错误的情况下不进行重连
+        [self sy_reconnect];
+    }
 }
 
 - (void)webSocket:(SRWebSocket *)webSocket didReceiveMessage:(id)message {
@@ -167,7 +169,6 @@
 }
 
 - (void)webSocket:(SRWebSocket *)webSocket didReceivePong:(NSData *)pongPayload {
-    NSLog(@"收到pong");
     [SYSocketManager shareManager].receive ? [SYSocketManager shareManager].receive(pongPayload,SYSocketReceiveTypeForPong) : nil;
 }
 
@@ -184,7 +185,7 @@
         //心跳设置为3分钟，NAT超时一般为5分钟
         self.heartBeat = [NSTimer scheduledTimerWithTimeInterval:5 repeats:YES block:^(NSTimer * _Nonnull timer) {
             //和服务端约定好发送什么作为心跳标识，尽可能的减小心跳包大小
-            [weakSelf sy_send:@"PING"];
+            [weakSelf sy_ping];
         }];
         [[NSRunLoop currentRunLoop]addTimer:self.heartBeat forMode:NSRunLoopCommonModes];
     })
@@ -202,7 +203,7 @@
 
 //pingPong
 - (void)sy_ping {
-    if ([SYSocketManager shareManager].sy_socketStatus == SYSocketStatusConnected) {
+    if (self.sy_socketStatus == SYSocketStatusConnected || self.sy_socketStatus == SYSocketStatusReceived) {
         [self.webSocket sendPing:nil];
     }
 }

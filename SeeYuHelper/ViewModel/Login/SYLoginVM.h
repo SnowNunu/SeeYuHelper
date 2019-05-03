@@ -7,19 +7,14 @@
 //
 
 #import "SYVM.h"
+#import "SYInfoSupplementVM.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface SYLoginVM : SYVM
 
 // 进入注册页面
-@property (nonatomic, strong) RACCommand *enterRegisterViewCommand;
-
-// 获取验证码
-@property (nonatomic, strong) RACCommand *getAuthCodeCommand;
-
-// 登录
-@property (nonatomic, strong) RACCommand *loginCommand;
+@property (nonatomic, strong) RACCommand *enterInfoSupplementViewCommand;
 
 @end
 

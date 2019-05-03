@@ -13,6 +13,9 @@
 - (void)initialize {
     [super initialize];
     @weakify(self)
+    self.title = @"资料完善";
+    self.backTitle = @"";
+    self.prefersNavigationBarBottomLineHidden = YES;
     self.requestUserShowInfoCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
         @strongify(self)
         SYKeyedSubscript *subscript = [SYKeyedSubscript subscript];
@@ -38,12 +41,21 @@
     }];
     [self.uploadUserCoverCommand.executionSignals.switchToLatest.deliverOnMainThread subscribeNext:^(SYUserInfoEditModel *model) {
         [MBProgressHUD sy_hideHUD];
-        [MBProgressHUD sy_showTips:@"上传成功，请等待审核"];
+        [MBProgressHUD sy_showTips:@"上传成功"];
         self.model = model;
+        
+#pragma mark 后面这边的逻辑可能会改
+        [self.enterModifyVideoViewCommand execute:nil];
+        
     }];
     [self.uploadUserCoverCommand.errors subscribeNext:^(NSError *error) {
         [MBProgressHUD sy_hideHUD];
         [MBProgressHUD sy_showErrorTips:error];
+    }];
+    self.enterModifyVideoViewCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+        SYVideoInfoEditVM *vm = [[SYVideoInfoEditVM alloc] initWithServices:self.services params:nil];
+        [self.services pushViewModel:vm animated:YES];
+        return [RACSignal empty];
     }];
 }
 

@@ -11,6 +11,9 @@
 
 @interface SYUser : SYObject
 
+/* 首次登录标识(强制用户填充用户信息) */
+@property (nonatomic, assign) int type;
+
 /** 用户ID */
 @property (nonatomic, strong) NSString *userId;
 

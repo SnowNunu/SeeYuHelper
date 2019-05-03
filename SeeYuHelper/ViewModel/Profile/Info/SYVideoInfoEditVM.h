@@ -19,6 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) RACCommand *uploadUserVideoCommand;
 
+@property (nonatomic, strong) RACCommand *enterHomePageViewCommand;
+
 @end
 
 NS_ASSUME_NONNULL_END

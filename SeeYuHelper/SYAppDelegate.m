@@ -8,9 +8,8 @@
 
 #import "SYAppDelegate.h"
 #import "SYHomePageVC.h"
-#import "SYRegisterVM.h"
 #import "SYRCIMDataSource.h"
-#import "SYGuideVM.h"
+#import "SYLoginVM.h"
 #import <UMCommon/UMCommon.h>
 #import <UMAnalytics/MobClick.h>
 //#import <UMPush/UMessage.h>
@@ -142,8 +141,7 @@
 }
 
 /// 配置文件夹
-- (void)_configureApplicationDirectory
-{
+- (void)_configureApplicationDirectory {
     /// 创建doc
     [SYFileManager createDirectoryAtPath:SYSeeYuDocDirPath()];
     /// 创建cache
@@ -160,8 +158,7 @@
 }
 
 /// 配置FMDB
-- (void) _configureFMDB
-{
+- (void) _configureFMDB {
 //    [[FMDatabaseQueue sharedInstance] inDatabase:^(FMDatabase *db) {
 //        NSString *version = [[NSUserDefaults standardUserDefaults] valueForKey:SBApplicationVersionKey];
 //        if (![version isEqualToString:SB_APP_VERSION]) {
@@ -176,8 +173,7 @@
 }
 
 #pragma mark - 在初始化UI之后配置
-- (void)_configureApplication:(UIApplication *)application initialParamsAfterInitUI:(NSDictionary *)launchOptions
-{
+- (void)_configureApplication:(UIApplication *)application initialParamsAfterInitUI:(NSDictionary *)launchOptions {
     /// 配置ActionSheet
     [LCActionSheet sy_configureActionSheet];
     
@@ -230,9 +226,7 @@
 }
 
 #pragma mark - 调试(DEBUG)模式下的工具条
-- (void)_configDebugModelTools
-{
-    
+- (void)_configDebugModelTools {
 #if defined(DEBUG)||defined(_DEBUG)
     /// 显示FPS
     [[JPFPSStatus sharedInstance] open];
@@ -246,12 +240,12 @@
         /// 已经登录，跳转到主页
         return [[SYHomePageVM alloc] initWithServices:self.services params:nil];
     } else {
-        /// 进入首页
-        return [[SYGuideVM alloc] initWithServices:self.services params:nil];
+        /// 进入登录页
+        return [[SYLoginVM alloc] initWithServices:self.services params:nil];
     }
 }
 #pragma mark- 获取appDelegate
-+ (SYAppDelegate *)sharedDelegate{
++ (SYAppDelegate *)sharedDelegate {
     return (SYAppDelegate *)[[UIApplication sharedApplication] delegate];
 }
 
@@ -268,7 +262,7 @@
 }
 
 // 注册deviceToken失败
-- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error{
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
     NSLog(@"error -- %@",error);
 }
 
@@ -315,7 +309,7 @@
             });
         }
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshBadgeValue" object:nil];
+    [SYNotificationCenter postNotificationName:@"refreshBadgeValue" object:nil];
 }
 
 - (void)didReceiveMessageNotification:(NSNotification *)notification {
@@ -400,6 +394,52 @@
         }
     }
     [vc dismissViewControllerAnimated:YES completion:nil];
+}
+
+// 启动websocket服务
+- (void)startWebSocketService:(NSString *)url {
+    [[SYSocketManager shareManager] sy_open:url connect:^{
+        NSLog(@"connect success");
+    } receive:^(id  _Nonnull message, SYSocketReceiveType type) {
+        if (type == SYSocketReceiveTypeForMessage) {
+            SYSocketResponseModel *response = [SYSocketResponseModel modelWithJSON:message];
+            if (response != nil) {
+                NSDictionary *params = response.data;
+                if (response.code == 0) {
+                    if ([params[@"type"] intValue] == 1) {
+                        // 登录相关的响应
+                        if ([params[@"isFirst"] intValue] == 1) {
+                            // 首次登录
+                            [SYNotificationCenter postNotificationName:@"login" object:@{@"code":@"200"}];
+                        } else {
+                            
+                        }
+                    } else {
+                        
+                    }
+                }
+            } else {
+                NSLog(@"收到了服务器发来的:%@",message);
+            }
+        }
+    } failure:^(NSError * _Nonnull error) {
+        NSLog(@"%@",error);
+        if ([error.userInfo[@"HTTPResponseStatusCode"] intValue] == 400) {
+            [SYNotificationCenter postNotificationName:@"login" object:@{@"code":@"400"}];
+        } else if ([error code] == 504) {
+            NSLog(@"与服务器失去连接，正在重连中");
+        }
+    }];
+}
+
+- (void)sendMessageByWebSocketService:(NSString *) message {
+    [[SYSocketManager shareManager] sy_send:message];
+}
+
+- (void)stopWebSocketService {
+    [[SYSocketManager shareManager] sy_close:^(NSInteger code, NSString * _Nonnull reason, BOOL wasClean) {
+        NSLog(@"code:%ld,reason:%@,wasClean:%lf",(long)code,reason,wasClean);
+    }];
 }
 
 @end

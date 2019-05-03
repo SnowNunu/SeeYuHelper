@@ -7,20 +7,27 @@
 //
 
 #import "SYLoginVC.h"
+#import "SYAppDelegate.h"
 
 @interface SYLoginVC ()
 
-// 手机号输入框
-@property (nonatomic, strong) UITextField *mobileTextField;
+@property (nonatomic ,strong) UIImageView *logoImageView;
 
-// 验证码输入框
-@property (nonatomic, strong) UITextField *authCodeTextField;
+@property (nonatomic ,strong) UILabel *titleLabel;
 
-// 获取验证码按钮
-@property (nonatomic, strong) CountDownButton *authCodeBtn;
+@property (nonatomic ,strong) UILabel *subTitleLabel;
 
-// 登录按钮
-@property (nonatomic, strong) UIButton *loginBtn;
+@property (nonatomic ,strong) UILabel *welcomeLabel;
+
+@property (nonatomic ,strong) UITextField *accountTextField;
+
+@property (nonatomic ,strong) UIImageView *accountLineImageView;
+
+@property (nonatomic ,strong) UITextField *passwordTextField;
+
+@property (nonatomic ,strong) UIImageView *passwordLineImageView;
+
+@property (nonatomic ,strong) UIButton *loginBtn;
 
 @end
 
@@ -29,177 +36,158 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.edgesForExtendedLayout = UIRectEdgeNone;
-    [self _setupNavigationItem];
     [self _setupSubViews];
-}
-
-- (void)_setupNavigationItem {
-    self.navigationItem.rightBarButtonItem = [UIBarButtonItem sy_systemItemWithTitle:@"注册" titleColor:nil imageName:nil target:nil selector:nil textType:YES];
-    self.navigationItem.rightBarButtonItem.rac_command = self.viewModel.enterRegisterViewCommand;
+    [self _makeSubViewsConstraints];
 }
 
 - (void)bindViewModel {
     [super bindViewModel];
-    [[self.authCodeBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
-        if (self.mobileTextField.text.length == 0) {
-            [MBProgressHUD sy_showError:@"请先输入手机号"];
-            return;
-        }
-        if (![NSString sy_isValidMobile:self.mobileTextField.text]) {
-            [MBProgressHUD sy_showError:@"请输入正确的手机号"];
-            return;
-        }
-        NSDictionary *parameters = @{@"userMobile":self.mobileTextField.text,@"type":@"1"};
-        [self.viewModel.getAuthCodeCommand execute:parameters];
-    }];
     [[self.loginBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
-        if (self.mobileTextField.text.length == 0) {
-            [MBProgressHUD sy_showError:@"请先输入手机号"];
+        if (self.accountTextField.text.length == 0) {
+            [MBProgressHUD sy_showError:@"请先输入账号"];
+            return ;
+        } else if (self.passwordTextField.text.length == 0) {
+            [MBProgressHUD sy_showError:@"请先输入密码"];
             return;
-        }
-        if (![NSString sy_isValidMobile:self.mobileTextField.text]) {
-            [MBProgressHUD sy_showError:@"请输入正确的手机号"];
-            return;
-        }
-        if (self.authCodeTextField.text.length == 0) {
-            [MBProgressHUD sy_showError:@"请先输入验证码"];
-            return;
-        }
-        NSDictionary *parameters = @{@"userMobile":self.mobileTextField.text,@"PIN":self.authCodeTextField.text};
-        [self.viewModel.loginCommand execute:parameters];
-    }];
-    [[[self.viewModel.getAuthCodeCommand.executionSignals switchToLatest] deliverOnMainThread] subscribeNext:^(id x) {
-        [MBProgressHUD sy_showTips:@"验证码已下发，请留意"];
-        [self.authCodeBtn startCountDownWithTotalTime:120 countDowning:^(NSInteger day, NSInteger hour, NSInteger minute, NSInteger second) {
-            self.authCodeBtn.userInteractionEnabled = NO;
-            NSInteger totoalSecond = day * 24 * 60 * 60 + hour * 60 * 60 + minute * 60 + second;
-            [self.authCodeBtn setTitle:[NSString stringWithFormat:@"%ld秒后重发",totoalSecond] forState:UIControlStateNormal];
-        } countDownFinished:^(NSTimeInterval leftTime) {
-            self.authCodeBtn.userInteractionEnabled = YES;
-            [self.authCodeBtn setTitle:@"发送验证码" forState:UIControlStateNormal];
-        } waitingBlock:^{
-            [self.authCodeBtn setTitle:@"等待中.." forState:UIControlStateNormal];
-        }];
-    }];
-    [self.viewModel.getAuthCodeCommand.errors subscribeNext:^(NSError *error) {
-        if ([error code] == 78) {
-            [MBProgressHUD sy_showTips:@"该手机号尚未注册，请先注册"];
-            [self.viewModel.enterRegisterViewCommand execute:nil];
         } else {
-            [MBProgressHUD sy_showError:@"服务器异常，请联系客服"];
+            NSString *url = [NSString stringWithFormat:@"%@?type=1&userId=%@&userPassword=%@",SY_WEB_SOCKET_URL,self.accountTextField.text,[CocoaSecurity md5:self.passwordTextField.text].hexLower];
+            [MBProgressHUD sy_showProgressHUD:@"登录中，请稍候"];
+            [[SYAppDelegate sharedDelegate] startWebSocketService:url];
         }
     }];
-    [self.viewModel.loginCommand.executionSignals.switchToLatest.deliverOnMainThread subscribeNext:^(SYUser *user) {
-        /// 存储登录账号
-        [SAMKeychain setRawLogin:user.userId];
-        /// 存储用户数据
-        [self.viewModel.services.client loginUser:user];
-        /// 切换根控制器
-        dispatch_async(dispatch_get_main_queue(), ^{
-            /// 发通知
-            [MBProgressHUD sy_hideHUD];
-            [MBProgressHUD sy_showProgressHUD:@"登录成功"];
-            [[NSNotificationCenter defaultCenter] postNotificationName:SYSwitchRootViewControllerNotification object:nil userInfo:@{SYSwitchRootViewControllerUserInfoKey:@(SYSwitchRootViewControllerFromTypeLogin)}];
-        });
-    }];
-    [self.viewModel.loginCommand.errors subscribeNext:^(NSError *error) {
-        if ([error code] == 80) {
-            [MBProgressHUD sy_showTips:@"验证码不正确，请检查"];
-        }
-    }];
+    [SYNotificationCenter addObserver:self selector:@selector(dealLoginRequest:) name:@"login" object:nil];
 }
 
 #pragma mark - 设置子控件
 - (void)_setupSubViews {
-    UILabel *mobileLabel = [UILabel new];
-    mobileLabel.text = @"手机号";
-    mobileLabel.textColor = SYColor(153, 153, 153);
-    mobileLabel.font = SYRegularFont(18);
-    [self.view addSubview:mobileLabel];
+    UIImageView *logoImageView = [UIImageView new];
+    logoImageView.image = SYImageNamed(@"logo");
+    _logoImageView = logoImageView;
+    [self.view addSubview:logoImageView];
     
-    UITextField *mobileTextField = [UITextField new];
-    mobileTextField.font = SYRegularFont(20);
-    mobileTextField.textColor = SYColor(51, 51, 51);
-    _mobileTextField = mobileTextField;
-    [self.view addSubview:mobileTextField];
+    UILabel *titleLabel = [UILabel new];
+    titleLabel.text = @"SEEYU助手";
+    titleLabel.textAlignment = NSTextAlignmentLeft;
+    titleLabel.textColor = SYColor(51, 51, 51);
+    titleLabel.font = [UIFont boldSystemFontOfSize:20];
+    _titleLabel = titleLabel;
+    [self.view addSubview:titleLabel];
     
-    UIImageView *line1 = [UIImageView new];
-    line1.backgroundColor = SYColor(153, 153, 153);
-    [self.view addSubview:line1];
+    UILabel *subTitleLabel = [UILabel new];
+    subTitleLabel.text = @"连接你我距离更近";
+    subTitleLabel.textAlignment = NSTextAlignmentLeft;
+    subTitleLabel.textColor = SYColor(153, 153, 153);
+    subTitleLabel.font = SYRegularFont(12);
+    _subTitleLabel = subTitleLabel;
+    [self.view addSubview:subTitleLabel];
     
-    UILabel *authCodeLabel = [UILabel new];
-    authCodeLabel.text = @"验证码";
-    authCodeLabel.textColor = SYColor(153, 153, 153);
-    authCodeLabel.font = SYRegularFont(18);
-    [self.view addSubview:authCodeLabel];
+    UILabel *welcomeLabel = [UILabel new];
+    welcomeLabel.text = @"欢迎您";
+    welcomeLabel.textAlignment = NSTextAlignmentLeft;
+    welcomeLabel.textColor = SYColor(51, 51, 51);
+    welcomeLabel.font = [UIFont boldSystemFontOfSize:30];
+    _welcomeLabel = welcomeLabel;
+    [self.view addSubview:welcomeLabel];
     
-    UITextField *authCodeTextField = [UITextField new];
-    authCodeTextField.font = SYRegularFont(20);
-    authCodeTextField.textColor = SYColor(51, 51, 51);
-    _authCodeTextField = authCodeTextField;
-    [self.view addSubview:authCodeTextField];
+    UITextField *accountTextField = [UITextField new];
+    accountTextField.placeholder = @"请输入账号";
+    accountTextField.text = @"12277";
+    accountTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
+    _accountTextField = accountTextField;
+    [self.view addSubview:accountTextField];
     
-    _authCodeBtn = [[CountDownButton alloc] initWithKeyInfo:@"authCode"];
-    [_authCodeBtn setTitle:@"获取验证码" forState:UIControlStateNormal];
-    _authCodeBtn.titleLabel.font = SYRegularFont(15);
-    [_authCodeBtn setTitleColor:SYColor(159, 105, 235) forState:UIControlStateNormal];
-    _authCodeBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-    [self.view addSubview:_authCodeBtn];
+    UIImageView *accountLineImageView = [UIImageView new];
+    accountLineImageView.backgroundColor = SYColorFromHexString(@"#A7A7A7");
+    _accountLineImageView = accountLineImageView;
+    [self.view addSubview:accountLineImageView];
+    
+    UITextField *passwordTextField = [UITextField new];
+    passwordTextField.placeholder = @"请输入密码";
+    passwordTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
+    passwordTextField.secureTextEntry = YES;
+    passwordTextField.text = @"123456";
+    _passwordTextField = passwordTextField;
+    [self.view addSubview:passwordTextField];
+    
+    UIImageView *passwordLineImageView = [UIImageView new];
+    passwordLineImageView.backgroundColor = SYColorFromHexString(@"#A7A7A7");
+    _passwordLineImageView = passwordLineImageView;
+    [self.view addSubview:passwordLineImageView];
     
     UIButton *loginBtn = [UIButton new];
-    [loginBtn setTitle:@"登录" forState:UIControlStateNormal];
-    loginBtn.titleLabel.font = SYRegularFont(20);
-    [loginBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     loginBtn.backgroundColor = SYColor(159, 105, 235);
-    loginBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+    [loginBtn setTitle:@"登录" forState:UIControlStateNormal];
+    [loginBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     _loginBtn = loginBtn;
     [self.view addSubview:loginBtn];
-    
-    UIImageView *line2 = [UIImageView new];
-    line2.backgroundColor = SYColor(153, 153, 153);
-    [self.view addSubview:line2];
-    
-    [mobileLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.view).offset(45);
-        make.height.offset(20);
-        make.width.offset(55);
-        make.top.equalTo(self.view).offset(45);
+}
+
+- (void)_makeSubViewsConstraints {
+    [_logoImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.view).offset(30);
+        make.top.equalTo(self.view).offset(95);
+        make.width.height.offset(45);
     }];
-    [mobileTextField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(mobileLabel.mas_right).offset(30);
-        make.right.equalTo(self.view.mas_right).offset(-45);
-        make.top.height.equalTo(mobileLabel);
+    [_titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.logoImageView.mas_right).offset(15);
+        make.height.equalTo(self.logoImageView).multipliedBy(0.5);
+        make.top.equalTo(self.logoImageView);
     }];
-    [line1 mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(mobileLabel);
-        make.right.equalTo(mobileTextField);
+    [_subTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.height.equalTo(self.titleLabel);
+        make.bottom.equalTo(self.logoImageView);
+    }];
+    [_welcomeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.logoImageView.mas_bottom).offset(80);
+        make.left.equalTo(self.logoImageView);
+        make.height.offset(30);
+    }];
+    [_accountTextField mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.welcomeLabel.mas_bottom).offset(80);
+        make.height.offset(30);
+        make.left.equalTo(self.welcomeLabel);
+        make.right.equalTo(self.view).offset(-30);
+    }];
+    [_accountLineImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.accountTextField);
         make.height.offset(1);
-        make.top.equalTo(mobileLabel.mas_bottom).offset(15);
+        make.bottom.equalTo(self.accountTextField).offset(5);
     }];
-    [authCodeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.height.width.equalTo(mobileLabel);
-        make.top.equalTo(line1).offset(30);
+    [_passwordTextField mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.accountLineImageView.mas_bottom).offset(30);
+        make.left.right.height.equalTo(self.accountTextField);
     }];
-    [authCodeTextField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(authCodeLabel.mas_right).offset(30);
-        make.right.equalTo(self.authCodeBtn.mas_left);
-        make.top.height.equalTo(authCodeLabel);
-    }];
-    [self.authCodeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.view).offset(-45);
-        make.height.top.equalTo(authCodeLabel);
-        make.width.offset(100);
-    }];
-    [line2 mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(authCodeLabel);
-        make.right.equalTo(self.authCodeBtn);
+    [_passwordLineImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.passwordTextField);
         make.height.offset(1);
-        make.top.equalTo(authCodeLabel.mas_bottom).offset(15);
+        make.bottom.equalTo(self.passwordTextField).offset(5);
     }];
-    [loginBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.left.bottom.equalTo(self.view);
-        make.height.offset(50);
+    [_loginBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.accountTextField);
+        make.height.offset(40);
+        make.top.equalTo(self.passwordLineImageView.mas_bottom).offset(80);
     }];
+}
+
+// 解析登录请求
+- (void)dealLoginRequest:(NSNotification *)notification {
+    NSDictionary *dict = notification.object;
+    if ([dict[@"code"] isEqualToString:@"200"]) {
+        [MBProgressHUD sy_hideHUD];
+        [MBProgressHUD sy_showTips:@"恭喜您登录成功！"];
+        SYUser *user = [SYUser new];
+        user.userId = self.accountTextField.text;
+        user.userPassword = [CocoaSecurity md5:self.passwordTextField.text].hexLower;
+        [self.viewModel.services.client saveUser:user];
+        [self.viewModel.enterInfoSupplementViewCommand execute:nil];
+    } else if ([dict[@"code"] isEqualToString:@"400"]) {
+        [MBProgressHUD sy_hideHUD];
+        [MBProgressHUD sy_showError:@"账号或密码有误，请检查!"];
+    }
+}
+
+- (void)dealloc {
+    [SYNotificationCenter removeObserver:self];
 }
 
 @end

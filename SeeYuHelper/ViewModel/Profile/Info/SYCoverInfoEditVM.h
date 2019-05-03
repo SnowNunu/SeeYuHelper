@@ -8,6 +8,7 @@
 
 #import "SYVM.h"
 #import "SYUserInfoEditModel.h"
+#import "SYVideoInfoEditVM.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -18,6 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) RACCommand *requestUserShowInfoCommand;
 
 @property (nonatomic, strong) RACCommand *uploadUserCoverCommand;
+
+@property (nonatomic, strong) RACCommand *enterModifyVideoViewCommand;
 
 @end
 

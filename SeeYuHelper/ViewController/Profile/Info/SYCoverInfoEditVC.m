@@ -42,6 +42,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.edgesForExtendedLayout = UIRectEdgeNone;
     [self _setupSubviews];
     [self _makeSubViewsConstraints];
     [self.viewModel.requestUserShowInfoCommand execute:nil];
@@ -60,13 +61,13 @@
             } else {
                 self.coverTips1Label.hidden = YES;
                 self.coverTips2Label.hidden = YES;
-                [self.modifyCoverBtn setTitle:@"修改封面" forState:UIControlStateNormal];
+                [self.modifyCoverBtn setTitle:@"下一步" forState:UIControlStateNormal];
                 self.coverImageView.yy_imageURL = [NSURL URLWithString:model.showPhoto];
             }
         }
     }];
     [[self.modifyCoverBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
-        if (self.viewModel.model.showPhoto == nil || ![self.viewModel.model.showPhotoStatus isEqualToString:@"0"]) {
+        if (self.viewModel.model.showPhoto == nil) {
             @strongify(self)
             __weak typeof(self) weakSelf = self;
             LCActionSheet *sheet = [LCActionSheet sheetWithTitle:nil cancelButtonTitle:@"取消" clicked:^(LCActionSheet * _Nonnull actionSheet, NSInteger buttonIndex) {
@@ -97,7 +98,7 @@
             } otherButtonTitles:@"拍照",@"从手机相册选择", nil];
             [sheet show];
         } else {
-            [MBProgressHUD sy_showTips:@"封面审核中,暂不能修改"];
+            [self.viewModel.enterModifyVideoViewCommand execute:nil];
         }
     }];
 }
@@ -137,7 +138,8 @@
 
 - (void)_makeSubViewsConstraints {
     [_coverImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.equalTo(self.view).offset(15);
+        make.left.equalTo(self.view).offset(15);
+        make.top.equalTo(self.view).offset(60);
         make.right.equalTo(self.view).offset(-15);
         make.height.equalTo(self.coverImageView.mas_width);
     }];
@@ -152,7 +154,7 @@
     }];
     [_modifyCoverBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.bottom.right.equalTo(self.view);
-        make.height.offset(40);
+        make.height.offset(49);
     }];
 }
 

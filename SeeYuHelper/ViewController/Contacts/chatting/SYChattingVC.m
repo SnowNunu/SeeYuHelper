@@ -74,7 +74,7 @@
             }];
         }
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshBadgeValue" object:nil];
+    [SYNotificationCenter postNotificationName:@"refreshBadgeValue" object:nil];
     return dataSource;
 }
 

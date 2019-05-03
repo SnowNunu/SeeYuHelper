@@ -9,6 +9,8 @@
 #import "SYVC.h"
 #import "SYLoginVM.h"
 #import "CountdownButton.h"
+#import "SYSocketManager.h"
+#import <CocoaSecurity/CocoaSecurity.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

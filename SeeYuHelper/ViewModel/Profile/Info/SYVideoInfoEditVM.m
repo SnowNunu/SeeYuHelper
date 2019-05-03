@@ -12,6 +12,8 @@
 
 - (void)initialize {
     [super initialize];
+    self.title = @"资料完善";
+    self.backTitle = @"";
     @weakify(self)
     self.requestUserShowInfoCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
         @strongify(self)
@@ -38,12 +40,23 @@
     }];
     [self.uploadUserVideoCommand.executionSignals.switchToLatest.deliverOnMainThread subscribeNext:^(SYUserInfoEditModel *model) {
         [MBProgressHUD sy_hideHUD];
-        [MBProgressHUD sy_showTips:@"上传成功，请等待审核"];
+        [MBProgressHUD sy_showTips:@"上传成功"];
         self.model = model;
+        [self.enterHomePageViewCommand execute:nil];
     }];
     [self.uploadUserVideoCommand.errors subscribeNext:^(NSError *error) {
         [MBProgressHUD sy_hideHUD];
         [MBProgressHUD sy_showErrorTips:error];
+    }];
+    self.enterHomePageViewCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            // 存储登录账号
+            [SAMKeychain setRawLogin:self.services.client.currentUserId];
+            // 发送通知进行页面跳转
+            [SYNotificationCenter postNotificationName:SYSwitchRootViewControllerNotification object:nil userInfo:@{SYSwitchRootViewControllerUserInfoKey:@(SYSwitchRootViewControllerFromTypeLogin)}];
+            [MBProgressHUD sy_showProgressHUD:@"欢迎使用"];
+        });
+        return [RACSignal empty];
     }];
 }
 
