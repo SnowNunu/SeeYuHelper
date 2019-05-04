@@ -167,16 +167,20 @@
         make.centerY.equalTo(cell.contentView);
         make.width.offset(70);
     }];
-    [avatarImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(arrowImageView.mas_left).offset(-15);
-        make.width.height.offset(30);
-        make.centerY.equalTo(cell.contentView);
-    }];
-    [contentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(arrowImageView.mas_left).offset(-10);
-        make.centerY.equalTo(cell.contentView);
-        make.left.equalTo(titleLabel.mas_right).offset(5);
-    }];
+    if ([params[@"kind"] isEqualToString:@"image"]) {
+        [avatarImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(arrowImageView.mas_left).offset(-10);
+            make.width.height.offset(30);
+            make.centerY.equalTo(cell.contentView);
+        }];
+    } else {
+        [contentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(arrowImageView.mas_left).offset(-10);
+            make.centerY.equalTo(cell.contentView);
+            make.left.equalTo(titleLabel.mas_right).offset(10);
+        }];
+    }
+
     [arrowImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(cell.contentView);
         make.right.equalTo(cell.contentView).offset(-15);

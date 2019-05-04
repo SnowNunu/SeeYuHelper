@@ -9,7 +9,6 @@
 #import "SYHomePageVC.h"
 #import "SYNavigationController.h"
 #import "SYMainFrameVC.h"
-#import "SYCollocationVC.h"
 #import "SYContactsVC.h"
 #import "SYDiscoverVC.h"
 #import "SYProfileVC.h"
@@ -34,10 +33,10 @@
 
 #pragma mark - 初始化所有的子视图控制器
 - (void)_setupAllChildViewController {
-    NSArray *titlesArray = @[@"首页", @"速配" ,@"消息", @"动态", @"我的"];
-    NSArray *imageNamesArray = @[@"tab_home_normal",@"tab_quickmatch_normal",@"tab_message_normal",
+    NSArray *titlesArray = @[@"首页", @"消息", @"动态", @"我的"];
+    NSArray *imageNamesArray = @[@"tab_home_normal",@"tab_message_normal",
                                  @"tab_news_normal",@"tab_self_normal"];
-    NSArray *selectedImageNamesArray = @[@"tab_home_pressed",@"tab_quickmatch_pressed",@"tab_message_pressed",
+    NSArray *selectedImageNamesArray = @[@"tab_home_pressed",@"tab_message_pressed",
                                          @"tab_news_pressed",@"tab_self_pressed"];
     
     /// 首页
@@ -49,16 +48,6 @@
         [self _configViewController:mainFrameViewController imageName:imageNamesArray[tagType] selectedImageName:selectedImageNamesArray[tagType] title:titlesArray[tagType] itemTag:tagType];
         /// 添加到导航栏的栈底控制器
         [[SYNavigationController alloc] initWithRootViewController:mainFrameViewController];
-    });
-    
-    /// 速配交友
-    UINavigationController *collocationController = ({
-        SYCollocationVC *collocationViewController = [[SYCollocationVC alloc] initWithViewModel:self.viewModel.collocationViewModel];
-        SYTabBarItemTagType tagType = SYTabBarItemTagTypeCollocation;
-        /// 配置
-        [self _configViewController:collocationViewController imageName:imageNamesArray[tagType] selectedImageName:selectedImageNamesArray[tagType] title:titlesArray[tagType] itemTag:tagType];
-        /// 添加到导航栏的栈底控制器
-        [[SYNavigationController alloc] initWithRootViewController:collocationViewController];
     });
     
     /// 消息
@@ -95,7 +84,7 @@
     });
     
     /// 添加到tabBarController的子视图
-    self.tabBarController.viewControllers = @[ mainFrameNavigationController,collocationController,  contactsNavigationController, discoverNavigationController, profileNavigationController ];
+    self.tabBarController.viewControllers = @[ mainFrameNavigationController, contactsNavigationController, discoverNavigationController, profileNavigationController ];
     
     /// 配置栈底
     [SYSharedAppDelegate.navigationControllerStack pushNavigationController:mainFrameNavigationController];

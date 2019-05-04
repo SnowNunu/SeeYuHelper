@@ -8,7 +8,6 @@
 
 #import "SYTabBarViewModel.h"
 #import "SYMainFrameVM.h"
-#import "SYCollocationVM.h"
 #import "SYContactsVM.h"
 #import "SYDiscoverVM.h"
 #import "SYProfileVM.h"
@@ -17,9 +16,6 @@
 
 /// The view model of `MainFrame` interface.
 @property (nonatomic, strong, readonly) SYMainFrameVM *mainFrameViewModel;
-
-/// The view model of `collocation` interface.
-@property (nonatomic, strong, readonly) SYCollocationVM *collocationViewModel;
 
 /// The view model of `contacts` interface.
 @property (nonatomic, strong, readonly) SYContactsVM *contactsViewModel;

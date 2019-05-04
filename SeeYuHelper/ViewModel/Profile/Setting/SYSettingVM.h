@@ -7,10 +7,13 @@
 //
 
 #import "SYVM.h"
+#import "SYAboutVM.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface SYSettingVM : SYVM
+
+@property (nonatomic, strong) RACCommand *enterAboutViewCommand;
 
 @end
 

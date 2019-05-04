@@ -62,7 +62,14 @@ static SYRouter *sharedInstance_ = nil;
              @"SYHobbyVM":@"SYHobbyVC",
              @"SYCoverInfoEditVM":@"SYCoverInfoEditVC",
              @"SYVideoInfoEditVM":@"SYVideoInfoEditVC",
-             @"SYHomePageVM":@"SYHomePageVC"
+             @"SYHomePageVM":@"SYHomePageVC",
+             @"SYBaseInfoEditVM":@"SYBaseInfoEditVC",
+             @"SYAccountInfoEditVM":@"SYAccountInfoEditVC",
+             @"SYPasswordModifyVM":@"SYPasswordModifyVC",
+             @"SYSettingVM":@"SYSettingVC",
+             @"SYAboutVM":@"SYAboutVC",
+             @"SYStatisticsVM":@"SYStatisticsVC",
+             @"SYFocusListVM":@"SYFocusListVC"
 //             @"SYAnchorsOrderVM":@"SYAnchorsOrderVC",
 //             @"SYAnchorsListVM":@"SYAnchorsListVC",
 //             @"SYAnchorShowVM":@"SYAnchorShowVC",
@@ -73,7 +80,7 @@ static SYRouter *sharedInstance_ = nil;
 //             @"SYGiftPackageVM":@"SYGiftPackageVC",
 //             @"SYWebVM":@"SYWebVC",
              
-//             @"SYSettingVM":@"SYSettingVC",
+             
 //             @"SYMomentVM":@"SYMomentVC",
 //             @"SYAuthenticationVM":@"SYAuthenticationVC",
 //             @"SYMobileBindingVM":@"SYMobileBindingVC",
@@ -90,7 +97,6 @@ static SYRouter *sharedInstance_ = nil;
 //             @"SYNewFriendsVM":@"SYNewFriendsVC",
 //             @"SYPresentVM":@"SYPresentVC",
 //             @"SYInfoEditVM":@"SYInfoEditVC",
-//             @"SYBaseInfoEditVM":@"SYBaseInfoEditVC"
              };
 }
 

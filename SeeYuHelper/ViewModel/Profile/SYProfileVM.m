@@ -7,13 +7,11 @@
 //
 
 #import "SYProfileVM.h"
-#import "SYMyMomentsVM.h"
-#import "SYInfoEditVM.h"
-#import "SYPresentVM.h"
-#import "SYRechargeVM.h"
-#import "SYDiamondsVM.h"
+#import "SYAccountInfoEditVM.h"
+#import "SYBaseInfoEditVM.h"
+#import "SYStatisticsVM.h"
 #import "SYSettingVM.h"
-#import "SYAuthenticationVM.h"
+#import "SYFocusListVM.h"
 
 @implementation SYProfileVM
 
@@ -29,47 +27,56 @@
     self.title = @"我的";
     self.prefersNavigationBarBottomLineHidden = YES;
     @weakify(self)
-    self.requestUserInfoCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+    self.requestUserBaseInfoCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
         SYKeyedSubscript *subscript = [SYKeyedSubscript subscript];
         subscript[@"userId"] = self.services.client.currentUser.userId;
         SYURLParameters *paramters = [SYURLParameters urlParametersWithMethod:SY_HTTTP_METHOD_POST path:SY_HTTTP_PATH_USER_INFO_QUERY parameters:subscript.dictionary];
         SYHTTPRequest *request = [SYHTTPRequest requestWithParameters:paramters];
         return [[self.services.client enqueueRequest:request resultClass:[SYUser class]] sy_parsedResults];
     }];
-    [self.requestUserInfoCommand.executionSignals.switchToLatest.deliverOnMainThread subscribeNext:^(SYUser *user) {
+    [self.requestUserBaseInfoCommand.executionSignals.switchToLatest.deliverOnMainThread subscribeNext:^(SYUser *user) {
         @strongify(self)
         self.user = user;
         [self.services.client saveUser:user];
     }];
-    [self.requestUserInfoCommand.errors subscribeNext:^(NSError *error) {
+    [self.requestUserBaseInfoCommand.errors subscribeNext:^(NSError *error) {
+        [MBProgressHUD sy_showErrorTips:error];
+    }];
+    self.requestUserDetailInfoCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+        SYKeyedSubscript *subscript = [SYKeyedSubscript subscript];
+        subscript[@"userId"] = self.services.client.currentUser.userId;
+        SYURLParameters *paramters = [SYURLParameters urlParametersWithMethod:SY_HTTTP_METHOD_POST path:SY_HTTTP_PATH_USER_DETAIL_INFO_QUERY parameters:subscript.dictionary];
+        SYHTTPRequest *request = [SYHTTPRequest requestWithParameters:paramters];
+        return [[self.services.client enqueueRequest:request resultClass:[SYUserDetail class]] sy_parsedResults];
+    }];
+    [self.requestUserDetailInfoCommand.executionSignals.switchToLatest.deliverOnMainThread subscribeNext:^(SYUserDetail *userDetail) {
+        @strongify(self)
+        self.userDetail = userDetail;
+    }];
+    [self.requestUserDetailInfoCommand.errors subscribeNext:^(NSError *error) {
         [MBProgressHUD sy_showErrorTips:error];
     }];
     self.enterNextViewCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(NSNumber *kind) {
         if ([kind isEqual:@(0)]) {
-            SYMyMomentsVM *vm = [[SYMyMomentsVM alloc] initWithServices:self.services params:nil];
+            SYAccountInfoEditVM *vm = [[SYAccountInfoEditVM alloc] initWithServices:self.services params:nil];
             [self.services pushViewModel:vm animated:YES];
         } else if ([kind isEqual:@(1)]) {
-            SYPresentVM *vm = [[SYPresentVM alloc] initWithServices:self.services params:nil];
+            SYBaseInfoEditVM *vm = [[SYBaseInfoEditVM alloc] initWithServices:self.services params:nil];
             [self.services pushViewModel:vm animated:YES];
         } else if ([kind isEqual:@(2)]) {
-            SYRechargeVM *vm = [[SYRechargeVM alloc] initWithServices:self.services params:@{SYViewModelUtilKey:@"coin"}];
-            [self.services pushViewModel:vm animated:YES];
+            
         } else if ([kind isEqual:@(3)]) {
-            SYDiamondsVM *vm = [[SYDiamondsVM alloc] initWithServices:self.services params:nil];
+            SYStatisticsVM *vm = [[SYStatisticsVM alloc] initWithServices:self.services params:nil];
             [self.services pushViewModel:vm animated:YES];
         } else if ([kind isEqual:@(4)]){
             SYSettingVM *vm = [[SYSettingVM alloc] initWithServices:self.services params:nil];
             [self.services pushViewModel:vm animated:YES];
         } else if ([kind isEqual:@(5)]) {
-            SYRechargeVM *vm = [[SYRechargeVM alloc] initWithServices:self.services params:@{SYViewModelUtilKey:@"vip"}];
+            SYFocusListVM *vm = [[SYFocusListVM alloc] initWithServices:self.services params:nil];
             [self.services pushViewModel:vm animated:YES];
         } else if ([kind isEqual:@(6)]) {
-            SYAuthenticationVM *vm = [[SYAuthenticationVM alloc] initWithServices:self.services params:nil];
-            [self.services pushViewModel:vm animated:YES];
-        } else if ([kind isEqual:@(7)]) {
-            SYInfoEditVM *vm = [[SYInfoEditVM alloc] initWithServices:self.services params:nil];
-            [self.services pushViewModel:vm animated:YES];
-        }
+            
+        } 
         return [RACSignal empty];
     }];
 }

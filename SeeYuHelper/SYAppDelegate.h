@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CocoaSecurity/CocoaSecurity.h>
 #import "SYNavigationControllerStack.h"
 #import "SYViewModelServicesImpl.h"
 #import "RCCallBaseViewController.h"

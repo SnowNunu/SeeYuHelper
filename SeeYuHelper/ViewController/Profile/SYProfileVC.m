@@ -8,6 +8,7 @@
 
 #import "SYProfileVC.h"
 #import "NSDate+Extension.h"
+#import "SYUserDetail.h"
 
 @interface SYProfileVC () <UITableViewDelegate, UITableViewDataSource>
 
@@ -17,27 +18,23 @@
 
 @property (nonatomic, strong) UIImageView *avatarImageView;
 
-@property (nonatomic, strong) UILabel *aliasLabel;
+@property (nonatomic, strong) UIView *focusBgView;
 
-@property (nonatomic, strong) UILabel *signatureLabel;
+@property (nonatomic, strong) UILabel *focusTitleLabel;
 
-@property (nonatomic, strong) UIButton *detailBtn;
+@property (nonatomic, strong) UILabel *focusContentLabel;
 
-@property (nonatomic, strong) UIView *vipBgView;
+@property (nonatomic, strong) UIView *giftBgView;
 
-@property (nonatomic, strong) UIImageView *vipImageView;
+@property (nonatomic, strong) UILabel *giftTitleLabel;
 
-@property (nonatomic, strong) UILabel *vipLabel;
+@property (nonatomic, strong) UILabel *giftContentLabel;
 
-@property (nonatomic, strong) UIImageView *separateImageView;
+@property (nonatomic, strong) UIView *commissionBgView;
 
-@property (nonatomic, strong) UIView *authenticationBgView;
+@property (nonatomic, strong) UILabel *commissionTitleLabel;
 
-@property (nonatomic, strong) UIImageView *authenticationImageView;
-
-@property (nonatomic, strong) UILabel *authenticationLabel;
-
-@property (nonatomic, strong) UIImageView *lineImageView;
+@property (nonatomic, strong) UILabel *commissionContentLabel;
 
 @property (nonatomic ,strong) NSArray *dataSource;
 
@@ -48,14 +45,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.edgesForExtendedLayout = UIRectEdgeNone;
-    _dataSource = @[@{@"label":@"我的动态",@"icon":@"icon_moment"},@{@"label":@"我的礼物",@"icon":@"icon_gift"},@{@"label":@"我的聊豆",@"icon":@"icon_chatBean"},@{@"label":@"我的钻石",@"icon":@"icon_diamond"},@{@"label":@"设置",@"icon":@"icon_setting"}];
+    _dataSource = @[@{@"label":@"帐号信息",@"icon":@"accountInfo"},@{@"label":@"个人资料",@"icon":@"selfInfo"},@{@"label":@"工作时间",@"icon":@"workTime"},@{@"label":@"数据统计",@"icon":@"dataCount"},@{@"label":@"设置",@"icon":@"setting"}];
     [self _setupSubViews];
     [self _makeSubViewsConstraints];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self.viewModel.requestUserInfoCommand execute:nil];
+    [self.viewModel.requestUserBaseInfoCommand execute:nil];
+    [self.viewModel.requestUserDetailInfoCommand execute:nil];
 }
 
 - (void)bindViewModel {
@@ -63,43 +61,17 @@
     @weakify(self)
     [RACObserve(self.viewModel, user) subscribeNext:^(SYUser *user) {
         @strongify(self)
-        if (![user.userName sy_isNullOrNil] && user.userName.length > 0) {
-            self.aliasLabel.text = user.userName;
-        }
-        if (![user.userSignature sy_isNullOrNil] && user.userSignature.length > 0) {
-            self.signatureLabel.text = user.userSignature;
-        }
         if (![user.userHeadImg sy_isNullOrNil] && user.userHeadImg.length > 0) {
             [self.avatarImageView yy_setImageWithURL:[NSURL URLWithString:user.userHeadImg] placeholder:SYWebAvatarImagePlaceholder() options:SYWebImageOptionAutomatic completion:NULL];
         }
-        if (user.userVipStatus == 1) {
-            if (user.userVipExpiresAt != nil) {
-                NSComparisonResult result = [user.userVipExpiresAt compare:[NSDate date]];
-                if (result == NSOrderedDescending) {
-                    // 会员未过期
-                    self.vipImageView.image = SYImageNamed(@"VIP");
-                } else {
-                    // 会员已过期的情况
-                    self.vipImageView.image = SYImageNamed(@"VIP_disable");
-                }
-            }
-        } else {
-            self.vipImageView.image = SYImageNamed(@"VIP_disable");
-        }
-        if (user.identityStatus == 1) {
-            self.authenticationImageView.image = SYImageNamed(@"truePerson");
-        } else {
-            self.authenticationImageView.image = SYImageNamed(@"truePerson_disable");
-        }
-        if (user.userRegisterTime != nil) {
-            NSTimeInterval seconds = [[NSDate new] timeIntervalSinceDate:user.userRegisterTime];//间隔的秒数
-            if (seconds > 7 * 24 * 3600) {
-                self.navigationItem.rightBarButtonItem = [UIBarButtonItem sy_systemItemWithTitle:nil titleColor:nil imageName:@"btn_checkin_cricle" target:self selector:@selector(openSigninView) textType:NO];
-            }
-        }
     }];
-    [[self.detailBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
-        [self.viewModel.enterNextViewCommand execute:@(7)];
+    [RACObserve(self.viewModel, userDetail) subscribeNext:^(SYUserDetail *userDetail) {
+        @strongify(self)
+        if (userDetail != nil) {
+            self.focusContentLabel.text = [NSString stringWithFormat:@"%d",userDetail.followNum];
+            self.giftContentLabel.text = [NSString stringWithFormat:@"%d",userDetail.giftNum];
+            self.commissionContentLabel.text = [NSString stringWithFormat:@"￥%d",userDetail.basePay];
+        }
     }];
 }
 
@@ -110,15 +82,10 @@
     tableView.tableFooterView = [UIView new];
     tableView.backgroundColor = SYColorFromHexString(@"#F8F8F8");
     tableView.separatorInset = UIEdgeInsetsZero;
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SY_SCREEN_WIDTH, 180)];
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SY_SCREEN_WIDTH, 190)];
     headerView.backgroundColor = [UIColor whiteColor];
     _headerView = headerView;
     tableView.tableHeaderView = headerView;
-    UITapGestureRecognizer *infoTap = [UITapGestureRecognizer new];
-    [[infoTap rac_gestureSignal] subscribeNext:^(id x) {
-        [self.viewModel.enterNextViewCommand execute:@(7)];
-    }];
-    [headerView addGestureRecognizer:infoTap];
     _tableView = tableView;
     [self.view addSubview:tableView];
     
@@ -130,168 +97,138 @@
     _avatarImageView = avatarImageView;
     [headerView addSubview:avatarImageView];
     
-    // 用户昵称
-    UILabel *aliasLabel = [UILabel new];
-    aliasLabel.textAlignment = NSTextAlignmentLeft;
-    aliasLabel.textColor = SYColor(51, 51, 51);
-    aliasLabel.font = SYRegularFont(17);
-    _aliasLabel = aliasLabel;
-    [headerView addSubview:aliasLabel];
-    
-    // 用户签名
-    UILabel *signatureLabel = [UILabel new];
-    signatureLabel.textAlignment = NSTextAlignmentLeft;
-    signatureLabel.textColor = SYColor(153, 153, 153);
-    signatureLabel.font = SYRegularFont(14);
-    _signatureLabel = signatureLabel;
-    [headerView addSubview:signatureLabel];
-    
-    // 用户信息详情
-    UIButton *detailBtn = [UIButton new];
-    [detailBtn setImage:SYImageNamed(@"detail_back") forState:UIControlStateNormal];
-    _detailBtn = detailBtn;
-    [headerView addSubview:detailBtn];
-    
-    // vip状态背景
-    UIView *vipBgView = [UIView new];
-    _vipBgView = vipBgView;
-    [headerView addSubview:vipBgView];
-    UITapGestureRecognizer *vipTap = [[UITapGestureRecognizer alloc] init];
+    // 关注背景
+    UIView *focusBgView = [UIView new];
+    _focusBgView = focusBgView;
+    [headerView addSubview:focusBgView];
+    UITapGestureRecognizer *focusTap = [[UITapGestureRecognizer alloc] init];
     @weakify(self)
-    [[vipTap rac_gestureSignal] subscribeNext:^(id x) {
+    [[focusTap rac_gestureSignal] subscribeNext:^(id x) {
         @strongify(self)
         [self.viewModel.enterNextViewCommand execute:@(5)];
     }];
-    [vipBgView addGestureRecognizer:vipTap];
+    [focusBgView addGestureRecognizer:focusTap];
     
-    // vip状态
-    UIImageView *vipImageView = [UIImageView new];
-    vipImageView.image = SYImageNamed(@"VIP_disable");
-    _vipImageView = vipImageView;
-    [headerView addSubview:vipImageView];
+    UILabel *focusContentLabel = [UILabel new];
+    focusContentLabel.textAlignment = NSTextAlignmentCenter;
+    focusContentLabel.font = [UIFont boldSystemFontOfSize:20];
+    focusContentLabel.textColor = SYColor(51, 51, 51);
+    focusContentLabel.text = @"0";
+    _focusContentLabel = focusContentLabel;
+    [focusBgView addSubview:focusContentLabel];
     
-    // vip tips
-    UILabel *vipLabel = [UILabel new];
-    vipLabel.font = SYRegularFont(14);
-    vipLabel.textAlignment = NSTextAlignmentCenter;
-    vipLabel.textColor = SYColor(51, 51, 51);
-    vipLabel.text = @"VIP特权";
-    _vipLabel = vipLabel;
-    [headerView addSubview:vipLabel];
+    UILabel *focusTitleLabel = [UILabel new];
+    focusTitleLabel.textAlignment = NSTextAlignmentCenter;
+    focusTitleLabel.font = SYRegularFont(14);
+    focusTitleLabel.textColor = SYColor(51, 51, 51);
+    focusTitleLabel.text = @"关注";
+    _focusTitleLabel = focusTitleLabel;
+    [focusBgView addSubview:focusTitleLabel];
     
-    // 分隔线
-    UIImageView *separateImageView = [UIImageView new];
-    separateImageView.backgroundColor = SYColor(153, 153, 153);
-    _separateImageView = separateImageView;
-    [headerView addSubview:separateImageView];
-    
-    // 真人认证状态背景
-    UIView *authenticationBgView = [UIView new];
-    _authenticationBgView = authenticationBgView;
-    [headerView addSubview:authenticationBgView];
-    UITapGestureRecognizer *authenticationTap = [[UITapGestureRecognizer alloc] init];
-    [[authenticationTap rac_gestureSignal] subscribeNext:^(id x) {
-        @strongify(self)
-        [self.viewModel.enterNextViewCommand execute:@(6)];
+    // 礼物背景
+    UIView *giftBgView = [UIView new];
+    _giftBgView = giftBgView;
+    [headerView addSubview:giftBgView];
+    UITapGestureRecognizer *giftTap = [[UITapGestureRecognizer alloc] init];
+    [[giftTap rac_gestureSignal] subscribeNext:^(id x) {
+//        @strongify(self)
+//        [self.viewModel.enterNextViewCommand execute:@(5)];
     }];
-    [authenticationBgView addGestureRecognizer:authenticationTap];
+    [giftBgView addGestureRecognizer:giftTap];
     
-    // 真人认证状态
-    UIImageView *authenticationImageView = [UIImageView new];
-    authenticationImageView.image = SYImageNamed(@"truePerson_disable");
-    _authenticationImageView = authenticationImageView;
-    [headerView addSubview:authenticationImageView];
+    UILabel *giftContentLabel = [UILabel new];
+    giftContentLabel.textAlignment = NSTextAlignmentCenter;
+    giftContentLabel.font = [UIFont boldSystemFontOfSize:20];
+    giftContentLabel.textColor = SYColor(51, 51, 51);
+    giftContentLabel.text = @"0";
+    _giftContentLabel = giftContentLabel;
+    [giftBgView addSubview:giftContentLabel];
     
-    // authentication tips
-    UILabel *authenticationLabel = [UILabel new];
-    authenticationLabel.font = SYRegularFont(14);
-    authenticationLabel.textAlignment = NSTextAlignmentCenter;
-    authenticationLabel.textColor = SYColor(51, 51, 51);
-    authenticationLabel.text = @"真人认证";
-    _authenticationLabel = authenticationLabel;
-    [headerView addSubview:authenticationLabel];
+    UILabel *giftTitleLabel = [UILabel new];
+    giftTitleLabel.textAlignment = NSTextAlignmentCenter;
+    giftTitleLabel.font = SYRegularFont(14);
+    giftTitleLabel.textColor = SYColor(51, 51, 51);
+    giftTitleLabel.text = @"礼物";
+    _giftTitleLabel = giftTitleLabel;
+    [giftBgView addSubview:giftTitleLabel];
     
-    // 底部分隔区域
-    UIImageView *lineImageView = [UIImageView new];
-    lineImageView.backgroundColor = SYColorFromHexString(@"#F8F8F8");
-    _lineImageView = lineImageView;
-    [headerView addSubview:lineImageView];
+    // 佣金背景
+    UIView *commissionBgView = [UIView new];
+    _commissionBgView = commissionBgView;
+    [headerView addSubview:commissionBgView];
+    UITapGestureRecognizer *commissionTap = [[UITapGestureRecognizer alloc] init];
+    [[commissionTap rac_gestureSignal] subscribeNext:^(id x) {
+//        @strongify(self)
+//        [self.viewModel.enterNextViewCommand execute:@(5)];
+    }];
+    [commissionBgView addGestureRecognizer:commissionTap];
+    
+    UILabel *commissionContentLabel = [UILabel new];
+    commissionContentLabel.textAlignment = NSTextAlignmentCenter;
+    commissionContentLabel.font = [UIFont boldSystemFontOfSize:20];
+    commissionContentLabel.textColor = SYColor(51, 51, 51);
+    commissionContentLabel.text = @"￥0";
+    _commissionContentLabel = commissionContentLabel;
+    [commissionBgView addSubview:commissionContentLabel];
+    
+    UILabel *commissionTitleLabel = [UILabel new];
+    commissionTitleLabel.textAlignment = NSTextAlignmentCenter;
+    commissionTitleLabel.font = SYRegularFont(14);
+    commissionTitleLabel.textColor = SYColor(51, 51, 51);
+    commissionTitleLabel.text = @"佣金";
+    _commissionTitleLabel = commissionTitleLabel;
+    [commissionBgView addSubview:commissionTitleLabel];
 }
 
 - (void)_makeSubViewsConstraints {
+    CGFloat width = SY_SCREEN_WIDTH / 3;
     [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
     }];
     [_avatarImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.height.offset(60);
-        make.left.top.equalTo(self.headerView).offset(15);
+        make.top.equalTo(self.headerView).offset(15);
+        make.centerX.equalTo(self.headerView);
     }];
-    [_aliasLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.avatarImageView.mas_right).offset(15);
-        make.height.offset(20);
-        make.bottom.equalTo(self.avatarImageView).offset(-37.5);
+    [_focusBgView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.headerView);
+        make.top.equalTo(self.avatarImageView.mas_bottom).offset(30);
+        make.width.offset(width);
+        make.height.offset(65);
     }];
-    [_signatureLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.height.equalTo(self.aliasLabel);
-        make.top.equalTo(self.aliasLabel.mas_bottom).offset(15);
-    }];
-    [_detailBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.offset(10);
-        make.height.offset(20);
-        make.centerY.equalTo(self.avatarImageView);
-        make.right.equalTo(self.headerView).offset(-15);
-    }];
-    [_vipBgView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.lineImageView.mas_top);
-        make.left.equalTo(self.lineImageView);
-        make.width.offset(SY_SCREEN_WIDTH / 2);
-        make.top.equalTo(self.avatarImageView.mas_bottom).offset(15);
-    }];
-    [_vipImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.vipBgView).offset(15);
-        make.height.offset(30);
-        make.width.offset(60);
-        make.centerX.equalTo(self.vipBgView);
-    }];
-    [_vipLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.vipImageView);
-        make.top.equalTo(self.vipImageView.mas_bottom).offset(5);
-        make.height.offset(20);
-    }];
-    [_separateImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.lineImageView);
-        make.width.offset(1);
-        make.centerY.equalTo(self.vipBgView);
-        make.height.offset(49);
-    }];
-    [_authenticationBgView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.top.bottom.equalTo(self.vipBgView);
-        make.right.equalTo(self.headerView);
-    }];
-    [_authenticationImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.height.equalTo(self.vipImageView);
-        make.width.offset(70);
-        make.centerX.equalTo(self.authenticationBgView);
-    }];
-    [_authenticationLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.authenticationImageView);
-        make.top.equalTo(self.authenticationImageView.mas_bottom).offset(5);
-        make.height.offset(20);
-    }];
-    [_lineImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.left.right.equalTo(self.headerView);
+    [_focusContentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.centerX.equalTo(self.focusBgView);
         make.height.offset(15);
     }];
-}
-
-- (void)openSigninView {
-    SYSigninVM *signVM = [[SYSigninVM alloc] initWithServices:SYSharedAppDelegate.services params:nil];
-    SYSigninVC *signVC = [[SYSigninVC alloc] initWithViewModel:signVM];
-    CATransition *animation = [CATransition animation];
-    [animation setDuration:0.3];
-    animation.type = kCATransitionPush;
-    animation.subtype = kCATransitionMoveIn;
-    [SYSharedAppDelegate presentVC:signVC withAnimation:animation];
+    [_focusTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.focusContentLabel.mas_bottom).offset(20);
+        make.centerX.height.equalTo(self.focusContentLabel);
+    }];
+    [_giftBgView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.height.equalTo(self.focusBgView);
+        make.left.equalTo(self.focusBgView.mas_right);
+        make.right.equalTo(self.commissionBgView.mas_left);
+    }];
+    [_giftContentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.centerX.equalTo(self.giftBgView);
+        make.height.offset(15);
+    }];
+    [_giftTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.giftContentLabel.mas_bottom).offset(20);
+        make.centerX.height.equalTo(self.giftContentLabel);
+    }];
+    [_commissionBgView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.width.height.equalTo(self.focusBgView);
+        make.right.equalTo(self.headerView);
+    }];
+    [_commissionContentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.centerX.equalTo(self.commissionBgView);
+        make.height.offset(15);
+    }];
+    [_commissionTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.commissionContentLabel.mas_bottom).offset(20);
+        make.centerX.height.equalTo(self.commissionContentLabel);
+    }];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {

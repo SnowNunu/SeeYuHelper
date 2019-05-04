@@ -12,7 +12,6 @@
 /// tababr item tag
 typedef NS_ENUM(NSUInteger, SYTabBarItemTagType) {
     SYTabBarItemTagTypeMainFrame = 0,    /// 首页
-    SYTabBarItemTagTypeCollocation,         /// 速配交友
     SYTabBarItemTagTypeContacts,         /// 消息
     SYTabBarItemTagTypeDiscover,         /// 动态
     SYTabBarItemTagTypeProfile,          /// 个人

@@ -51,6 +51,8 @@
     // 重置rootViewController
     SYVM *vm = [self _createInitialViewModel];
     if ([vm isKindOfClass:[SYHomePageVM class]]) {
+        NSString *url = [NSString stringWithFormat:@"%@?type=1&userId=%@&userPassword=%@",SY_WEB_SOCKET_URL,self.services.client.currentUserId,self.services.client.currentUser.userPassword];
+        [self startWebSocketService:url];
         [[RCIM sharedRCIM] connectWithToken:self.services.client.currentUser.userToken success:^(NSString *userId) {
             [Bugly setUserIdentifier:userId];
             [MobClick profileSignInWithPUID:userId];
@@ -120,7 +122,7 @@
 //                                                 name:RCKitDispatchMessageNotification
 //                                               object:nil];
     // 使用bugly收集崩溃日志
-    [Bugly startWithAppId:@"665d87c560"];
+    [Bugly startWithAppId:@"d3fb921f83"];
 //    // 初始化友盟服务
     [UMConfigure initWithAppkey:@"5ca1a3aa3fc195e05e0000df" channel:@"App Store"];
 //    UMessageRegisterEntity * entity = [[UMessageRegisterEntity alloc] init];
@@ -412,7 +414,12 @@
                             // 首次登录
                             [SYNotificationCenter postNotificationName:@"login" object:@{@"code":@"200"}];
                         } else {
-                            
+                            // 这个时候需要判断
+                            if ([SAMKeychain rawLogin] == nil) {
+                                // 这种情况出现的可能是：主播已经完成了首次信息填充，但是卸载过app导致记录丢失
+                                [SYNotificationCenter postNotificationName:@"login" object:@{@"code":@"288"}];
+                                NSLog(@"发送了通知");
+                            }
                         }
                     } else {
                         
@@ -424,6 +431,7 @@
         }
     } failure:^(NSError * _Nonnull error) {
         NSLog(@"%@",error);
+        [MBProgressHUD sy_showErrorTips:error];
         if ([error.userInfo[@"HTTPResponseStatusCode"] intValue] == 400) {
             [SYNotificationCenter postNotificationName:@"login" object:@{@"code":@"400"}];
         } else if ([error code] == 504) {

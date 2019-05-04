@@ -7,8 +7,6 @@
 //
 
 #import "SYGiftVC.h"
-#import "SYDiamondsVC.h"
-#import "SYDiamondsVM.h"
 #import "SYNavigationController.h"
 
 @interface SYGiftVC ()
@@ -58,9 +56,7 @@
         }
     }];
     [[self.rechargeBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
-        SYDiamondsVM *diamondsVM = [[SYDiamondsVM alloc] initWithServices:SYSharedAppDelegate.services params:nil];
-        SYDiamondsVC *diamondsVC = [[SYDiamondsVC alloc] initWithViewModel:diamondsVM];
-        [self.navigationController pushViewController:diamondsVC animated:YES];
+        
     }];
     [[self.sendGiftBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
         @strongify(self)

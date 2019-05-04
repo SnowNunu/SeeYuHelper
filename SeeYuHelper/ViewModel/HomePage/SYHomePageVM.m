@@ -12,8 +12,6 @@
 /// The view model of `MainFrame` interface.
 @property (nonatomic, strong, readwrite) SYMainFrameVM *mainFrameViewModel;
 
-@property (nonatomic, strong, readwrite) SYCollocationVM *collocationViewModel;
-
 /// The view model of `contacts` interface.
 @property (nonatomic, strong, readwrite) SYContactsVM *contactsViewModel;
 
@@ -30,8 +28,6 @@
     [super initialize];
     
     self.mainFrameViewModel  = [[SYMainFrameVM alloc] initWithServices:self.services params:nil];
-    
-    self.collocationViewModel = [[SYCollocationVM alloc] initWithServices:self.services params:nil];
     
     self.contactsViewModel   = [[SYContactsVM alloc] initWithServices:self.services params:nil];
     

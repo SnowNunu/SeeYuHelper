@@ -16,6 +16,9 @@ NS_ASSUME_NONNULL_BEGIN
 // 进入注册页面
 @property (nonatomic, strong) RACCommand *enterInfoSupplementViewCommand;
 
+// 进入主页界面
+@property (nonatomic, strong) RACCommand *enterHomePageViewCommand;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -7,7 +7,6 @@
 //
 
 #import "SYGiftVM.h"
-#import "SYDiamondsVM.h"
 
 @implementation SYGiftVM
 

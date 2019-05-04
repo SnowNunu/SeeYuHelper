@@ -7,7 +7,6 @@
 //
 
 #import "SYPrivacyShowVM.h"
-#import "SYSpeedMatchModel.h"
 
 @implementation SYPrivacyShowVM
 
@@ -49,9 +48,10 @@
         NSDictionary *params = @{@"userId":self.services.client.currentUser.userId,@"firendUserId":self.model.showUserid};
         SYKeyedSubscript *subscript = [[SYKeyedSubscript alloc]initWithDictionary:params];
         SYURLParameters *paramters = [SYURLParameters urlParametersWithMethod:SY_HTTTP_METHOD_POST path:SY_HTTTP_PATH_USER_FRIEND_ADD parameters:subscript.dictionary];
-        return [[[self.services.client enqueueRequest:[SYHTTPRequest requestWithParameters:paramters] resultClass:[SYSpeedMatchModel class]] sy_parsedResults] takeUntil:self.rac_willDeallocSignal];
+//        return [[[self.services.client enqueueRequest:[SYHTTPRequest requestWithParameters:paramters] resultClass:[SYSpeedMatchModel class]] sy_parsedResults] takeUntil:self.rac_willDeallocSignal];
+        return [[[self.services.client enqueueRequest:[SYHTTPRequest requestWithParameters:paramters] resultClass:[SYObject class]] sy_parsedResults] takeUntil:self.rac_willDeallocSignal];
     }];
-    [self.sendAddFriendsRequestCommand.executionSignals.switchToLatest.deliverOnMainThread subscribeNext:^(SYSpeedMatchModel *model) {
+    [self.sendAddFriendsRequestCommand.executionSignals.switchToLatest.deliverOnMainThread subscribeNext:^(SYObject *model) {
         [MBProgressHUD sy_showTips:@"好友请求发送成功"];
     }];
     [self.sendAddFriendsRequestCommand.errors subscribeNext:^(NSError *error) {

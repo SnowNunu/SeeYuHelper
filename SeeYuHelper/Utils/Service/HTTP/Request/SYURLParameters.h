@@ -33,8 +33,16 @@
 /// 登录上报接口
 #define SY_HTTTP_PATH_LOGIN_REPORT     @"/application/user/loginByUserId"
 
-/// 获取用户资料
+/// 修改用户首次登录状态
+#define SY_HTTTP_PATH_USER_FIRST_UPDATE     @"/application/anchorBase/anchorUpdateIsFirst"
+
+#define SY_HTTP_PATH_USER_FOLLOW_LIST       @"/application/anchorBase/anchorQueryFollow"
+
+/// 获取主播基础资料
 #define SY_HTTTP_PATH_USER_INFO_QUERY   @"/application/user/query"
+
+/// 获取主播资料(关注数、礼物和佣金)
+#define SY_HTTTP_PATH_USER_DETAIL_INFO_QUERY   @"/application/anchorBase/anchorPersonalPage"
 
 /// 获取用户展示资料
 #define SY_HTTTP_PATH_USER_COVER_QUERY   @"/application/userShow/queryMineShow"
@@ -47,6 +55,9 @@
 
 /// 更新用户资料
 #define SY_HTTTP_PATH_USER_INFO_UPDATE  @"/application/user/update"
+
+/// 修改密码
+#define SY_HTTTP_PATH_USER_PASSWORD_UPDATE  @"/application/anchorBase/anchorUpdatePassword"
 
 /// 头像上传
 #define SY_HTTTP_PATH_USER_HEAD_UPLOAD  @"/application/user/headimage/upload"

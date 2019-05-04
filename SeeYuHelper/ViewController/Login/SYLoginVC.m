@@ -43,14 +43,14 @@
 - (void)bindViewModel {
     [super bindViewModel];
     [[self.loginBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
-        if (self.accountTextField.text.length == 0) {
+        if (self.accountTextField.text.length == 0 || [self.accountTextField.text stringByTrim].length == 0) {
             [MBProgressHUD sy_showError:@"请先输入账号"];
             return ;
-        } else if (self.passwordTextField.text.length == 0) {
+        } else if (self.passwordTextField.text.length == 0 || [self.passwordTextField.text stringByTrim].length == 0) {
             [MBProgressHUD sy_showError:@"请先输入密码"];
             return;
         } else {
-            NSString *url = [NSString stringWithFormat:@"%@?type=1&userId=%@&userPassword=%@",SY_WEB_SOCKET_URL,self.accountTextField.text,[CocoaSecurity md5:self.passwordTextField.text].hexLower];
+            NSString *url = [NSString stringWithFormat:@"%@?type=1&userId=%@&userPassword=%@",SY_WEB_SOCKET_URL,[self.accountTextField.text stringByTrim],[CocoaSecurity md5:[self.passwordTextField.text stringByTrim]].hexLower];
             [MBProgressHUD sy_showProgressHUD:@"登录中，请稍候"];
             [[SYAppDelegate sharedDelegate] startWebSocketService:url];
         }
@@ -91,7 +91,6 @@
     
     UITextField *accountTextField = [UITextField new];
     accountTextField.placeholder = @"请输入账号";
-    accountTextField.text = @"12277";
     accountTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
     _accountTextField = accountTextField;
     [self.view addSubview:accountTextField];
@@ -105,7 +104,6 @@
     passwordTextField.placeholder = @"请输入密码";
     passwordTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
     passwordTextField.secureTextEntry = YES;
-    passwordTextField.text = @"123456";
     _passwordTextField = passwordTextField;
     [self.view addSubview:passwordTextField];
     
@@ -183,6 +181,12 @@
     } else if ([dict[@"code"] isEqualToString:@"400"]) {
         [MBProgressHUD sy_hideHUD];
         [MBProgressHUD sy_showError:@"账号或密码有误，请检查!"];
+    } else if ([dict[@"code"] isEqualToString:@"288"]) {
+        SYUser *user = [SYUser new];
+        user.userId = [self.accountTextField.text stringByTrim];
+        user.userPassword = [CocoaSecurity md5:[self.passwordTextField.text stringByTrim]].hexLower;
+        [self.viewModel.services.client saveUser:user];
+        [self.viewModel.enterHomePageViewCommand execute:nil];
     }
 }
 

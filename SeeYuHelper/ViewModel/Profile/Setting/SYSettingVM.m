@@ -22,6 +22,11 @@
     self.title = @"设置";
     self.backTitle = @"";
     self.prefersNavigationBarBottomLineHidden = YES;
+    self.enterAboutViewCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+        SYAboutVM *vm = [[SYAboutVM alloc] initWithServices:self.services params:nil];
+        [self.services pushViewModel:vm animated:YES];
+        return [RACSignal empty];
+    }];
 }
 
 @end

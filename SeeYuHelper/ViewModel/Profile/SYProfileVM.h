@@ -7,6 +7,7 @@
 //
 
 #import "SYVM.h"
+#import "SYUserDetail.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -14,7 +15,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) SYUser *user;
 
-@property (nonatomic, strong) RACCommand *requestUserInfoCommand;
+@property (nonatomic, strong) SYUserDetail *userDetail;
+
+@property (nonatomic, strong) RACCommand *requestUserBaseInfoCommand;
+
+@property (nonatomic, strong) RACCommand *requestUserDetailInfoCommand;
 
 @property (nonatomic, strong) RACCommand *enterNextViewCommand;
 

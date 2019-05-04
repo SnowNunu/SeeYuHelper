@@ -21,7 +21,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.edgesForExtendedLayout = UIRectEdgeNone;
-    _dataSource = @[@{@"label":@"提醒通知",@"kind":@"switch"},@{@"label":@"吐槽建议",@"kind":@"arrow"},@{@"label":@"免责声明",@"kind":@"arrow"},@{@"label":@"关于我们",@"kind":@"arrow"},@{@"label":@"清理缓存",@"kind":@"label"},@{@"label":@"音效",@"kind":@"switch"},@{@"label":@"活动相关",@"kind":@"arrow"},@{@"label":@"使用规范",@"kind":@"arrow"}];
+    _dataSource = @[@{@"label":@"清除缓存",@"kind":@"arrow"},@{@"label":@"关于",@"kind":@"arrow"}];
     [self _setupSubViews];
     [self _makeSubViewsConstraints];
 }
@@ -70,36 +70,18 @@
     contentLabel.font = SYRegularFont(16);
     [cell.contentView addSubview:contentLabel];
     
-    if ([params[@"kind"] isEqualToString:@"switch"]) {
-        UISwitch *mySwitch = [UISwitch new];
-        [cell.contentView addSubview:mySwitch];
-        [mySwitch mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.equalTo(cell.contentView).offset(-15);
-            make.centerY.equalTo(cell.contentView);
-        }];
-    } else if ([params[@"kind"] isEqualToString:@"arrow"]) {
-        UIButton *arrowBtn = [UIButton new];
-        [arrowBtn setImage:SYImageNamed(@"tableview_arrow") forState:UIControlStateNormal];
-        [cell.contentView addSubview:arrowBtn];
-        [arrowBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.equalTo(cell.contentView).offset(-15);
-            make.centerY.equalTo(cell.contentView);
-            make.width.offset(7);
-            make.height.offset(14);
-        }];
-    } else {
-        UILabel *label = [UILabel new];
-        label.textAlignment = NSTextAlignmentRight;
-        label.textColor = SYColor(153, 153, 153);
-        label.font = SYRegularFont(12);
+    UIButton *arrowBtn = [UIButton new];
+    [arrowBtn setImage:SYImageNamed(@"tableview_arrow") forState:UIControlStateNormal];
+    [cell.contentView addSubview:arrowBtn];
+
+    UILabel *label = [UILabel new];
+    label.textAlignment = NSTextAlignmentRight;
+    label.textColor = SYColor(153, 153, 153);
+    label.font = SYRegularFont(12);
+    if (indexPath.row == 0) {
         label.text = [NSString stringWithFormat:@"%.2fMB",[self getFolderSize]];
-        [cell.contentView addSubview:label];
-        [label mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.equalTo(cell.contentView).offset(-15);
-            make.centerY.equalTo(cell.contentView);
-            make.height.offset(20);
-        }];
     }
+    [cell.contentView addSubview:label];
     
     [contentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(cell.contentView).offset(15);
@@ -107,11 +89,25 @@
         make.centerY.equalTo(cell.contentView);
         make.height.offset(20);
     }];
+    [label mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(arrowBtn.mas_left).offset(-10);
+        make.centerY.equalTo(cell.contentView);
+        make.height.offset(20);
+    }];
+    [arrowBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(cell.contentView).offset(-15);
+        make.centerY.equalTo(cell.contentView);
+        make.width.offset(7);
+        make.height.offset(14);
+    }];
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    if (indexPath.row == 1) {
+        [self.viewModel.enterAboutViewCommand execute:nil];
+    }
 }
 
 // 缓存大小
