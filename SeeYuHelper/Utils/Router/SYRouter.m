@@ -69,7 +69,15 @@ static SYRouter *sharedInstance_ = nil;
              @"SYSettingVM":@"SYSettingVC",
              @"SYAboutVM":@"SYAboutVC",
              @"SYStatisticsVM":@"SYStatisticsVC",
-             @"SYFocusListVM":@"SYFocusListVC"
+             @"SYFocusListVM":@"SYFocusListVC",
+             @"SYPresentListVM":@"SYPresentListVC",
+             @"SYLiveStatisticsVM":@"SYLiveStatisticsVC",
+             @"SYLiveDetailsVM":@"SYLiveDetailsVC",
+             @"SYMoneyManageVM":@"SYMoneyManageVC",
+             @"SYWithdrawalVM":@"SYWithdrawalVC",
+             @"SYAlipayWithdrawalVM":@"SYAlipayWithdrawalVC",
+             @"SYUnionWithdrawalVM":@"SYUnionWithdrawalVC",
+             @"SYAlipayConfirmVM":@"SYAlipayConfirmVC"
 //             @"SYAnchorsOrderVM":@"SYAnchorsOrderVC",
 //             @"SYAnchorsListVM":@"SYAnchorsListVC",
 //             @"SYAnchorShowVM":@"SYAnchorShowVC",
@@ -95,7 +103,6 @@ static SYRouter *sharedInstance_ = nil;
 //             @"SYForumCommentVM":@"SYForumCommentVC",
 //             @"SYAddFriendsVM":@"SYAddFriendsVC",
 //             @"SYNewFriendsVM":@"SYNewFriendsVC",
-//             @"SYPresentVM":@"SYPresentVC",
 //             @"SYInfoEditVM":@"SYInfoEditVC",
              };
 }

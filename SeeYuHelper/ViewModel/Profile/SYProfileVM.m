@@ -12,6 +12,8 @@
 #import "SYStatisticsVM.h"
 #import "SYSettingVM.h"
 #import "SYFocusListVM.h"
+#import "SYPresentListVM.h"
+#import "SYMoneyManageVM.h"
 
 @implementation SYProfileVM
 
@@ -69,14 +71,21 @@
             SYStatisticsVM *vm = [[SYStatisticsVM alloc] initWithServices:self.services params:nil];
             [self.services pushViewModel:vm animated:YES];
         } else if ([kind isEqual:@(4)]){
+           
+        } else if ([kind isEqual:@(5)]) {
             SYSettingVM *vm = [[SYSettingVM alloc] initWithServices:self.services params:nil];
             [self.services pushViewModel:vm animated:YES];
-        } else if ([kind isEqual:@(5)]) {
+            
+        } else if ([kind isEqual:@(6)]) {
             SYFocusListVM *vm = [[SYFocusListVM alloc] initWithServices:self.services params:nil];
             [self.services pushViewModel:vm animated:YES];
-        } else if ([kind isEqual:@(6)]) {
-            
-        } 
+        } else if([kind isEqual:@(7)]){
+            SYPresentListVM *vm = [[SYPresentListVM alloc] initWithServices:self.services params:@{SYViewModelUtilKey:@"receive"}];
+            [self.services pushViewModel:vm animated:YES];
+        } else if ([kind isEqual:@(8)]) {
+            SYMoneyManageVM *vm = [[SYMoneyManageVM alloc] initWithServices:self.services params:nil];
+            [self.services pushViewModel:vm animated:YES];
+        }
         return [RACSignal empty];
     }];
 }

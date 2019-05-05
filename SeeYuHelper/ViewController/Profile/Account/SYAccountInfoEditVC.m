@@ -26,15 +26,6 @@
     [self _makeSubViewsConstraints];
 }
 
-- (void)bindViewModel {
-    [super bindViewModel];
-//    [RACObserve(self.viewModel, user) subscribeNext:^(SYUser *user) {
-//        if (user != nil) {
-//            [self.tableView reloadData];
-//        }
-//    }];
-}
-
 - (void)_setupSubViews {
     UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     tableView.delegate = self;
@@ -106,7 +97,7 @@
     if (indexPath.row == 0) {
         [self.viewModel.enterPasswordModifyViewCommand execute:nil];
     } else {
-        
+        [self.viewModel.enterMoneyManageViewCommand execute:nil];
     }
 }
 

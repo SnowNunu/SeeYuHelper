@@ -8,6 +8,7 @@
 
 #import "SYAccountInfoEditVM.h"
 #import "SYPasswordModifyVM.h"
+#import "SYMoneyManageVM.h"
 
 @implementation SYAccountInfoEditVM
 
@@ -18,6 +19,11 @@
     self.prefersNavigationBarBottomLineHidden = YES;
     self.enterPasswordModifyViewCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
         SYPasswordModifyVM *vm = [[SYPasswordModifyVM alloc] initWithServices:self.services params:nil];
+        [self.services pushViewModel:vm animated:YES];
+        return [RACSignal empty];
+    }];
+    self.enterMoneyManageViewCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+        SYMoneyManageVM *vm = [[SYMoneyManageVM alloc] initWithServices:self.services params:nil];
         [self.services pushViewModel:vm animated:YES];
         return [RACSignal empty];
     }];

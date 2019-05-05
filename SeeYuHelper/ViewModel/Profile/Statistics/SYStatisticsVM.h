@@ -7,10 +7,15 @@
 //
 
 #import "SYVM.h"
+#import "SYLiveStatisticsVM.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface SYStatisticsVM : SYVM
+
+@property (nonatomic, strong) RACCommand *enterLiveStatisticsViewCommand;
+
+@property (nonatomic, strong) RACCommand *enterPresentListViewCommand;
 
 @end
 

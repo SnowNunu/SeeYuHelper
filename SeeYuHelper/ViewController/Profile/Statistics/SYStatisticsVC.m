@@ -91,8 +91,10 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
-    if (indexPath.row == 1) {
-//        [self.viewModel.enterAboutViewCommand execute:nil];
+    if (indexPath.row == 0) {
+        [self.viewModel.enterLiveStatisticsViewCommand execute:nil];
+    } else {
+        [self.viewModel.enterPresentListViewCommand execute:nil];
     }
 }
 

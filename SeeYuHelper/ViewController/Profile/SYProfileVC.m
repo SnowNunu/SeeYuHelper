@@ -45,7 +45,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.edgesForExtendedLayout = UIRectEdgeNone;
-    _dataSource = @[@{@"label":@"帐号信息",@"icon":@"accountInfo"},@{@"label":@"个人资料",@"icon":@"selfInfo"},@{@"label":@"工作时间",@"icon":@"workTime"},@{@"label":@"数据统计",@"icon":@"dataCount"},@{@"label":@"设置",@"icon":@"setting"}];
+    _dataSource = @[@{@"label":@"帐号信息",@"icon":@"accountInfo"},@{@"label":@"个人资料",@"icon":@"selfInfo"},@{@"label":@"工作时间",@"icon":@"workTime"},@{@"label":@"数据统计",@"icon":@"dataCount"},@{@"label":@"我的钱包",@"icon":@"wallet"},@{@"label":@"设置",@"icon":@"setting"}];
     [self _setupSubViews];
     [self _makeSubViewsConstraints];
 }
@@ -105,7 +105,7 @@
     @weakify(self)
     [[focusTap rac_gestureSignal] subscribeNext:^(id x) {
         @strongify(self)
-        [self.viewModel.enterNextViewCommand execute:@(5)];
+        [self.viewModel.enterNextViewCommand execute:@(6)];
     }];
     [focusBgView addGestureRecognizer:focusTap];
     
@@ -131,8 +131,8 @@
     [headerView addSubview:giftBgView];
     UITapGestureRecognizer *giftTap = [[UITapGestureRecognizer alloc] init];
     [[giftTap rac_gestureSignal] subscribeNext:^(id x) {
-//        @strongify(self)
-//        [self.viewModel.enterNextViewCommand execute:@(5)];
+        @strongify(self)
+        [self.viewModel.enterNextViewCommand execute:@(7)];
     }];
     [giftBgView addGestureRecognizer:giftTap];
     
@@ -158,8 +158,8 @@
     [headerView addSubview:commissionBgView];
     UITapGestureRecognizer *commissionTap = [[UITapGestureRecognizer alloc] init];
     [[commissionTap rac_gestureSignal] subscribeNext:^(id x) {
-//        @strongify(self)
-//        [self.viewModel.enterNextViewCommand execute:@(5)];
+        @strongify(self)
+        [self.viewModel.enterNextViewCommand execute:@(8)];
     }];
     [commissionBgView addGestureRecognizer:commissionTap];
     

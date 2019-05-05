@@ -44,6 +44,18 @@
 /// 获取主播资料(关注数、礼物和佣金)
 #define SY_HTTTP_PATH_USER_DETAIL_INFO_QUERY   @"/application/anchorBase/anchorPersonalPage"
 
+/// 获取主播直播基础数据
+#define SY_HTTTP_PATH_USER_LIVE_INFO_QUERY   @"/application/anchorBase/anchorQueryVideoStatistics"
+
+/// 获取主播直播详细数据
+#define SY_HTTTP_PATH_USER_LIVE_DETAIL_QUERY   @"/application/anchorBase/anchorQueryVideoStatisticsDetails"
+
+/// 获取主播资金基础数据
+#define SY_HTTTP_PATH_USER_MONEY_INFO_QUERY   @"/application/anchorBase/anchorQueryFundDetails"
+
+/// 获取主播可提现金额
+#define SY_HTTTP_PATH_USER_WITHDRAW_MONEY_QUERY     @"/application/anchorBase/anchorQueryAvailableWithdrawMoney"
+
 /// 获取用户展示资料
 #define SY_HTTTP_PATH_USER_COVER_QUERY   @"/application/userShow/queryMineShow"
 
