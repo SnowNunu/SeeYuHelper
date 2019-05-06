@@ -22,7 +22,11 @@
     self.title = @"支付宝提现";
     self.backTitle = @"";
     self.prefersNavigationBarBottomLineHidden = YES;
-    
+    self.enterAlipayConfirmViewCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(NSDictionary *params) {
+        SYAlipayConfirmVM *vm = [[SYAlipayConfirmVM alloc] initWithServices:self.services params:@{SYViewModelUtilKey:params}];
+        [self.services pushViewModel:vm animated:YES];
+        return [RACSignal empty];
+    }];
 }
 
 @end

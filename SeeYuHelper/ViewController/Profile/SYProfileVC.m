@@ -207,7 +207,7 @@
     [_giftBgView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.height.equalTo(self.focusBgView);
         make.left.equalTo(self.focusBgView.mas_right);
-        make.right.equalTo(self.commissionBgView.mas_left);
+        make.width.offset(width);
     }];
     [_giftContentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.centerX.equalTo(self.giftBgView);
@@ -218,8 +218,9 @@
         make.centerX.height.equalTo(self.giftContentLabel);
     }];
     [_commissionBgView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.width.height.equalTo(self.focusBgView);
+        make.top.height.equalTo(self.focusBgView);
         make.right.equalTo(self.headerView);
+        make.width.offset(width);
     }];
     [_commissionContentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.centerX.equalTo(self.commissionBgView);

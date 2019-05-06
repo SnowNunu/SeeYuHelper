@@ -60,6 +60,10 @@
     self.edgesForExtendedLayout = UIRectEdgeNone;
     [self _setupSubViews];
     [self _makeSubViewsConstraints];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     [self.viewModel.requestMoneyManageInfoCommand execute:nil];
 }
 

@@ -33,9 +33,12 @@
     _dataSource = @[@{@"label":@"支付宝提现",@"image":@"icon_list_alipay"},@{@"label":@"银行卡提现",@"image":@"icon_list_cardPay"}];
     [self _setupSubViews];
     [self _makeSubViewsConstraints];
-    [self.viewModel.requestWithdrawalMoneyInfoCommand execute:nil];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.viewModel.requestWithdrawalMoneyInfoCommand execute:nil];
+}
 - (void)bindViewModel {
     [super bindViewModel];
     [RACObserve(self.viewModel, model) subscribeNext:^(SYWithdrawalModel *model) {

@@ -22,6 +22,11 @@
     self.title = @"银行卡提现";
     self.backTitle = @"";
     self.prefersNavigationBarBottomLineHidden = YES;
+    self.enterUnionConfirmViewCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(NSDictionary *params) {
+        SYUnionConfirmVM *vm = [[SYUnionConfirmVM alloc] initWithServices:self.services params:@{SYViewModelUtilKey:params}];
+        [self.services pushViewModel:vm animated:YES];
+        return [RACSignal empty];
+    }];
 }
 
 @end

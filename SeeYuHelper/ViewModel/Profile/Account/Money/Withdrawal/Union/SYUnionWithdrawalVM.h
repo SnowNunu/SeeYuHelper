@@ -7,10 +7,13 @@
 //
 
 #import "SYVM.h"
+#import "SYUnionConfirmVM.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface SYUnionWithdrawalVM : SYVM
+
+@property (nonatomic, strong) RACCommand *enterUnionConfirmViewCommand;
 
 @end
 

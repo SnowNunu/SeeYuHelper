@@ -7,10 +7,13 @@
 //
 
 #import "SYVM.h"
+#import "SYAlipayConfirmVM.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface SYAlipayWithdrawalVM : SYVM
+
+@property (nonatomic, strong) RACCommand *enterAlipayConfirmViewCommand;
 
 @end
 

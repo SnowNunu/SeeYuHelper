@@ -339,6 +339,8 @@
 		7B8F363A227F149100B210E0 /* SYUnionWithdrawalVM.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B8F3639227F149100B210E0 /* SYUnionWithdrawalVM.m */; };
 		7B8F3641227F264100B210E0 /* SYAlipayConfirmVM.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B8F3640227F264100B210E0 /* SYAlipayConfirmVM.m */; };
 		7B8F3644227F26B000B210E0 /* SYAlipayConfirmVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B8F3643227F26B000B210E0 /* SYAlipayConfirmVC.m */; };
+		7B8F3647227FC3FE00B210E0 /* SYUnionConfirmVM.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B8F3646227FC3FE00B210E0 /* SYUnionConfirmVM.m */; };
+		7B8F364A227FC43600B210E0 /* SYUnionConfirmVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B8F3649227FC43600B210E0 /* SYUnionConfirmVC.m */; };
 		7B98B8F82275DA380074D0A0 /* RCCallVideoMultiCallViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B98B8A82275DA350074D0A0 /* RCCallVideoMultiCallViewController.m */; };
 		7B98B8F92275DA380074D0A0 /* RCCallSingleCallViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B98B8AA2275DA350074D0A0 /* RCCallSingleCallViewController.m */; };
 		7B98B8FA2275DA380074D0A0 /* RCCallSelectMemberViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B98B8AC2275DA350074D0A0 /* RCCallSelectMemberViewController.m */; };
@@ -1109,6 +1111,10 @@
 		7B8F3640227F264100B210E0 /* SYAlipayConfirmVM.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SYAlipayConfirmVM.m; sourceTree = "<group>"; };
 		7B8F3642227F26B000B210E0 /* SYAlipayConfirmVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SYAlipayConfirmVC.h; sourceTree = "<group>"; };
 		7B8F3643227F26B000B210E0 /* SYAlipayConfirmVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SYAlipayConfirmVC.m; sourceTree = "<group>"; };
+		7B8F3645227FC3FE00B210E0 /* SYUnionConfirmVM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SYUnionConfirmVM.h; sourceTree = "<group>"; };
+		7B8F3646227FC3FE00B210E0 /* SYUnionConfirmVM.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SYUnionConfirmVM.m; sourceTree = "<group>"; };
+		7B8F3648227FC43600B210E0 /* SYUnionConfirmVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SYUnionConfirmVC.h; sourceTree = "<group>"; };
+		7B8F3649227FC43600B210E0 /* SYUnionConfirmVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SYUnionConfirmVC.m; sourceTree = "<group>"; };
 		7B98B8A62275DA350074D0A0 /* RCCall.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCCall.h; sourceTree = "<group>"; };
 		7B98B8A82275DA350074D0A0 /* RCCallVideoMultiCallViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCCallVideoMultiCallViewController.m; sourceTree = "<group>"; };
 		7B98B8A92275DA350074D0A0 /* RCCallBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCCallBaseViewController.h; sourceTree = "<group>"; };
@@ -3466,6 +3472,8 @@
 			children = (
 				7B8F3632227F141100B210E0 /* SYUnionWithdrawalVC.h */,
 				7B8F3633227F141100B210E0 /* SYUnionWithdrawalVC.m */,
+				7B8F3648227FC43600B210E0 /* SYUnionConfirmVC.h */,
+				7B8F3649227FC43600B210E0 /* SYUnionConfirmVC.m */,
 			);
 			path = Union;
 			sourceTree = "<group>";
@@ -3486,6 +3494,8 @@
 			children = (
 				7B8F3638227F149100B210E0 /* SYUnionWithdrawalVM.h */,
 				7B8F3639227F149100B210E0 /* SYUnionWithdrawalVM.m */,
+				7B8F3645227FC3FE00B210E0 /* SYUnionConfirmVM.h */,
+				7B8F3646227FC3FE00B210E0 /* SYUnionConfirmVM.m */,
 			);
 			path = Union;
 			sourceTree = "<group>";
@@ -4904,6 +4914,7 @@
 				7B2A21AA2276B67B00EC8614 /* UINavigationBar+Awesome.m in Sources */,
 				26BEBC7F1F8B78B1004D502F /* SYReflection.m in Sources */,
 				7B0228A9223A16470045E25F /* HanyuPinyinOutputFormat.m in Sources */,
+				7B8F364A227FC43600B210E0 /* SYUnionConfirmVC.m in Sources */,
 				7B5A333F21F9ECF700535F8D /* SYRankingVM.m in Sources */,
 				7BC6FC1A2238BD8F0079330A /* CountDownButton.m in Sources */,
 				7B9A1BCB2241F30E00B7BFC2 /* SYAnchorsRandomVM.m in Sources */,
@@ -5130,6 +5141,7 @@
 				7B98B8FF2275DA380074D0A0 /* RCCallTipMessageCell.m in Sources */,
 				7B4BF4812251B09300CCD286 /* MHGetPermission.m in Sources */,
 				7B98B9082275DA380074D0A0 /* RCCXCall.m in Sources */,
+				7B8F3647227FC3FE00B210E0 /* SYUnionConfirmVM.m in Sources */,
 				7B8F360B227EA46700B210E0 /* SYLiveInfoModel.m in Sources */,
 				263D371F1F667DF2007267C3 /* SYControllerHelper.m in Sources */,
 				263D36E01F666438007267C3 /* NSError+SYExtension.m in Sources */,

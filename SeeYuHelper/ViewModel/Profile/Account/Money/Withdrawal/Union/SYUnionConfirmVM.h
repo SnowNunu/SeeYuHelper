@@ -1,8 +1,8 @@
 //
-//  SYAlipayConfirmVM.h
+//  SYUnionConfirmVM.h
 //  SeeYuHelper
 //
-//  Created by 唐荣才 on 2019/5/5.
+//  Created by 唐荣才 on 2019/5/6.
 //  Copyright © 2019 fljj. All rights reserved.
 //
 
@@ -10,11 +10,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SYAlipayConfirmVM : SYVM
+@interface SYUnionConfirmVM : SYVM
 
 @property (nonatomic, strong) NSDictionary *confirmInfo;
 
-@property (nonatomic, strong) RACCommand *withdrawalAlipayCommand;
+@property (nonatomic, strong) RACCommand *withdrawalUnionCommand;
 
 @end
 

@@ -1,14 +1,14 @@
 //
-//  SYAlipayConfirmVC.m
+//  SYUnionConfirmVC.m
 //  SeeYuHelper
 //
-//  Created by 唐荣才 on 2019/5/5.
+//  Created by 唐荣才 on 2019/5/6.
 //  Copyright © 2019 fljj. All rights reserved.
 //
 
-#import "SYAlipayConfirmVC.h"
+#import "SYUnionConfirmVC.h"
 
-@interface SYAlipayConfirmVC ()
+@interface SYUnionConfirmVC ()
 
 @property (nonatomic, strong) UIImageView *logoImageView;
 
@@ -22,13 +22,17 @@
 
 @property (nonatomic, strong) UILabel *moneyContentLabel;
 
-@property (nonatomic, strong) UILabel *accountTitleLabel;
+@property (nonatomic, strong) UILabel *bankcardTitleLabel;
 
-@property (nonatomic, strong) UILabel *accountContentLabel;
+@property (nonatomic, strong) UILabel *bankcardContentLabel;
 
 @property (nonatomic, strong) UILabel *realnameTitleLabel;
 
 @property (nonatomic, strong) UILabel *realnameContentLabel;
+
+@property (nonatomic, strong) UILabel *banknameTitleLabel;
+
+@property (nonatomic, strong) UILabel *banknameContentLabel;
 
 @property (nonatomic, strong) UILabel *contactTitleLabel;
 
@@ -38,7 +42,7 @@
 
 @end
 
-@implementation SYAlipayConfirmVC
+@implementation SYUnionConfirmVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -50,14 +54,14 @@
 - (void)bindViewModel {
     [super bindViewModel];
     [[self.confirmBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
-        NSDictionary *params = @{@"userId":self.viewModel.services.client.currentUserId,@"withdrawMoney":self.viewModel.confirmInfo[@"money"],@"type":@"1",@"withdrawName":self.viewModel.confirmInfo[@"realname"],@"withdrawAccountNum":self.viewModel.confirmInfo[@"account"],@"withdrawContactInfo":self.viewModel.confirmInfo[@"contact"],@"withdrawBankName":@""};
-        [self.viewModel.withdrawalAlipayCommand execute:params];
+        NSDictionary *params = @{@"userId":self.viewModel.services.client.currentUserId,@"withdrawMoney":self.viewModel.confirmInfo[@"money"],@"type":@"2",@"withdrawName":self.viewModel.confirmInfo[@"realname"],@"withdrawAccountNum":self.viewModel.confirmInfo[@"bankcard"],@"withdrawContactInfo":self.viewModel.confirmInfo[@"contact"],@"withdrawBankName":self.viewModel.confirmInfo[@"bankname"]};
+        [self.viewModel.withdrawalUnionCommand execute:params];
     }];
 }
 
 - (void)_setupSubViews {
     UIImageView *logoImageView = [UIImageView new];
-    logoImageView.image = SYImageNamed(@"alipay_large");
+    logoImageView.image = SYImageNamed(@"cardPay_large");
     _logoImageView = logoImageView;
     [self.view addSubview:logoImageView];
     
@@ -65,7 +69,7 @@
     withdrawalTipsLabel.textAlignment = NSTextAlignmentCenter;
     withdrawalTipsLabel.textColor = SYColor(51, 51, 51);
     withdrawalTipsLabel.font = SYRegularFont(17);
-    withdrawalTipsLabel.text = @"提现到支付宝";
+    withdrawalTipsLabel.text = @"提现到银行卡";
     _withdrawalTipsLabel = withdrawalTipsLabel;
     [self.view addSubview:withdrawalTipsLabel];
     
@@ -98,27 +102,27 @@
     _moneyContentLabel = moneyContentLabel;
     [self.view addSubview:moneyContentLabel];;
     
-    UILabel *accountTitleLabel = [UILabel new];
-    accountTitleLabel.textAlignment = NSTextAlignmentLeft;
-    accountTitleLabel.textColor = SYColor(153, 153, 153);
-    accountTitleLabel.font = SYRegularFont(15);
-    accountTitleLabel.text = @"支付宝账号";
-    _accountTitleLabel = accountTitleLabel;
-    [self.view addSubview:accountTitleLabel];
+    UILabel *bankcardTitleLabel = [UILabel new];
+    bankcardTitleLabel.textAlignment = NSTextAlignmentLeft;
+    bankcardTitleLabel.textColor = SYColor(153, 153, 153);
+    bankcardTitleLabel.font = SYRegularFont(15);
+    bankcardTitleLabel.text = @"银行卡账号";
+    _bankcardTitleLabel = bankcardTitleLabel;
+    [self.view addSubview:bankcardTitleLabel];
     
-    UILabel *accountContentLabel = [UILabel new];
-    accountContentLabel.textAlignment = NSTextAlignmentLeft;
-    accountContentLabel.textColor = SYColor(51, 51, 51);
-    accountContentLabel.font = [UIFont boldSystemFontOfSize:16];
-    accountContentLabel.text = self.viewModel.confirmInfo[@"account"];
-    _accountContentLabel = accountContentLabel;
-    [self.view addSubview:accountContentLabel];
+    UILabel *bankcardContentLabel = [UILabel new];
+    bankcardContentLabel.textAlignment = NSTextAlignmentLeft;
+    bankcardContentLabel.textColor = SYColor(51, 51, 51);
+    bankcardContentLabel.font = [UIFont boldSystemFontOfSize:16];
+    bankcardContentLabel.text = self.viewModel.confirmInfo[@"bankcard"];
+    _bankcardContentLabel = bankcardContentLabel;
+    [self.view addSubview:bankcardContentLabel];
     
     UILabel *realnameTitleLabel = [UILabel new];
     realnameTitleLabel.textAlignment = NSTextAlignmentLeft;
     realnameTitleLabel.textColor = SYColor(153, 153, 153);
     realnameTitleLabel.font = SYRegularFont(15);
-    realnameTitleLabel.text = @"支付宝实名";
+    realnameTitleLabel.text = @"银行卡实名";
     _realnameTitleLabel = realnameTitleLabel;
     [self.view addSubview:realnameTitleLabel];
     
@@ -129,6 +133,22 @@
     realnameContentLabel.text = self.viewModel.confirmInfo[@"realname"];
     _realnameContentLabel = realnameContentLabel;
     [self.view addSubview:realnameContentLabel];
+    
+    UILabel *banknameTitleLabel = [UILabel new];
+    banknameTitleLabel.textAlignment = NSTextAlignmentLeft;
+    banknameTitleLabel.textColor = SYColor(153, 153, 153);
+    banknameTitleLabel.font = SYRegularFont(15);
+    banknameTitleLabel.text = @"银行名称";
+    _banknameTitleLabel = banknameTitleLabel;
+    [self.view addSubview:banknameTitleLabel];
+    
+    UILabel *banknameContentLabel = [UILabel new];
+    banknameContentLabel.textAlignment = NSTextAlignmentLeft;
+    banknameContentLabel.textColor = SYColor(51, 51, 51);
+    banknameContentLabel.font = [UIFont boldSystemFontOfSize:16];
+    banknameContentLabel.text = self.viewModel.confirmInfo[@"bankname"];
+    _banknameContentLabel = banknameContentLabel;
+    [self.view addSubview:banknameContentLabel];
     
     UILabel *contactTitleLabel = [UILabel new];
     contactTitleLabel.textAlignment = NSTextAlignmentLeft;
@@ -187,19 +207,19 @@
         make.left.equalTo(self.moneyTitleLabel.mas_right).offset(30);
         make.height.top.equalTo(self.moneyTitleLabel);
     }];
-    [_accountTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_bankcardTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view).offset(30);
         make.top.equalTo(self.moneyTitleLabel.mas_bottom).offset(30);
         make.height.offset(15);
         make.width.offset(75);
     }];
-    [_accountContentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.accountTitleLabel.mas_right).offset(30);
-        make.height.top.equalTo(self.accountTitleLabel);
+    [_bankcardContentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.bankcardTitleLabel.mas_right).offset(30);
+        make.height.top.equalTo(self.bankcardTitleLabel);
     }];
     [_realnameTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view).offset(30);
-        make.top.equalTo(self.accountTitleLabel.mas_bottom).offset(30);
+        make.top.equalTo(self.bankcardTitleLabel.mas_bottom).offset(30);
         make.height.offset(15);
         make.width.offset(75);
     }];
@@ -207,9 +227,19 @@
         make.left.equalTo(self.realnameTitleLabel.mas_right).offset(30);
         make.height.top.equalTo(self.realnameTitleLabel);
     }];
-    [_contactTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_banknameTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view).offset(30);
         make.top.equalTo(self.realnameTitleLabel.mas_bottom).offset(30);
+        make.height.offset(15);
+        make.width.offset(75);
+    }];
+    [_banknameContentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.banknameTitleLabel.mas_right).offset(30);
+        make.height.top.equalTo(self.banknameTitleLabel);
+    }];
+    [_contactTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.view).offset(30);
+        make.top.equalTo(self.banknameTitleLabel.mas_bottom).offset(30);
         make.height.offset(15);
         make.width.offset(75);
     }];

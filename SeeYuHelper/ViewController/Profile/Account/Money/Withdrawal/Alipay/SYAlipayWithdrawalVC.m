@@ -39,6 +39,25 @@
     [self _makeSubViewsConstraints];
 }
 
+- (void)bindViewModel {
+    [super bindViewModel];
+    @weakify(self)
+    [[self.nextBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
+        @strongify(self)
+        if ([self.moneyNumberTextField.text stringByTrim].length == 0) {
+            [MBProgressHUD sy_showTips:@"请先输入提现金额"];
+        } else if ([self.realNameTextField.text stringByTrim].length == 0) {
+            [MBProgressHUD sy_showTips:@"请先输入真实姓名"];
+        } else if ([self.alipayAccountTextField.text stringByTrim].length == 0) {
+            [MBProgressHUD sy_showTips:@"请先输入支付宝账号"];
+        } else if ([self.contactTextField.text stringByTrim].length == 0) {
+            [MBProgressHUD sy_showTips:@"请先输入联系方式"];
+        } else {
+            [self.viewModel.enterAlipayConfirmViewCommand execute:@{@"money":[self.moneyNumberTextField.text stringByTrim],@"realname":[self.realNameTextField.text stringByTrim],@"account":[self.alipayAccountTextField.text stringByTrim],@"contact":[self.contactTextField.text stringByTrim]}];
+        }
+    }];
+}
+
 - (void)_setupSubViews {
     UITextField *moneyNumberTextField = [UITextField new];
     moneyNumberTextField.placeholder = @"请输入提现金额（元）";
