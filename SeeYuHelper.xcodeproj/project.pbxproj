@@ -341,6 +341,13 @@
 		7B8F3644227F26B000B210E0 /* SYAlipayConfirmVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B8F3643227F26B000B210E0 /* SYAlipayConfirmVC.m */; };
 		7B8F3647227FC3FE00B210E0 /* SYUnionConfirmVM.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B8F3646227FC3FE00B210E0 /* SYUnionConfirmVM.m */; };
 		7B8F364A227FC43600B210E0 /* SYUnionConfirmVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B8F3649227FC43600B210E0 /* SYUnionConfirmVC.m */; };
+		7B8F365722801D4100B210E0 /* SYWithdrawalRulesVM.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B8F365622801D4100B210E0 /* SYWithdrawalRulesVM.m */; };
+		7B8F365A22801D5200B210E0 /* SYWithdrawalRulesVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B8F365922801D5200B210E0 /* SYWithdrawalRulesVC.m */; };
+		7B8F3662228025DD00B210E0 /* SYPaymentsVM.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B8F3661228025DD00B210E0 /* SYPaymentsVM.m */; };
+		7B8F3666228025F600B210E0 /* SYPaymentsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B8F3665228025F600B210E0 /* SYPaymentsVC.m */; };
+		7B8F366922802BAB00B210E0 /* SYPaymentsDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B8F366822802BAB00B210E0 /* SYPaymentsDetailVC.m */; };
+		7B8F366C22802BC500B210E0 /* SYPaymentsDetailVM.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B8F366B22802BC500B210E0 /* SYPaymentsDetailVM.m */; };
+		7B8F367022802E8600B210E0 /* SYPaymentsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B8F366F22802E8600B210E0 /* SYPaymentsModel.m */; };
 		7B98B8F82275DA380074D0A0 /* RCCallVideoMultiCallViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B98B8A82275DA350074D0A0 /* RCCallVideoMultiCallViewController.m */; };
 		7B98B8F92275DA380074D0A0 /* RCCallSingleCallViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B98B8AA2275DA350074D0A0 /* RCCallSingleCallViewController.m */; };
 		7B98B8FA2275DA380074D0A0 /* RCCallSelectMemberViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B98B8AC2275DA350074D0A0 /* RCCallSelectMemberViewController.m */; };
@@ -1115,6 +1122,20 @@
 		7B8F3646227FC3FE00B210E0 /* SYUnionConfirmVM.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SYUnionConfirmVM.m; sourceTree = "<group>"; };
 		7B8F3648227FC43600B210E0 /* SYUnionConfirmVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SYUnionConfirmVC.h; sourceTree = "<group>"; };
 		7B8F3649227FC43600B210E0 /* SYUnionConfirmVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SYUnionConfirmVC.m; sourceTree = "<group>"; };
+		7B8F365522801D4100B210E0 /* SYWithdrawalRulesVM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SYWithdrawalRulesVM.h; sourceTree = "<group>"; };
+		7B8F365622801D4100B210E0 /* SYWithdrawalRulesVM.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SYWithdrawalRulesVM.m; sourceTree = "<group>"; };
+		7B8F365822801D5200B210E0 /* SYWithdrawalRulesVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SYWithdrawalRulesVC.h; sourceTree = "<group>"; };
+		7B8F365922801D5200B210E0 /* SYWithdrawalRulesVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SYWithdrawalRulesVC.m; sourceTree = "<group>"; };
+		7B8F3660228025DD00B210E0 /* SYPaymentsVM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SYPaymentsVM.h; sourceTree = "<group>"; };
+		7B8F3661228025DD00B210E0 /* SYPaymentsVM.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SYPaymentsVM.m; sourceTree = "<group>"; };
+		7B8F3664228025F600B210E0 /* SYPaymentsVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SYPaymentsVC.h; sourceTree = "<group>"; };
+		7B8F3665228025F600B210E0 /* SYPaymentsVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SYPaymentsVC.m; sourceTree = "<group>"; };
+		7B8F366722802BAB00B210E0 /* SYPaymentsDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SYPaymentsDetailVC.h; sourceTree = "<group>"; };
+		7B8F366822802BAB00B210E0 /* SYPaymentsDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SYPaymentsDetailVC.m; sourceTree = "<group>"; };
+		7B8F366A22802BC500B210E0 /* SYPaymentsDetailVM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SYPaymentsDetailVM.h; sourceTree = "<group>"; };
+		7B8F366B22802BC500B210E0 /* SYPaymentsDetailVM.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SYPaymentsDetailVM.m; sourceTree = "<group>"; };
+		7B8F366E22802E8600B210E0 /* SYPaymentsModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SYPaymentsModel.h; sourceTree = "<group>"; };
+		7B8F366F22802E8600B210E0 /* SYPaymentsModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SYPaymentsModel.m; sourceTree = "<group>"; };
 		7B98B8A62275DA350074D0A0 /* RCCall.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCCall.h; sourceTree = "<group>"; };
 		7B98B8A82275DA350074D0A0 /* RCCallVideoMultiCallViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCCallVideoMultiCallViewController.m; sourceTree = "<group>"; };
 		7B98B8A92275DA350074D0A0 /* RCCallBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCCallBaseViewController.h; sourceTree = "<group>"; };
@@ -3418,6 +3439,7 @@
 		7B8F361F227EF01500B210E0 /* Money */ = {
 			isa = PBXGroup;
 			children = (
+				7B8F366D22802E6F00B210E0 /* Payments */,
 				7B8F362B227F124900B210E0 /* Withdrawal */,
 				7B8F3620227EF03B00B210E0 /* SYMoneyInfoModel.h */,
 				7B8F3621227EF03B00B210E0 /* SYMoneyInfoModel.m */,
@@ -3428,6 +3450,8 @@
 		7B8F3623227EF74100B210E0 /* Withdrawal */ = {
 			isa = PBXGroup;
 			children = (
+				7B8F3663228025E600B210E0 /* Payments */,
+				7B8F365322801D1D00B210E0 /* Rules */,
 				7B8F363B227F23F600B210E0 /* Alipay */,
 				7B8F363C227F240A00B210E0 /* Union */,
 				7B8F3625227EF76600B210E0 /* SYWithdrawalVC.h */,
@@ -3439,6 +3463,8 @@
 		7B8F3624227EF75000B210E0 /* Withdrawal */ = {
 			isa = PBXGroup;
 			children = (
+				7B8F365F228025C600B210E0 /* Payments */,
+				7B8F365422801D2D00B210E0 /* Rules */,
 				7B8F363D227F25F000B210E0 /* Alipay */,
 				7B8F363E227F260200B210E0 /* Union */,
 				7B8F3628227EF77E00B210E0 /* SYWithdrawalVM.h */,
@@ -3498,6 +3524,55 @@
 				7B8F3646227FC3FE00B210E0 /* SYUnionConfirmVM.m */,
 			);
 			path = Union;
+			sourceTree = "<group>";
+		};
+		7B8F365322801D1D00B210E0 /* Rules */ = {
+			isa = PBXGroup;
+			children = (
+				7B8F365822801D5200B210E0 /* SYWithdrawalRulesVC.h */,
+				7B8F365922801D5200B210E0 /* SYWithdrawalRulesVC.m */,
+			);
+			path = Rules;
+			sourceTree = "<group>";
+		};
+		7B8F365422801D2D00B210E0 /* Rules */ = {
+			isa = PBXGroup;
+			children = (
+				7B8F365522801D4100B210E0 /* SYWithdrawalRulesVM.h */,
+				7B8F365622801D4100B210E0 /* SYWithdrawalRulesVM.m */,
+			);
+			path = Rules;
+			sourceTree = "<group>";
+		};
+		7B8F365F228025C600B210E0 /* Payments */ = {
+			isa = PBXGroup;
+			children = (
+				7B8F3660228025DD00B210E0 /* SYPaymentsVM.h */,
+				7B8F3661228025DD00B210E0 /* SYPaymentsVM.m */,
+				7B8F366A22802BC500B210E0 /* SYPaymentsDetailVM.h */,
+				7B8F366B22802BC500B210E0 /* SYPaymentsDetailVM.m */,
+			);
+			path = Payments;
+			sourceTree = "<group>";
+		};
+		7B8F3663228025E600B210E0 /* Payments */ = {
+			isa = PBXGroup;
+			children = (
+				7B8F3664228025F600B210E0 /* SYPaymentsVC.h */,
+				7B8F3665228025F600B210E0 /* SYPaymentsVC.m */,
+				7B8F366722802BAB00B210E0 /* SYPaymentsDetailVC.h */,
+				7B8F366822802BAB00B210E0 /* SYPaymentsDetailVC.m */,
+			);
+			path = Payments;
+			sourceTree = "<group>";
+		};
+		7B8F366D22802E6F00B210E0 /* Payments */ = {
+			isa = PBXGroup;
+			children = (
+				7B8F366E22802E8600B210E0 /* SYPaymentsModel.h */,
+				7B8F366F22802E8600B210E0 /* SYPaymentsModel.m */,
+			);
+			path = Payments;
 			sourceTree = "<group>";
 		};
 		7B98B8A52275D9E40074D0A0 /* RongCallKit */ = {
@@ -4814,6 +4889,7 @@
 				7BE372C9226DB22D00555C41 /* SYNotificationModel.m in Sources */,
 				7B0E9B69227A834B00EF0502 /* SYInfoSupplementVM.m in Sources */,
 				261E015D1FDE2E010041E989 /* SYCommonSwitchItemViewModel.m in Sources */,
+				7B8F365A22801D5200B210E0 /* SYWithdrawalRulesVC.m in Sources */,
 				26B89AB72022E599006FBE20 /* SYMomentShareInfo.m in Sources */,
 				7B78815A224F13E400B25CA3 /* SYSingleChattingVC.m in Sources */,
 				7B0E9BAE227E79FC00EF0502 /* SYPresentListVM.m in Sources */,
@@ -4842,6 +4918,7 @@
 				7B4BF4602251AE4C00CCD286 /* YLShortVideoVC.m in Sources */,
 				7B76B8AB2268024F00153249 /* SYVideoInfoEditVC.m in Sources */,
 				26225D741F654D330074BFC3 /* SYTableVC.m in Sources */,
+				7B8F367022802E8600B210E0 /* SYPaymentsModel.m in Sources */,
 				7B4BF4802251B09300CCD286 /* MHAssetPickerViewController.m in Sources */,
 				7B2A21A32276B67B00EC8614 /* UIImage+CYButtonIcon.m in Sources */,
 				26C7BEF31F8CD2DA00525126 /* SYFileManager.m in Sources */,
@@ -4910,9 +4987,11 @@
 				2605C5D31F6632AA00B1F66E /* SYContactsVC.m in Sources */,
 				7B4BF4622251AE4C00CCD286 /* VideoEditingView.m in Sources */,
 				7B78811622489A2000B25CA3 /* SYForumListCell.m in Sources */,
+				7B8F366922802BAB00B210E0 /* SYPaymentsDetailVC.m in Sources */,
 				7BC56A79226F0304005C1F81 /* SYSignatureView.m in Sources */,
 				7B2A21AA2276B67B00EC8614 /* UINavigationBar+Awesome.m in Sources */,
 				26BEBC7F1F8B78B1004D502F /* SYReflection.m in Sources */,
+				7B8F3662228025DD00B210E0 /* SYPaymentsVM.m in Sources */,
 				7B0228A9223A16470045E25F /* HanyuPinyinOutputFormat.m in Sources */,
 				7B8F364A227FC43600B210E0 /* SYUnionConfirmVC.m in Sources */,
 				7B5A333F21F9ECF700535F8D /* SYRankingVM.m in Sources */,
@@ -4935,6 +5014,7 @@
 				7B98B9022275DA380074D0A0 /* RCCallDetailMessageCell.m in Sources */,
 				7B590939223F8B0300EE5ACF /* SYAnchorsModel.m in Sources */,
 				263D36DE1F666438007267C3 /* NSDate+Extension.m in Sources */,
+				7B8F3666228025F600B210E0 /* SYPaymentsVC.m in Sources */,
 				26225D971F6557290074BFC3 /* SYViewModelServicesImpl.m in Sources */,
 				26FE8E911F9514D100EC8BE0 /* TZProgressView.m in Sources */,
 				7B98B94C227606A60074D0A0 /* WKWebView+CookiesManager.m in Sources */,
@@ -4951,6 +5031,7 @@
 				2624CAEE1F98DFC80083923F /* SYKeyedSubscript.m in Sources */,
 				263D370F1F666569007267C3 /* LCActionSheetCell.m in Sources */,
 				263D37191F66656A007267C3 /* YYTimer.m in Sources */,
+				7B8F366C22802BC500B210E0 /* SYPaymentsDetailVM.m in Sources */,
 				26FE8E811F9514D100EC8BE0 /* TAPageControl.m in Sources */,
 				26FE8E8A1F9514D100EC8BE0 /* TZImageManager.m in Sources */,
 				7B78811C2248BDC000B25CA3 /* SYForumCommentVM.m in Sources */,
@@ -5156,6 +5237,7 @@
 				7BE971D3225F283600FF6A25 /* SYSettingVC.m in Sources */,
 				7B7881032248894500B25CA3 /* SYForumVC.m in Sources */,
 				7B7881312249D80000B25CA3 /* SYMomentsModel.m in Sources */,
+				7B8F365722801D4100B210E0 /* SYWithdrawalRulesVM.m in Sources */,
 				7B4BF4872251B3BC00CCD286 /* UIView+SDAutoLayout.m in Sources */,
 				263D36DF1F666438007267C3 /* NSDateFormatter+Extension.m in Sources */,
 				7B66335B22325302002B220E /* SYUserHobby.m in Sources */,

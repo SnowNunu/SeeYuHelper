@@ -7,6 +7,7 @@
 //
 
 #import "SYMoneyManageVM.h"
+#import "SYPaymentsVM.h"
 
 @implementation SYMoneyManageVM
 
@@ -37,6 +38,16 @@
     }];
     self.enterWithdrawalViewCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
         SYWithdrawalVM *vm = [[SYWithdrawalVM alloc] initWithServices:self.services params:nil];
+        [self.services pushViewModel:vm animated:YES];
+        return [RACSignal empty];
+    }];
+    self.enterWithdrawalRulesViewCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+        SYWithdrawalRulesVM *vm = [[SYWithdrawalRulesVM alloc] initWithServices:self.services params:nil];
+        [self.services pushViewModel:vm animated:YES];
+        return [RACSignal empty];
+    }];
+    self.enterPaymentsViewCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+        SYPaymentsVM *vm = [[SYPaymentsVM alloc] initWithServices:self.services params:nil];
         [self.services pushViewModel:vm animated:YES];
         return [RACSignal empty];
     }];

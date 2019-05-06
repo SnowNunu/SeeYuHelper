@@ -71,18 +71,15 @@
             SYStatisticsVM *vm = [[SYStatisticsVM alloc] initWithServices:self.services params:nil];
             [self.services pushViewModel:vm animated:YES];
         } else if ([kind isEqual:@(4)]){
-           
-        } else if ([kind isEqual:@(5)]) {
             SYSettingVM *vm = [[SYSettingVM alloc] initWithServices:self.services params:nil];
             [self.services pushViewModel:vm animated:YES];
-            
-        } else if ([kind isEqual:@(6)]) {
+        } else if ([kind isEqual:@(5)]) {
             SYFocusListVM *vm = [[SYFocusListVM alloc] initWithServices:self.services params:nil];
             [self.services pushViewModel:vm animated:YES];
-        } else if([kind isEqual:@(7)]){
+        } else if ([kind isEqual:@(6)]) {
             SYPresentListVM *vm = [[SYPresentListVM alloc] initWithServices:self.services params:@{SYViewModelUtilKey:@"receive"}];
             [self.services pushViewModel:vm animated:YES];
-        } else if ([kind isEqual:@(8)]) {
+        } else if([kind isEqual:@(7)]){
             SYMoneyManageVM *vm = [[SYMoneyManageVM alloc] initWithServices:self.services params:nil];
             [self.services pushViewModel:vm animated:YES];
         }

@@ -85,6 +85,11 @@
     [[self.withdrawalBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
         [self.viewModel.enterWithdrawalViewCommand execute:nil];
     }];
+    [[self.moreInfoBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
+        [self.viewModel.enterPaymentsViewCommand execute:nil];
+    }];
+    self.navigationItem.rightBarButtonItem = [UIBarButtonItem sy_systemItemWithTitle:nil titleColor:nil imageName:@"question" target:nil selector:nil textType:NO];
+    self.navigationItem.rightBarButtonItem.rac_command = self.viewModel.enterWithdrawalRulesViewCommand;
 }
 
 - (void)_setupSubViews {

@@ -56,6 +56,9 @@
 /// 获取主播可提现金额
 #define SY_HTTTP_PATH_USER_WITHDRAW_MONEY_QUERY     @"/application/anchorBase/anchorQueryAvailableWithdrawMoney"
 
+/// 获取主播收支明细
+#define SY_HTTTP_PATH_USER_PAYMENTS_DETAIL_QUERY     @"/application/anchorBase/anchorQueryFund"
+
 /// 主播申请提现
 #define SY_HTTTP_PATH_USER_WITHDRAW_MONEY_REQUEST     @"/application/anchorBase/anchorWithdraw"
 
