@@ -36,7 +36,11 @@
 /// 修改用户首次登录状态
 #define SY_HTTTP_PATH_USER_FIRST_UPDATE     @"/application/anchorBase/anchorUpdateIsFirst"
 
+/// 获取关注列表
 #define SY_HTTP_PATH_USER_FOLLOW_LIST       @"/application/anchorBase/anchorQueryFollow"
+
+/// 获取首页列表
+#define SY_HTTP_PATH_USER_INFO_LIST       @"/application/anchorBase/queryAvailableVideoUsers"
 
 /// 获取主播基础资料
 #define SY_HTTTP_PATH_USER_INFO_QUERY   @"/application/user/query"

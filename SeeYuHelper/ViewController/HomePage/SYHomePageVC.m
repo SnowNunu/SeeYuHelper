@@ -10,7 +10,6 @@
 #import "SYNavigationController.h"
 #import "SYMainFrameVC.h"
 #import "SYContactsVC.h"
-#import "SYDiscoverVC.h"
 #import "SYProfileVC.h"
 
 @interface SYHomePageVC ()
@@ -33,11 +32,9 @@
 
 #pragma mark - 初始化所有的子视图控制器
 - (void)_setupAllChildViewController {
-    NSArray *titlesArray = @[@"首页", @"消息", @"动态", @"我的"];
-    NSArray *imageNamesArray = @[@"tab_home_normal",@"tab_message_normal",
-                                 @"tab_news_normal",@"tab_self_normal"];
-    NSArray *selectedImageNamesArray = @[@"tab_home_pressed",@"tab_message_pressed",
-                                         @"tab_news_pressed",@"tab_self_pressed"];
+    NSArray *titlesArray = @[@"首页", @"客服", @"我的"];
+    NSArray *imageNamesArray = @[@"tab_home_normal",@"tab_cs_normal",@"tab_self_normal"];
+    NSArray *selectedImageNamesArray = @[@"tab_home_pressed",@"tab_cs_pressed",@"tab_self_pressed"];
     
     /// 首页
     UINavigationController *mainFrameNavigationController = ({
@@ -50,26 +47,15 @@
         [[SYNavigationController alloc] initWithRootViewController:mainFrameViewController];
     });
     
-    /// 消息
-    UINavigationController *contactsNavigationController = ({
+    /// 客服
+    UINavigationController *customerServiceNavigationController = ({
         SYContactsVC *contactsViewController = [[SYContactsVC alloc] initWithViewModel:self.viewModel.contactsViewModel];
         
-        SYTabBarItemTagType tagType = SYTabBarItemTagTypeContacts;
+        SYTabBarItemTagType tagType = SYTabBarItemTagTypeCustomerService;
         /// 配置
         [self _configViewController:contactsViewController imageName:imageNamesArray[tagType] selectedImageName:selectedImageNamesArray[tagType] title:titlesArray[tagType] itemTag:tagType];
         
         [[SYNavigationController alloc] initWithRootViewController:contactsViewController];
-    });
-    
-    /// 动态
-    UINavigationController *discoverNavigationController = ({
-        SYDiscoverVC *discoverViewController = [[SYDiscoverVC alloc] initWithViewModel:self.viewModel.discoverViewModel];
-        
-        SYTabBarItemTagType tagType = SYTabBarItemTagTypeDiscover;
-        /// 配置
-        [self _configViewController:discoverViewController imageName:imageNamesArray[tagType] selectedImageName:selectedImageNamesArray[tagType] title:titlesArray[tagType] itemTag:tagType];
-        
-        [[SYNavigationController alloc] initWithRootViewController:discoverViewController];
     });
     
     /// 我的
@@ -84,7 +70,7 @@
     });
     
     /// 添加到tabBarController的子视图
-    self.tabBarController.viewControllers = @[ mainFrameNavigationController, contactsNavigationController, discoverNavigationController, profileNavigationController ];
+    self.tabBarController.viewControllers = @[ mainFrameNavigationController, customerServiceNavigationController, profileNavigationController ];
     
     /// 配置栈底
     [SYSharedAppDelegate.navigationControllerStack pushNavigationController:mainFrameNavigationController];
@@ -112,12 +98,6 @@
     
     [viewController.tabBarItem setTitlePositionAdjustment:UIOffsetMake(0, 0)];
     [viewController.tabBarItem setImageInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
-    if (tagType == SYTabBarItemTagTypeContacts) {
-        int totalUnreadCount = [[RCIMClient sharedRCIMClient] getTotalUnreadCount];
-        if (totalUnreadCount > 0) {
-            viewController.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",totalUnreadCount];
-        }
-    }
 }
 
 

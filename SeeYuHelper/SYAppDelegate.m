@@ -311,7 +311,6 @@
             });
         }
     }
-    [SYNotificationCenter postNotificationName:@"refreshBadgeValue" object:nil];
 }
 
 - (void)didReceiveMessageNotification:(NSNotification *)notification {

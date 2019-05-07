@@ -9,7 +9,6 @@
 #import "SYTabBarViewModel.h"
 #import "SYMainFrameVM.h"
 #import "SYContactsVM.h"
-#import "SYDiscoverVM.h"
 #import "SYProfileVM.h"
 
 @interface SYHomePageVM : SYTabBarViewModel
@@ -19,9 +18,6 @@
 
 /// The view model of `contacts` interface.
 @property (nonatomic, strong, readonly) SYContactsVM *contactsViewModel;
-
-/// The view model of `discover` interface.
-@property (nonatomic, strong, readonly) SYDiscoverVM *discoverViewModel;
 
 /// The view model of `Profile` interface.
 @property (nonatomic, strong, readonly) SYProfileVM *profileViewModel;

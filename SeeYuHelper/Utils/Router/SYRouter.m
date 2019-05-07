@@ -81,33 +81,8 @@ static SYRouter *sharedInstance_ = nil;
              @"SYUnionConfirmVM":@"SYUnionConfirmVC",
              @"SYWithdrawalRulesVM":@"SYWithdrawalRulesVC",
              @"SYPaymentsVM":@"SYPaymentsVC",
-             @"SYPaymentsDetailVM":@"SYPaymentsDetailVC"
-//             @"SYAnchorsOrderVM":@"SYAnchorsOrderVC",
-//             @"SYAnchorsListVM":@"SYAnchorsListVC",
-//             @"SYAnchorShowVM":@"SYAnchorShowVC",
-//             @"SYUserInfoVM":@"SYUserInfoVC",
-             
-//             @"SYMyMomentsVM":@"SYMyMomentsVC",
-//             @"SYMomentsEditVM":@"SYMomentsEditVC",
-//             @"SYGiftPackageVM":@"SYGiftPackageVC",
-//             @"SYWebVM":@"SYWebVC",
-             
-             
-//             @"SYMomentVM":@"SYMomentVC",
-//             @"SYAuthenticationVM":@"SYAuthenticationVC",
-//             @"SYMobileBindingVM":@"SYMobileBindingVC",
-//             @"SYRealnameVM":@"SYRealnameVC",
-//             @"SYSelfieVM":@"SYSelfieVC",
-//             @"SYDiamondsVM":@"SYDiamondsVC",
-//             @"SYRechargeVM":@"SYRechargeVC",
-             
-//             @"SYCollectVM":@"SYCollectVC",
-//             @"SYPrivacyShowVM":@"SYPrivacyShowVC",
-//             @"SYFriendDetailInfoVM":@"SYFriendDetailInfoVC",
-//             @"SYForumCommentVM":@"SYForumCommentVC",
-//             @"SYAddFriendsVM":@"SYAddFriendsVC",
-//             @"SYNewFriendsVM":@"SYNewFriendsVC",
-//             @"SYInfoEditVM":@"SYInfoEditVC",
+             @"SYPaymentsDetailVM":@"SYPaymentsDetailVC",
+             @"SYUserDetailVM":@"SYUserDetailVC"
              };
 }
 

@@ -8,9 +8,7 @@
 
 #import "SYVC.h"
 #import "SYMainFrameVM.h"
-#import "FSSegmentTitleView.h"
-#import "FSPageContentView.h"
 
-@interface SYMainFrameVC : SYVC <FSSegmentTitleViewDelegate,FSPageContentViewDelegate>
+@interface SYMainFrameVC : SYVC
 
 @end

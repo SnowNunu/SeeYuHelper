@@ -7,24 +7,16 @@
 //
 
 #import "SYMainFrameVC.h"
-#import "SYAnchorsOrderVC.h"
-#import "SYNearbyVC.h"
-#import "SYRankingVC.h"
-#import "SYAnchorsRandomVC.h"
-#import "SYGiftPackageVM.h"
-#import "SYGiftPackageVC.h"
-#import "SYGiftPackageModel.h"
+#import "SYUserListModel.h"
 
-@interface SYMainFrameVC ()
+@interface SYMainFrameVC () <UITableViewDelegate,UITableViewDataSource>
 
 /// viewModel
 @property (nonatomic, readwrite, strong) SYMainFrameVM *viewModel;
 
-@property (nonatomic, strong) FSSegmentTitleView *titleView;
-
-@property (nonatomic, strong) FSPageContentView *contentView;
-
 @property (nonatomic, strong) SYUser *user;
+
+@property (nonatomic, strong) UITableView *tableView;
 
 @end
 
@@ -38,80 +30,129 @@
     return self;
 }
 
-/// 子类代码逻辑
 - (void)viewDidLoad {
     [super viewDidLoad];
-    /// 设置导航栏
-    [self _setupNavigation];
     self.edgesForExtendedLayout = UIRectEdgeNone;
-    [self.viewModel.loginReportCommand execute:nil];
+    [self _setupSubViews];
+    [self _makeSubViewsConstraints];
+    [self.viewModel.requestUserListInfoCommand execute:nil];
 }
 
 - (void)bindViewModel {
     [super bindViewModel];
-    [RACObserve(self, user) subscribeNext:^(SYUser *user) {
-        if (user != nil) {
-            // 这里没有去服务器重新请求一下当前用户的信息，因为考虑到注册时间不会变
-            if (!([[NSDate new] timeIntervalSinceDate:self.user.userRegisterTime] > 3600 * 24 * 7)) {
-                // 可以参与新手活动
-                [self.viewModel.requestGiftPackageInfoCommand execute:nil];
-            }
-        }
-    }];
     [RACObserve(self.viewModel, datasource) subscribeNext:^(NSArray *array) {
         if (array != nil) {
-            // 请求完服务器后判断当天的签到状态再打开礼包页面
-            int day = [[NSDate new] timeIntervalSinceDate:self.user.userRegisterTime] / 3600 / 24;  //获取当前是注册完之后的第几天
-            SYGiftPackageModel *model = self.viewModel.datasource[day];
-            if (model.giftRecordIsReceive == 0) {
-                SYGiftPackageVM *giftVM = [[SYGiftPackageVM alloc] initWithServices:SYSharedAppDelegate.services params:nil];
-                giftVM.giftPackagesArray = array;
-                SYGiftPackageVC *giftVC = [[SYGiftPackageVC alloc] initWithViewModel:giftVM];
-                CATransition *animation = [CATransition animation];
-                [animation setDuration:0.3];
-                animation.type = kCATransitionPush;
-                animation.subtype = kCATransitionMoveIn;
-                [SYSharedAppDelegate presentVC:giftVC withAnimation:animation];
-            }
+            [self.tableView reloadData];
         }
     }];
 }
 
-#pragma mark - 设置导航栏
-- (void)_setupNavigation { 
-    self.titleView = [[FSSegmentTitleView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame) - 80, 44) titles:@[@"语聊",@"附近",@"选聊",@"榜单"] delegate:self indicatorType:FSIndicatorTypeEqualTitle];
-    self.titleView.titleNormalColor = [UIColor whiteColor];
-    self.titleView.titleSelectColor = [UIColor whiteColor];
-    self.titleView.backgroundColor = [UIColor clearColor];
-    self.titleView.indicatorColor = [UIColor whiteColor];
-    self.titleView.titleFont = SYRegularFont(18);
-    self.titleView.titleSelectFont = SYRegularFont(20);
-    self.navigationItem.titleView = self.titleView;
-    
-    NSMutableArray *childVCs = [[NSMutableArray alloc]init];
-    // 语聊界面
-    SYAnchorsOrderVC *anchorsOrderVC = [[SYAnchorsOrderVC alloc] initWithViewModel:self.viewModel.anchorsOrderVM];
-    [childVCs addObject:anchorsOrderVC];
-    // 附近的人界面
-    SYNearbyVC *nearVC = [[SYNearbyVC alloc]initWithViewModel:self.viewModel.nearbyVM];
-    [childVCs addObject:nearVC];
-    // 选聊界面
-    SYAnchorsRandomVC *randomVC = [[SYAnchorsRandomVC alloc]initWithViewModel:self.viewModel.anchorsRandomVM];
-    [childVCs addObject:randomVC];
-    // 榜单界面
-    SYRankingVC *rankingVC = [[SYRankingVC alloc]initWithViewModel:self.viewModel.rankingVM];
-    [childVCs addObject:rankingVC];
-    
-    self.contentView = [[FSPageContentView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) - SY_APPLICATION_TOP_BAR_HEIGHT - SY_APPLICATION_TAB_BAR_HEIGHT) childVCs:childVCs parentVC:self delegate:self];
-    [self.view addSubview:_contentView];
+- (void)_setupSubViews {
+    UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+    tableView.delegate = self;
+    tableView.dataSource = self;
+    tableView.tableFooterView = [UIView new];
+    tableView.backgroundColor = SYColorFromHexString(@"#F8F8F8");
+    tableView.separatorInset = UIEdgeInsetsZero;
+    _tableView = tableView;
+    [self.view addSubview:tableView];
 }
 
-- (void)FSSegmentTitleView:(FSSegmentTitleView *)titleView startIndex:(NSInteger)startIndex endIndex:(NSInteger)endIndex {
-    self.contentView.contentViewCurrentIndex = endIndex;
+- (void)_makeSubViewsConstraints {
+    [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.view);
+    }];
 }
 
-- (void)FSContenViewDidEndDecelerating:(FSPageContentView *)contentView startIndex:(NSInteger)startIndex endIndex:(NSInteger)endIndex {
-    self.titleView.selectIndex = endIndex;
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return self.viewModel.datasource.count;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 100.f;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"UITableViewCell"];
+    }
+    cell.layoutMargins = UIEdgeInsetsZero;
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    SYUserListModel *model = self.viewModel.datasource[indexPath.row];
+    
+    UIImageView *avatarImageView = [UIImageView new];
+    avatarImageView.layer.cornerRadius = 35.f;
+    avatarImageView.masksToBounds = YES;
+    [avatarImageView yy_setImageWithURL:[NSURL URLWithString:model.userHeadImg] placeholder:SYImageNamed(@"DefaultProfileHead_66x66") options:SYWebImageOptionAutomatic completion:NULL];
+    [cell.contentView addSubview:avatarImageView];
+    
+    UILabel *aliasLabel = [UILabel new];
+    aliasLabel.textAlignment = NSTextAlignmentLeft;
+    aliasLabel.font = SYRegularFont(18);
+    aliasLabel.textColor = SYColor(51, 51, 51);
+    aliasLabel.text = model.userName;
+    [cell.contentView addSubview:aliasLabel];
+    
+    UIImageView *vipImageView = [UIImageView new];
+    vipImageView.image = model.userVipStatus == 0 ? SYImageNamed(@"VIP_disable") : SYImageNamed(@"VIP");
+    [cell.contentView addSubview:vipImageView];
+    
+    UILabel *diamondsLabel = [UILabel new];
+    diamondsLabel.textAlignment = NSTextAlignmentRight;
+    diamondsLabel.textColor = SYColor(159, 105, 235);
+    diamondsLabel.font = SYRegularFont(14);
+    NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"钻石：%d",model.userDiamond]];
+    [str addAttribute: NSForegroundColorAttributeName value: SYColor(51, 51, 51) range: NSMakeRange(0, 3)];
+    diamondsLabel.attributedText = str;
+    [cell.contentView addSubview:diamondsLabel];
+    
+    UILabel *followStateLabel = [UILabel new];
+    followStateLabel.textAlignment = NSTextAlignmentLeft;
+    followStateLabel.font = SYRegularFont(14);
+    if (model.followFlag == 1) {
+        followStateLabel.text = @"已关注我";
+        followStateLabel.textColor = SYColor(159, 105, 235);
+    } else {
+        followStateLabel.text = @"未关注我";
+        followStateLabel.textColor = SYColor(51, 51, 51);
+    }
+    [cell.contentView addSubview:followStateLabel];
+    
+    [avatarImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.height.offset(70);
+        make.centerY.equalTo(cell.contentView);
+        make.left.equalTo(cell.contentView).offset(15);
+    }];
+    [aliasLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(avatarImageView.mas_right).offset(15);
+        make.top.equalTo(avatarImageView);
+        make.height.offset(35);
+    }];
+    [vipImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(aliasLabel.mas_right).offset(15);
+        make.centerY.equalTo(aliasLabel);
+        make.width.offset(40);
+        make.height.offset(20);
+    }];
+    [diamondsLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.height.equalTo(aliasLabel);
+        make.bottom.equalTo(avatarImageView);
+    }];
+    [followStateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(diamondsLabel.mas_right).offset(30);
+        make.centerY.height.equalTo(diamondsLabel);
+    }];
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    SYUserListModel *model = self.viewModel.datasource[indexPath.row];
+    [self.viewModel.enterUserInfoViewCommand execute:model.userId];
 }
 
 @end
