@@ -14,6 +14,7 @@
 #import "SYSocketManager.h"
 #import "SYSocketResponseModel.h"
 #import "SYUser.h"
+#import "JX_GCDTimerManager.h"
 
 @interface SYAppDelegate : UIResponder <UIApplicationDelegate>
 

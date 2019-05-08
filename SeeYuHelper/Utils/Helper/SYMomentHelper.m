@@ -7,7 +7,6 @@
 //  
 
 #import "SYMomentHelper.h"
-#import "SYMomentOperationMoreView.h"
 
 @implementation SYMomentHelper
 + (NSDateFormatter *)dateFormatter{
@@ -74,7 +73,7 @@
 
 + (void)hideAllPopViewWithAnimated:(BOOL)animated{
     /// 关掉更多View
-    [SYMomentOperationMoreView hideAllOperationMoreViewWithAnimated:animated];
+//    [SYMomentOperationMoreView hideAllOperationMoreViewWithAnimated:animated];
     /// 关闭键盘
     if(SYSharedAppDelegate.isShowKeyboard){ [[UIApplication sharedApplication].keyWindow endEditing:YES]; }
 }

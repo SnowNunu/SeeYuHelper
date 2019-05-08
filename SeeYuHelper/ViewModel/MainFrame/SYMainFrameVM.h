@@ -16,6 +16,8 @@
 
 @property (nonatomic, strong) RACCommand *requestUserListInfoCommand;
 
+@property (nonatomic, strong) RACCommand *requestCustomerServiceCommand;
+
 @property (nonatomic, strong) RACCommand *enterUserInfoViewCommand;
 
 @end

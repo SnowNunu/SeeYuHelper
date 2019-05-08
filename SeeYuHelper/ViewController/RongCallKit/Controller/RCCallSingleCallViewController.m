@@ -60,7 +60,7 @@
         [self.view addSubview:_remotePortraitView];
         _remotePortraitView.hidden = YES;
         [_remotePortraitView setPlaceholderImage:[RCCallKitUtility getDefaultPortraitImage]];
-        _remotePortraitView.layer.cornerRadius = 4;
+        _remotePortraitView.layer.cornerRadius = 40.f;
         _remotePortraitView.layer.masksToBounds = YES;
     }
     return _remotePortraitView;
@@ -71,13 +71,8 @@
         _remoteNameLabel = [[UILabel alloc] init];
         _remoteNameLabel.backgroundColor = [UIColor clearColor];
         _remoteNameLabel.textColor = [UIColor whiteColor];
-        _remoteNameLabel.layer.shadowOpacity = 0.8;
-        _remoteNameLabel.layer.shadowRadius = 1.0;
-        _remoteNameLabel.layer.shadowColor = [UIColor darkGrayColor].CGColor;
-        _remoteNameLabel.layer.shadowOffset = CGSizeMake(0, 1);
-        _remoteNameLabel.font = [UIFont systemFontOfSize:18];
+        _remoteNameLabel.font = [UIFont boldSystemFontOfSize:18];
         _remoteNameLabel.textAlignment = NSTextAlignmentCenter;
-
         [self.view addSubview:_remoteNameLabel];
         _remoteNameLabel.hidden = YES;
     }
@@ -215,15 +210,25 @@
             self.remoteNameLabel.textAlignment = NSTextAlignmentCenter;
         } else if (callStatus == RCCallIncoming || callStatus == RCCallRinging) {
             // 呼入视频请求
-            self.remotePortraitView.frame =
-                CGRectMake((self.view.frame.size.width - RCCallHeaderLength) / 2, RCCallVerticalMargin * 3,
-                           RCCallHeaderLength, RCCallHeaderLength);
+//            self.remotePortraitView.frame =
+//                CGRectMake((self.view.frame.size.width - RCCallHeaderLength) / 2, RCCallVerticalMargin * 3,
+//                           RCCallHeaderLength, RCCallHeaderLength);
+            [self.remotePortraitView mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.centerX.equalTo(self.view);
+                make.width.height.offset(80);
+                make.top.equalTo(self.view).offset(60);
+            }];
             self.remotePortraitView.image = remoteHeaderImage;
             self.remotePortraitView.hidden = NO;
 
-            self.remoteNameLabel.frame =
-                CGRectMake(RCCallHorizontalMargin, RCCallVerticalMargin * 3 + RCCallHeaderLength + RCCallInsideMargin,
-                           self.view.frame.size.width - RCCallHorizontalMargin * 2, RCCallLabelHeight);
+//            self.remoteNameLabel.frame =
+//                CGRectMake(RCCallHorizontalMargin, RCCallVerticalMargin * 3 + RCCallHeaderLength + RCCallInsideMargin,
+//                           self.view.frame.size.width - RCCallHorizontalMargin * 2, RCCallLabelHeight);
+            [self.remoteNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.centerX.equalTo(self.view);
+                make.top.equalTo(self.remotePortraitView.mas_bottom).offset(15);
+                make.height.offset(20);
+            }];
             self.remoteNameLabel.hidden = NO;
             self.remoteNameLabel.textAlignment = NSTextAlignmentCenter;
         }

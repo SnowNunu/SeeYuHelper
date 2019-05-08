@@ -29,6 +29,19 @@
         SYURLParameters *paramters = [SYURLParameters urlParametersWithMethod:SY_HTTTP_METHOD_POST path:SY_HTTP_PATH_USER_INFO_LIST parameters:subscript.dictionary];
         return [[[[self.services.client enqueueRequest:[SYHTTPRequest requestWithParameters:paramters] resultClass:[SYUserListModel class]] sy_parsedResults]  takeUntil:self.rac_willDeallocSignal] map:mapAllUserInfo];
     }];
+    self.requestCustomerServiceCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+        NSDictionary *params = @{@"userId":self.services.client.currentUser.userId};
+        SYKeyedSubscript *subscript = [[SYKeyedSubscript alloc]initWithDictionary:params];
+        SYURLParameters *paramters = [SYURLParameters urlParametersWithMethod:SY_HTTTP_METHOD_POST path:SY_HTTP_PATH_CUSTOMER_SERVICE_INFO parameters:subscript.dictionary];
+        return [[[self.services.client enqueueRequest:[SYHTTPRequest requestWithParameters:paramters] resultClass:[SYUserListModel class]] sy_parsedResults]  takeUntil:self.rac_willDeallocSignal];
+    }];
+    [self.requestCustomerServiceCommand.executionSignals.switchToLatest.deliverOnMainThread subscribeNext:^(SYUserListModel *model) {
+        YYCache *cache = [YYCache cacheWithName:@"SeeYuHelper"];
+        [cache setObject:model.customerUserId forKey:@"customerUserId"];
+    }];
+    [self.requestCustomerServiceCommand.errors subscribeNext:^(NSError *error) {
+        [MBProgressHUD sy_showErrorTips:error];
+    }];
     [self.requestUserListInfoCommand.executionSignals.switchToLatest.deliverOnMainThread subscribeNext:^(NSArray *array) {
         self.datasource = array;
     }];

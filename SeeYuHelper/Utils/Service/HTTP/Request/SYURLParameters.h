@@ -42,6 +42,9 @@
 /// 获取首页列表
 #define SY_HTTP_PATH_USER_INFO_LIST       @"/application/anchorBase/queryAvailableVideoUsers"
 
+/// 获取客服信息
+#define SY_HTTP_PATH_CUSTOMER_SERVICE_INFO       @"/application/anchorBase/anchorQueryCustomer"
+
 /// 获取主播基础资料
 #define SY_HTTTP_PATH_USER_INFO_QUERY   @"/application/user/query"
 

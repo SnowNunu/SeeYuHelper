@@ -35,6 +35,11 @@
     self.edgesForExtendedLayout = UIRectEdgeNone;
     [self _setupSubViews];
     [self _makeSubViewsConstraints];
+    [self.viewModel.requestCustomerServiceCommand execute:nil];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     [self.viewModel.requestUserListInfoCommand execute:nil];
 }
 
@@ -45,6 +50,7 @@
             [self.tableView reloadData];
         }
     }];
+    [SYNotificationCenter addObserver:self selector:@selector(enterCustomerServiceView) name:@"enterCSViewFromMain" object:nil];
 }
 
 - (void)_setupSubViews {
@@ -153,6 +159,22 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     SYUserListModel *model = self.viewModel.datasource[indexPath.row];
     [self.viewModel.enterUserInfoViewCommand execute:model.userId];
+}
+
+- (void)enterCustomerServiceView {
+    SYSingleChattingVC *conversationVC = [[SYSingleChattingVC alloc] init];
+    conversationVC.conversationType = ConversationType_PRIVATE;
+    NSString *targetId = @"";
+    YYCache *cache = [YYCache cacheWithName:@"SeeYuHelper"];
+    if ([cache containsObjectForKey:@"customerUserId"]) {
+        id customerUserId = [cache objectForKey:@"customerUserId"];
+        targetId = (NSString *)customerUserId;
+    } else {
+        targetId = @"12404";
+    }
+    conversationVC.targetId = targetId;
+    conversationVC.title = @"客服";
+    [self.navigationController pushViewController:conversationVC animated:YES];
 }
 
 @end

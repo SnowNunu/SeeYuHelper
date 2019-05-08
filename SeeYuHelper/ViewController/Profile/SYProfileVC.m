@@ -9,6 +9,7 @@
 #import "SYProfileVC.h"
 #import "NSDate+Extension.h"
 #import "SYUserDetail.h"
+#import "SYSingleChattingVC.h"
 
 @interface SYProfileVC () <UITableViewDelegate, UITableViewDataSource>
 
@@ -73,6 +74,7 @@
             self.commissionContentLabel.text = [NSString stringWithFormat:@"￥%d",userDetail.basePay];
         }
     }];
+    [SYNotificationCenter addObserver:self selector:@selector(enterCustomerServiceView) name:@"enterCSViewFromProfile" object:nil];
 }
 
 - (void)_setupSubViews {
@@ -279,6 +281,21 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     [self.viewModel.enterNextViewCommand execute:@(indexPath.row)];
+}
+
+- (void)enterCustomerServiceView {
+    SYSingleChattingVC *conversationVC = [[SYSingleChattingVC alloc] init];
+    NSString *targetId = @"";
+    YYCache *cache = [YYCache cacheWithName:@"SeeYuHelper"];
+    if ([cache containsObjectForKey:@"customerUserId"]) {
+        id customerUserId = [cache objectForKey:@"customerUserId"];
+        targetId = (NSString *)customerUserId;
+    } else {
+        targetId = @"12404";
+    }
+    conversationVC.targetId = targetId;
+    conversationVC.title = @"客服";
+    [self.navigationController pushViewController:conversationVC animated:YES];
 }
 
 @end

@@ -19,6 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
 // 进入主页界面
 @property (nonatomic, strong) RACCommand *enterHomePageViewCommand;
 
+@property (nonatomic, strong) RACCommand *requestUserInfoCommand;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -8,9 +8,12 @@
 
 #import "SYTabBarController.h"
 #import "SYTabBar.h"
+
 @interface SYTabBarController ()
+
 /// tabBarController
 @property (nonatomic, strong, readwrite) UITabBarController *tabBarController;
+
 @end
 
 @implementation SYTabBarController
@@ -46,4 +49,7 @@
 - (BOOL)prefersStatusBarHidden{
     return self.tabBarController.selectedViewController.prefersStatusBarHidden;
 }
+
+
+
 @end

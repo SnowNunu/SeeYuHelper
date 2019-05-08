@@ -182,11 +182,12 @@
         [MBProgressHUD sy_hideHUD];
         [MBProgressHUD sy_showError:@"账号或密码有误，请检查!"];
     } else if ([dict[@"code"] isEqualToString:@"288"]) {
+        // 这时候请求进来user数据不全
         SYUser *user = [SYUser new];
         user.userId = [self.accountTextField.text stringByTrim];
         user.userPassword = [CocoaSecurity md5:[self.passwordTextField.text stringByTrim]].hexLower;
         [self.viewModel.services.client saveUser:user];
-        [self.viewModel.enterHomePageViewCommand execute:nil];
+        [self.viewModel.requestUserInfoCommand execute:nil];
     }
 }
 

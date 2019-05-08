@@ -34,6 +34,10 @@
     [self.requestUserDetailInfoCommand.errors subscribeNext:^(NSError *error) {
         [MBProgressHUD sy_showErrorTips:error];
     }];
+    self.sendVideoRequestCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(NSString *userId) {
+        [[RCCall sharedRCCall] startSingleCall:userId mediaType:RCCallMediaVideo];
+        return [RACSignal empty];
+    }];
 }
 
 @end

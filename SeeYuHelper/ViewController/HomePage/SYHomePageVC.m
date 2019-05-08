@@ -9,7 +9,7 @@
 #import "SYHomePageVC.h"
 #import "SYNavigationController.h"
 #import "SYMainFrameVC.h"
-#import "SYContactsVC.h"
+#import "SYSingleChattingVC.h"
 #import "SYProfileVC.h"
 
 @interface SYHomePageVC ()
@@ -49,7 +49,7 @@
     
     /// 客服
     UINavigationController *customerServiceNavigationController = ({
-        SYContactsVC *contactsViewController = [[SYContactsVC alloc] initWithViewModel:self.viewModel.contactsViewModel];
+        SYSingleChattingVC *contactsViewController = [SYSingleChattingVC new];
         
         SYTabBarItemTagType tagType = SYTabBarItemTagTypeCustomerService;
         /// 配置
@@ -101,34 +101,28 @@
 }
 
 
-//#pragma mark - UITabBarControllerDelegate
-//- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
-//    /// 需要判断是否登录
-//    if ([[self.viewModel.services client] isLogin]) return YES;
-//    
-//    SYTabBarItemTagType tagType = viewController.tabBarItem.tag;
-//    
-//    switch (tagType) {
-//        case SYTabBarItemTagTypeHome:
-//        case SYTabBarItemTagTypeConsign:
-//            return YES;
-//            break;
-//        case SYTabBarItemTagTypeMessage:
-//        case SYTabBarItemTagTypeProfile:
-//        {
-//            @weakify(self);
-//            [[self.viewModel.services client] checkLogin:^{
-//                @strongify(self);
-//                self.tabBarController.selectedViewController = viewController;
-//                [self tabBarController:tabBarController didSelectViewController:viewController];
-//            } cancel:NULL];
-//            return NO;
-//        }
-//            break;
-//    }
-//    return NO;
-//}
-//
+#pragma mark - UITabBarControllerDelegate
+- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
+    YYCache *cache = [YYCache cacheWithName:@"SeeYuHelper"];
+    SYTabBarItemTagType tagType = viewController.tabBarItem.tag;
+    if (tagType == SYTabBarItemTagTypeCustomerService) {
+        id from = [cache objectForKey:@"customeServiceFrom"];
+        int tag = (int)from;
+        if (tag == SYTabBarItemTagTypeMainFrame) {
+            [SYNotificationCenter postNotificationName:@"enterCSViewFromMain" object:nil];
+        } else {
+            [SYNotificationCenter postNotificationName:@"enterCSViewFromProfile" object:nil];
+        }
+        return NO;
+    } else if(tagType == SYTabBarItemTagTypeMainFrame) {
+        [cache setObject:@"0" forKey:@"customeServiceFrom"];
+        return YES;
+    } else {
+        [cache setObject:@"2" forKey:@"customeServiceFrom"];
+        return YES;
+    }
+}
+
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController {
     NSLog(@"viewController   %@  %zd",viewController,viewController.tabBarItem.tag);
     [SYSharedAppDelegate.navigationControllerStack popNavigationController];

@@ -7,6 +7,7 @@
 //
 
 #import "SYVM.h"
+#import "RongCallKit.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -17,6 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) SYUser *user;
 
 @property (nonatomic, strong) RACCommand *requestUserDetailInfoCommand;
+
+@property (nonatomic, strong) RACCommand *sendVideoRequestCommand;
 
 @end
 

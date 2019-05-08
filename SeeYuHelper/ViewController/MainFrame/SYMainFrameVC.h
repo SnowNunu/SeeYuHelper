@@ -8,6 +8,7 @@
 
 #import "SYVC.h"
 #import "SYMainFrameVM.h"
+#import "SYSingleChattingVC.h"
 
 @interface SYMainFrameVC : SYVC
 

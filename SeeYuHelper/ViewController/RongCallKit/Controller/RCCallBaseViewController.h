@@ -9,6 +9,8 @@
 #import <RongCallLib/RongCallLib.h>
 #import <RongIMLib/RongIMLib.h>
 #import <UIKit/UIKit.h>
+#import "SYSocketManager.h"
+#import "JX_GCDTimerManager.h"
 
 /*!
  通话的ViewController基类

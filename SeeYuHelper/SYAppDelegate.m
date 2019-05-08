@@ -18,8 +18,8 @@
 #import "SYOutboundModel.h"
 #import <FFToast/FFToast.h>
 #import "RongCallKit.h"
-#import "SYOutboundVC.h"
-#import "SYOutboundVM.h"
+#import <CoreTelephony/CTCallCenter.h>
+#import <CoreTelephony/CTCall.h>
 
 #if defined(DEBUG)||defined(_DEBUG)
 #import <JPFPSStatus/JPFPSStatus.h>
@@ -30,6 +30,8 @@
 #endif
 
 @interface SYAppDelegate () <RCIMReceiveMessageDelegate>
+
+@property (nonatomic, strong) CTCallCenter *callCenter;
 
 @end
 
@@ -51,8 +53,7 @@
     // 重置rootViewController
     SYVM *vm = [self _createInitialViewModel];
     if ([vm isKindOfClass:[SYHomePageVM class]]) {
-        NSString *url = [NSString stringWithFormat:@"%@?type=1&userId=%@&userPassword=%@",SY_WEB_SOCKET_URL,self.services.client.currentUserId,self.services.client.currentUser.userPassword];
-        [self startWebSocketService:url];
+        NSLog(@"%@",self.services.client.currentUser.userToken);
         [[RCIM sharedRCIM] connectWithToken:self.services.client.currentUser.userToken success:^(NSString *userId) {
             [Bugly setUserIdentifier:userId];
             [MobClick profileSignInWithPUID:userId];
@@ -140,6 +141,7 @@
     // 注册推送, 用于iOS8以及iOS8之后的系统
     UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert) categories:nil];
     [application registerUserNotificationSettings:settings];
+    [self registerTelephonyEvent];
 }
 
 /// 配置文件夹
@@ -290,19 +292,7 @@
             SYURLParameters *paramters = [SYURLParameters urlParametersWithMethod:SY_HTTTP_METHOD_POST path:SY_HTTTP_PATH_USER_IMINFO parameters:subscript.dictionary];
             [[[self.services.client enqueueRequest:[SYHTTPRequest requestWithParameters:paramters] resultClass:[SYUser class]] sy_parsedResults] subscribeNext:^(SYUser *user) {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    SYOutboundVM *outboundVM = [[SYOutboundVM alloc] initWithServices:self.services params:nil];
-                    SYOutboundModel *outboundModel = [SYOutboundModel new];
-                    outboundModel.alias = user.userName;
-                    outboundModel.avatarImage = user.userHeadImg;
-                    outboundModel.videoShow = user.showVideo;
-                    outboundModel.interval = model.time;
-                    outboundVM.model = outboundModel;
-                    SYOutboundVC *outboundVC = [[SYOutboundVC alloc] initWithViewModel:outboundVM];
-                    CATransition *animation = [CATransition animation];
-                    [animation setDuration:0.3];
-                    animation.type = kCATransitionFade;
-                    animation.subtype = kCATransitionMoveIn;
-                    [self presentVC:outboundVC withAnimation:animation];
+                    
                 });
             }];
         } else {
@@ -332,11 +322,21 @@
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    if (!([SAMKeychain rawLogin] == nil)) {
+        NSString *url = [NSString stringWithFormat:@"%@?type=1&userId=%@&userPassword=%@",SY_WEB_SOCKET_URL,self.services.client.currentUserId,self.services.client.currentUser.userPassword];
+        [self startWebSocketService:url];
+    }
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+
+- (void)applicationDidEnterBackground:(UIApplication *)application {
+    if ([SYSocketManager shareManager].sy_socketStatus == SYSocketStatusConnected || [SYSocketManager shareManager].sy_socketStatus == SYSocketStatusReceived) {
+        [self stopWebSocketService];
+    }
 }
 
 - (void)redirectNSlogToDocumentFolder {
@@ -421,7 +421,14 @@
                             }
                         }
                     } else {
-                        
+                        NSLog(@"%@",params[@"longestMinutes"]);
+                        if (params[@"longestMinutes"] != nil) {
+                            NSString *time = params[@"longestMinutes"];
+                            NSLog(@"剩余通话时长为:%@",time);
+                            [[JX_GCDTimerManager sharedInstance] scheduledDispatchTimerWithName:@"HangUpVideo" timeInterval:time.doubleValue * 60 queue:dispatch_get_main_queue() repeats:NO fireInstantly:NO action:^{
+                                [SYNotificationCenter postNotificationName:@"HangUpVideo" object:nil];
+                            }];
+                        }
                     }
                 }
             } else {
@@ -440,6 +447,7 @@
 }
 
 - (void)sendMessageByWebSocketService:(NSString *) message {
+    NSLog(@"主动发送了数据:%@",message);
     [[SYSocketManager shareManager] sy_send:message];
 }
 
@@ -447,6 +455,25 @@
     [[SYSocketManager shareManager] sy_close:^(NSInteger code, NSString * _Nonnull reason, BOOL wasClean) {
         NSLog(@"code:%ld,reason:%@,wasClean:%lf",(long)code,reason,wasClean);
     }];
+}
+
+// 监来电状态
+- (void)registerTelephonyEvent {
+    self.callCenter = [[CTCallCenter alloc] init];
+    @weakify(self)
+    self.callCenter.callEventHandler = ^(CTCall *call) {
+        @strongify(self)
+        if ([call.callState isEqualToString:CTCallStateIncoming]) {
+            // 有电话呼入,断开websocket连接
+            [self stopWebSocketService];
+        } else if ([call.callState isEqualToString:@"CTCallStateDisconnected"]) {
+            // 通话结束或者挂断电话
+            if (!([SAMKeychain rawLogin] == nil)) {
+                NSString *url = [NSString stringWithFormat:@"%@?type=1&userId=%@&userPassword=%@",SY_WEB_SOCKET_URL,self.services.client.currentUserId,self.services.client.currentUser.userPassword];
+                [self startWebSocketService:url];
+            }
+        }
+    };
 }
 
 @end

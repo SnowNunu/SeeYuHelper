@@ -135,6 +135,7 @@
 
 - (void)webSocket:(SRWebSocket *)webSocket didFailWithError:(NSError *)error {
     NSLog(@":( Websocket Failed With Error %@", error);
+    NSLog(@"websocket断开：%@",error);
     [SYSocketManager shareManager].sy_socketStatus = SYSocketStatusFailed;
     [SYSocketManager shareManager].failure ? [SYSocketManager shareManager].failure(error) : nil;
     // 重连

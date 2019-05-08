@@ -26,6 +26,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign) int followFlag;
 
+/* 客服id */
+@property (nonatomic, strong) NSString *customerUserId;
+
 @end
 
 NS_ASSUME_NONNULL_END

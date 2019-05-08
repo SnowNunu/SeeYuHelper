@@ -219,6 +219,16 @@
             self.vipStatusInfoLabel.attributedText = vipString;
         }
     }];
+    [[self.videoBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
+        if (self.viewModel.user.userDiamond < 30) {
+            [MBProgressHUD sy_showTips:@"当前用户钻石数量不足，无法发起视频通话"];
+        } else {
+            YYCache *cache = [YYCache cacheWithName:@"SeeYuHelper"];
+            [cache setObject:self.viewModel.services.client.currentUserId forKey:@"videoUserId"];
+            [cache setObject:self.viewModel.userId forKey:@"videoReceiveUserId"];
+            [self.viewModel.sendVideoRequestCommand execute:self.viewModel.userId];
+        }
+    }];
 }
 
 - (void)_setupSubViews {

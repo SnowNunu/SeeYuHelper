@@ -198,7 +198,11 @@
                                              selector:@selector(onOrientationChanged:)
                                                  name:UIApplicationDidChangeStatusBarOrientationNotification
                                                object:nil];
-
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(hangupButtonClicked)
+                                                 name:@"HangUpVideo"
+                                               object:nil];
     [self registerTelephonyEvent];
     [self addProximityMonitoringObserver];
     //    UIVisualEffect *blurEffect = [UIBlurEffect
@@ -218,7 +222,8 @@
 - (void)checkApplicationStateAndAlert {
     if (self.callSession.callStatus == RCCallDialing) {
         if ([UIApplication sharedApplication].applicationState == UIApplicationStateActive) {
-            NSString *ringPath = [[NSBundle mainBundle] pathForResource:@"Opening" ofType:@"m4r"];
+            NSString *ringPath = [[[NSBundle mainBundle] pathForResource:@"RongCloud" ofType:@"bundle"]
+                                  stringByAppendingPathComponent:@"voip/voip_calling_ring.mp3"];
             [self startPlayRing:ringPath];
             self.needPlayingAlertAfterForeground = NO;
         } else {
@@ -365,9 +370,8 @@
         _tipsLabel = [[UILabel alloc] init];
         _tipsLabel.backgroundColor = [UIColor clearColor];
         _tipsLabel.textColor = [UIColor whiteColor];
-        _tipsLabel.font = [UIFont systemFontOfSize:18];
+        _tipsLabel.font = [UIFont systemFontOfSize:14];
         _tipsLabel.textAlignment = NSTextAlignmentCenter;
-
         [self.view addSubview:_tipsLabel];
         _tipsLabel.hidden = YES;
     }
@@ -554,11 +558,11 @@
     [self.speakerButton setSelected:self.callSession.speakerEnabled];
 }
 
+// 接听按钮
 - (UIButton *)acceptButton {
     if (!_acceptButton) {
         _acceptButton = [[UIButton alloc] init];
-        [_acceptButton setImage:[RCCallKitUtility imageFromVoIPBundle:@"voip/answer.png"]
-                       forState:UIControlStateNormal];
+        [_acceptButton setImage:SYImageNamed(@"call_icon_answer") forState:UIControlStateNormal];
         [_acceptButton addTarget:self
                           action:@selector(acceptButtonClicked)
                 forControlEvents:UIControlEventTouchUpInside];
@@ -569,6 +573,7 @@
     return _acceptButton;
 }
 
+// 接听按钮回调
 - (void)acceptButtonClicked {
     [self didTapAcceptButton];
 
@@ -579,11 +584,11 @@
     }
 }
 
+// 挂断按钮
 - (UIButton *)hangupButton {
     if (!_hangupButton) {
         _hangupButton = [[UIButton alloc] init];
-        [_hangupButton setImage:[RCCallKitUtility imageFromVoIPBundle:@"voip/hang_up.png"]
-                       forState:UIControlStateNormal];
+        [_hangupButton setImage:SYImageNamed(@"call_icon_hangUp") forState:UIControlStateNormal];
         [_hangupButton addTarget:self
                           action:@selector(hangupButtonClicked)
                 forControlEvents:UIControlEventTouchUpInside];
@@ -594,6 +599,7 @@
     return _hangupButton;
 }
 
+// 挂断按钮回调
 - (void)hangupButtonClicked {
     [self didTapHangupButton];
 
@@ -865,6 +871,8 @@
         self.cameraSwitchButton.hidden = YES;
 
     } else if (mediaType == RCCallMediaVideo && !isMultiCall) {
+        
+        
         // 单聊视频
         self.backgroundView.hidden = NO;
 
@@ -906,10 +914,11 @@
                            RCCallVerticalMargin * 3 + RCCallHeaderLength + RCCallInsideMargin * 2 + RCCallLabelHeight,
                            self.view.frame.size.width - RCCallHorizontalMargin * 2, RCCallLabelHeight);
         } else if (callStatus == RCCallIncoming || callStatus == RCCallRinging) {
-            self.tipsLabel.frame =
-                CGRectMake(RCCallHorizontalMargin,
-                           RCCallVerticalMargin * 3 + RCCallHeaderLength + RCCallInsideMargin * 2 + RCCallLabelHeight,
-                           self.view.frame.size.width - RCCallHorizontalMargin * 2, RCCallLabelHeight);
+            [self.tipsLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.centerX.equalTo(self.view);
+                make.top.equalTo(self.view).offset(185);
+                make.height.offset(15);
+            }];
         } else if (callStatus == RCCallHangup) {
             self.tipsLabel.frame = CGRectMake(
                 RCCallHorizontalMargin,
@@ -940,6 +949,7 @@
 
             self.acceptButton.hidden = YES;
         } else if (callStatus == RCCallIncoming || callStatus == RCCallRinging) {
+#pragma mark 正在修改这里
             [self.hangupButton mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.width.height.offset(60);
                 make.left.equalTo(self.view).offset(60);
@@ -1682,9 +1692,47 @@
 
 #pragma mark - outside callback
 - (void)callWillConnect {
+    NSLog(@"通话已经接通");
+    if ([SYSocketManager shareManager].sy_socketStatus == SYSocketStatusConnected || [SYSocketManager shareManager].sy_socketStatus == SYSocketStatusReceived) {
+        YYCache *cache = [YYCache cacheWithName:@"SeeYuHelper"];
+        if ([cache containsObjectForKey:@"videoUserId"] && [cache containsObjectForKey:@"videoReceiveUserId"]) {
+            // 有缓存数据优先读取缓存数据
+            id userId = [cache objectForKey:@"videoUserId"];
+            id receiveUserId = [cache objectForKey:@"videoReceiveUserId"];
+            NSDictionary *params = @{@"type":@"2",@"userId":(NSString *)userId,@"receiveUserId":(NSString *)receiveUserId};
+            [[SYAppDelegate sharedDelegate] sendMessageByWebSocketService:[params yy_modelToJSONString]];
+        } else {
+            [MBProgressHUD sy_showError:@"客户端异常，请联系客服!"];
+        }
+    } else {
+        [MBProgressHUD sy_showError:@"与服务器连接出错，请稍候再试!"];
+    }
 }
 
 - (void)callWillDisconnect {
+    NSLog(@"通话已经挂断");
+    [[JX_GCDTimerManager sharedInstance] checkExistTimer:@"HangUpVideo" completion:^(BOOL doExist) {
+        if (doExist) {
+            // 释放定时器
+            [[JX_GCDTimerManager sharedInstance] cancelTimerWithName:@"HangUpVideo"];
+            NSLog(@"定时器释放成功");
+        }
+    }];
+    if ([SYSocketManager shareManager].sy_socketStatus == SYSocketStatusConnected || [SYSocketManager shareManager].sy_socketStatus == SYSocketStatusReceived) {
+        //
+        YYCache *cache = [YYCache cacheWithName:@"SeeYuHelper"];
+        if ([cache containsObjectForKey:@"videoUserId"] && [cache containsObjectForKey:@"videoReceiveUserId"]) {
+            // 有缓存数据优先读取缓存数据
+            id userId = [cache objectForKey:@"videoUserId"];
+            id receiveUserId = [cache objectForKey:@"videoReceiveUserId"];
+            NSDictionary *params = @{@"type":@"3",@"userId":(NSString *)userId,@"receiveUserId":(NSString *)receiveUserId};
+            [[SYAppDelegate sharedDelegate] sendMessageByWebSocketService:[params yy_modelToJSONString]];
+        } else {
+            [MBProgressHUD sy_showError:@"客户端异常，请联系客服!"];
+        }
+    } else {
+        [MBProgressHUD sy_showError:@"与服务器连接出错，请稍候再试!"];
+    }
 }
 
 - (BOOL)tipsWillShow:(RCCallErrorCode)warning {

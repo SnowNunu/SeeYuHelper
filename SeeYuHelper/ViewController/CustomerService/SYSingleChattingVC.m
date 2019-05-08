@@ -7,9 +7,6 @@
 //
 
 #import "SYSingleChattingVC.h"
-#import "SYGiftVC.h"
-#import "SYGiftVM.h"
-#import "SYGiftModel.h"
 #import "SYNavigationController.h"
 
 @interface SYSingleChattingVC ()
@@ -43,14 +40,14 @@
     [[_sendPresentBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
         @strongify(self)
         if (self.btnEnabled) {
-            SYGiftVM *giftVM = [[SYGiftVM alloc] initWithServices:SYSharedAppDelegate.services params:nil];
-            giftVM.friendId = self.targetId;
-            SYGiftVC *giftVC = [[SYGiftVC alloc] initWithViewModel:giftVM];
-            SYNavigationController *navigationController = [[SYNavigationController alloc]initWithRootViewController:giftVC];
-            CATransition *animation = [CATransition animation];
-            [animation setDuration:0.3];
-            animation.type = kCATransitionFade;
-            [SYSharedAppDelegate presentVC:navigationController withAnimation:animation];
+//            SYGiftVM *giftVM = [[SYGiftVM alloc] initWithServices:SYSharedAppDelegate.services params:nil];
+//            giftVM.friendId = self.targetId;
+//            SYGiftVC *giftVC = [[SYGiftVC alloc] initWithViewModel:giftVM];
+//            SYNavigationController *navigationController = [[SYNavigationController alloc]initWithRootViewController:giftVC];
+//            CATransition *animation = [CATransition animation];
+//            [animation setDuration:0.3];
+//            animation.type = kCATransitionFade;
+//            [SYSharedAppDelegate presentVC:navigationController withAnimation:animation];
         }
     }];
 }
@@ -148,14 +145,14 @@
     NSDictionary *params = @{@"userId":SYSharedAppDelegate.services.client.currentUser.userId};
     SYKeyedSubscript *subscript = [[SYKeyedSubscript alloc]initWithDictionary:params];
     SYURLParameters *paramters = [SYURLParameters urlParametersWithMethod:SY_HTTTP_METHOD_POST path:SY_HTTTP_PATH_USER_GIFT_LIST_QUERY parameters:subscript.dictionary];
-    [[[[SYSharedAppDelegate.services.client enqueueRequest:[SYHTTPRequest requestWithParameters:paramters] resultClass:[SYGiftModel class]] sy_parsedResults] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(SYGiftModel *giftModel) {
-        YYCache *cache = [YYCache cacheWithName:@"seeyu"];
-        [cache setObject:giftModel forKey:@"giftModel"];
-    } error:^(NSError *error) {
-        [MBProgressHUD sy_showErrorTips:error];
-    } completed:^{
-        self.btnEnabled = YES;
-    }];
+//    [[[[SYSharedAppDelegate.services.client enqueueRequest:[SYHTTPRequest requestWithParameters:paramters] resultClass:[SYGiftModel class]] sy_parsedResults] takeUntil:self.rac_willDeallocSignal] subscribeNext:^(SYGiftModel *giftModel) {
+//        YYCache *cache = [YYCache cacheWithName:@"seeyu"];
+//        [cache setObject:giftModel forKey:@"giftModel"];
+//    } error:^(NSError *error) {
+//        [MBProgressHUD sy_showErrorTips:error];
+//    } completed:^{
+//        self.btnEnabled = YES;
+//    }];
 }
 
 @end
