@@ -150,6 +150,17 @@
 		7B0228B7223B55020045E25F /* SYFriendGroupModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0228B6223B55020045E25F /* SYFriendGroupModel.m */; };
 		7B0228BA223B7D9D0045E25F /* SYFriendModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0228B9223B7D9D0045E25F /* SYFriendModel.m */; };
 		7B0228BE223B87810045E25F /* SYFriendsListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0228BD223B87810045E25F /* SYFriendsListCell.m */; };
+		7B0A26AB22828A5B0003EE51 /* SYGiftListVM.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0A26AA22828A5B0003EE51 /* SYGiftListVM.m */; };
+		7B0A26AE22828A790003EE51 /* SYGiftListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0A26AD22828A790003EE51 /* SYGiftListVC.m */; };
+		7B0A26C22282E7210003EE51 /* JPGiftModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0A26B52282E7210003EE51 /* JPGiftModel.m */; };
+		7B0A26C32282E7210003EE51 /* JPGiftCountLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0A26B62282E7210003EE51 /* JPGiftCountLabel.m */; };
+		7B0A26C42282E7210003EE51 /* JPGiftView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0A26B72282E7210003EE51 /* JPGiftView.m */; };
+		7B0A26C52282E7220003EE51 /* JPHorizontalLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0A26B92282E7210003EE51 /* JPHorizontalLayout.m */; };
+		7B0A26C62282E7220003EE51 /* JPGiftShowManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0A26BA2282E7210003EE51 /* JPGiftShowManager.m */; };
+		7B0A26C72282E7220003EE51 /* JPGiftShowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0A26BB2282E7210003EE51 /* JPGiftShowView.m */; };
+		7B0A26C82282E7220003EE51 /* JPGiftCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0A26BE2282E7210003EE51 /* JPGiftCollectionViewCell.m */; };
+		7B0A26C92282E7220003EE51 /* JPGiftCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0A26BF2282E7210003EE51 /* JPGiftCellModel.m */; };
+		7B0A26CA2282E7220003EE51 /* JPGiftOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0A26C02282E7210003EE51 /* JPGiftOperation.m */; };
 		7B0E9B66227A833200EF0502 /* SYInfoSupplementVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0E9B65227A833200EF0502 /* SYInfoSupplementVC.m */; };
 		7B0E9B69227A834B00EF0502 /* SYInfoSupplementVM.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0E9B68227A834B00EF0502 /* SYInfoSupplementVM.m */; };
 		7B0E9B6D227B29A800EF0502 /* SYSocketResponseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0E9B6C227B29A800EF0502 /* SYSocketResponseModel.m */; };
@@ -317,7 +328,7 @@
 		7BC56A79226F0304005C1F81 /* SYSignatureView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BC56A78226F0304005C1F81 /* SYSignatureView.m */; };
 		7BC56A7E226F0F35005C1F81 /* SYNicknameModifyVM.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BC56A7D226F0F35005C1F81 /* SYNicknameModifyVM.m */; };
 		7BC56A81226F0F5E005C1F81 /* SYNicknameModifyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BC56A80226F0F5E005C1F81 /* SYNicknameModifyVC.m */; };
-		7BC56A85227018A1005C1F81 /* SYGiftModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BC56A84227018A1005C1F81 /* SYGiftModel.m */; };
+		7BC56A85227018A1005C1F81 /* SYGiftListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BC56A84227018A1005C1F81 /* SYGiftListModel.m */; };
 		7BC6FC0322374CB60079330A /* SYRCIMDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BC6FC0222374CB60079330A /* SYRCIMDataSource.m */; };
 		7BC6FC132237F2780079330A /* SYLoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BC6FC122237F2780079330A /* SYLoginVC.m */; };
 		7BC6FC162237F28C0079330A /* SYLoginVM.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BC6FC152237F28C0079330A /* SYLoginVM.m */; };
@@ -660,6 +671,28 @@
 		7B0228B9223B7D9D0045E25F /* SYFriendModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SYFriendModel.m; sourceTree = "<group>"; };
 		7B0228BC223B87810045E25F /* SYFriendsListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SYFriendsListCell.h; sourceTree = "<group>"; };
 		7B0228BD223B87810045E25F /* SYFriendsListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SYFriendsListCell.m; sourceTree = "<group>"; };
+		7B0A26A922828A5B0003EE51 /* SYGiftListVM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SYGiftListVM.h; sourceTree = "<group>"; };
+		7B0A26AA22828A5B0003EE51 /* SYGiftListVM.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SYGiftListVM.m; sourceTree = "<group>"; };
+		7B0A26AC22828A790003EE51 /* SYGiftListVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SYGiftListVC.h; sourceTree = "<group>"; };
+		7B0A26AD22828A790003EE51 /* SYGiftListVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SYGiftListVC.m; sourceTree = "<group>"; };
+		7B0A26B02282E7210003EE51 /* JPHorizontalLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPHorizontalLayout.h; sourceTree = "<group>"; };
+		7B0A26B12282E7210003EE51 /* JPGiftShowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPGiftShowView.h; sourceTree = "<group>"; };
+		7B0A26B22282E7210003EE51 /* JPGiftShowManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPGiftShowManager.h; sourceTree = "<group>"; };
+		7B0A26B32282E7210003EE51 /* JPGiftCellModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPGiftCellModel.h; sourceTree = "<group>"; };
+		7B0A26B42282E7210003EE51 /* JPGiftCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPGiftCollectionViewCell.h; sourceTree = "<group>"; };
+		7B0A26B52282E7210003EE51 /* JPGiftModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPGiftModel.m; sourceTree = "<group>"; };
+		7B0A26B62282E7210003EE51 /* JPGiftCountLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPGiftCountLabel.m; sourceTree = "<group>"; };
+		7B0A26B72282E7210003EE51 /* JPGiftView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPGiftView.m; sourceTree = "<group>"; };
+		7B0A26B82282E7210003EE51 /* JPGiftOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPGiftOperation.h; sourceTree = "<group>"; };
+		7B0A26B92282E7210003EE51 /* JPHorizontalLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPHorizontalLayout.m; sourceTree = "<group>"; };
+		7B0A26BA2282E7210003EE51 /* JPGiftShowManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPGiftShowManager.m; sourceTree = "<group>"; };
+		7B0A26BB2282E7210003EE51 /* JPGiftShowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPGiftShowView.m; sourceTree = "<group>"; };
+		7B0A26BC2282E7210003EE51 /* JPGiftCountLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPGiftCountLabel.h; sourceTree = "<group>"; };
+		7B0A26BD2282E7210003EE51 /* JPGiftModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPGiftModel.h; sourceTree = "<group>"; };
+		7B0A26BE2282E7210003EE51 /* JPGiftCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPGiftCollectionViewCell.m; sourceTree = "<group>"; };
+		7B0A26BF2282E7210003EE51 /* JPGiftCellModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPGiftCellModel.m; sourceTree = "<group>"; };
+		7B0A26C02282E7210003EE51 /* JPGiftOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPGiftOperation.m; sourceTree = "<group>"; };
+		7B0A26C12282E7210003EE51 /* JPGiftView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPGiftView.h; sourceTree = "<group>"; };
 		7B0E9B64227A833200EF0502 /* SYInfoSupplementVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SYInfoSupplementVC.h; sourceTree = "<group>"; };
 		7B0E9B65227A833200EF0502 /* SYInfoSupplementVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SYInfoSupplementVC.m; sourceTree = "<group>"; };
 		7B0E9B67227A834B00EF0502 /* SYInfoSupplementVM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SYInfoSupplementVM.h; sourceTree = "<group>"; };
@@ -988,8 +1021,8 @@
 		7BC56A7D226F0F35005C1F81 /* SYNicknameModifyVM.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SYNicknameModifyVM.m; sourceTree = "<group>"; };
 		7BC56A7F226F0F5E005C1F81 /* SYNicknameModifyVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SYNicknameModifyVC.h; sourceTree = "<group>"; };
 		7BC56A80226F0F5E005C1F81 /* SYNicknameModifyVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SYNicknameModifyVC.m; sourceTree = "<group>"; };
-		7BC56A83227018A1005C1F81 /* SYGiftModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SYGiftModel.h; sourceTree = "<group>"; };
-		7BC56A84227018A1005C1F81 /* SYGiftModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SYGiftModel.m; sourceTree = "<group>"; };
+		7BC56A83227018A1005C1F81 /* SYGiftListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SYGiftListModel.h; sourceTree = "<group>"; };
+		7BC56A84227018A1005C1F81 /* SYGiftListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SYGiftListModel.m; sourceTree = "<group>"; };
 		7BC6FC0122374CB60079330A /* SYRCIMDataSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SYRCIMDataSource.h; sourceTree = "<group>"; };
 		7BC6FC0222374CB60079330A /* SYRCIMDataSource.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SYRCIMDataSource.m; sourceTree = "<group>"; };
 		7BC6FC112237F2780079330A /* SYLoginVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SYLoginVC.h; sourceTree = "<group>"; };
@@ -1178,6 +1211,7 @@
 			children = (
 				26225D7B1F65506E0074BFC3 /* BaseClass */,
 				26225D801F65506E0074BFC3 /* MainFrame */,
+				7B0A26A822828A360003EE51 /* CustomerService */,
 				7BE971C5225ECAD800FF6A25 /* Profile */,
 				26225D7E1F65506E0074BFC3 /* HomePage */,
 				26225D7F1F65506E0074BFC3 /* Login */,
@@ -1226,6 +1260,7 @@
 		26064AF01F5DA21000566B95 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				7B0A26AF2282E7200003EE51 /* JPGiftManager */,
 				7B2A218C2276B67B00EC8614 /* CYWebViewController */,
 				7B98B917227606A50074D0A0 /* JXBWebKit */,
 				7B76B8CC226A1ADB00153249 /* JX_GCDTimer */,
@@ -1275,6 +1310,8 @@
 			children = (
 				7B788158224F13E400B25CA3 /* SYSingleChattingVC.h */,
 				7B788159224F13E400B25CA3 /* SYSingleChattingVC.m */,
+				7B0A26AC22828A790003EE51 /* SYGiftListVC.h */,
+				7B0A26AD22828A790003EE51 /* SYGiftListVC.m */,
 			);
 			path = CustomerService;
 			sourceTree = "<group>";
@@ -2051,6 +2088,41 @@
 				7B0228BD223B87810045E25F /* SYFriendsListCell.m */,
 			);
 			path = friendsList;
+			sourceTree = "<group>";
+		};
+		7B0A26A822828A360003EE51 /* CustomerService */ = {
+			isa = PBXGroup;
+			children = (
+				7B0A26A922828A5B0003EE51 /* SYGiftListVM.h */,
+				7B0A26AA22828A5B0003EE51 /* SYGiftListVM.m */,
+			);
+			name = CustomerService;
+			path = "New Group";
+			sourceTree = "<group>";
+		};
+		7B0A26AF2282E7200003EE51 /* JPGiftManager */ = {
+			isa = PBXGroup;
+			children = (
+				7B0A26B02282E7210003EE51 /* JPHorizontalLayout.h */,
+				7B0A26B12282E7210003EE51 /* JPGiftShowView.h */,
+				7B0A26B22282E7210003EE51 /* JPGiftShowManager.h */,
+				7B0A26B32282E7210003EE51 /* JPGiftCellModel.h */,
+				7B0A26B42282E7210003EE51 /* JPGiftCollectionViewCell.h */,
+				7B0A26B52282E7210003EE51 /* JPGiftModel.m */,
+				7B0A26B62282E7210003EE51 /* JPGiftCountLabel.m */,
+				7B0A26B72282E7210003EE51 /* JPGiftView.m */,
+				7B0A26B82282E7210003EE51 /* JPGiftOperation.h */,
+				7B0A26B92282E7210003EE51 /* JPHorizontalLayout.m */,
+				7B0A26BA2282E7210003EE51 /* JPGiftShowManager.m */,
+				7B0A26BB2282E7210003EE51 /* JPGiftShowView.m */,
+				7B0A26BC2282E7210003EE51 /* JPGiftCountLabel.h */,
+				7B0A26BD2282E7210003EE51 /* JPGiftModel.h */,
+				7B0A26BE2282E7210003EE51 /* JPGiftCollectionViewCell.m */,
+				7B0A26BF2282E7210003EE51 /* JPGiftCellModel.m */,
+				7B0A26C02282E7210003EE51 /* JPGiftOperation.m */,
+				7B0A26C12282E7210003EE51 /* JPGiftView.h */,
+			);
+			path = JPGiftManager;
 			sourceTree = "<group>";
 		};
 		7B0E9B71227D8BB100EF0502 /* Cover */ = {
@@ -3166,8 +3238,8 @@
 		7BC56A8222701885005C1F81 /* Gift */ = {
 			isa = PBXGroup;
 			children = (
-				7BC56A83227018A1005C1F81 /* SYGiftModel.h */,
-				7BC56A84227018A1005C1F81 /* SYGiftModel.m */,
+				7BC56A83227018A1005C1F81 /* SYGiftListModel.h */,
+				7BC56A84227018A1005C1F81 /* SYGiftListModel.m */,
 			);
 			path = Gift;
 			sourceTree = "<group>";
@@ -4147,6 +4219,7 @@
 				26FE8E8D1F9514D100EC8BE0 /* TZLocationManager.m in Sources */,
 				2609ED4A1F790833002D31CE /* UILabel+SYExtension.m in Sources */,
 				26FE8E481F95143D00EC8BE0 /* IDMPhoto.m in Sources */,
+				7B0A26C72282E7220003EE51 /* JPGiftShowView.m in Sources */,
 				26FE8E8C1F9514D100EC8BE0 /* TZImagePickerController.m in Sources */,
 				7B15EC6E2265BAF100A80BD5 /* ZYImagePickerController.m in Sources */,
 				7B0E9B90227DA4CD00EF0502 /* SYAboutVM.m in Sources */,
@@ -4179,7 +4252,9 @@
 				26225D891F6550C80074BFC3 /* SYTableVM.m in Sources */,
 				7B98B943227606A60074D0A0 /* UIProgressView+WKWebView.m in Sources */,
 				263D37131F666569007267C3 /* YYFileHash.m in Sources */,
+				7B0A26AE22828A790003EE51 /* SYGiftListVC.m in Sources */,
 				7B98B9152275DA380074D0A0 /* KxCallMenu.m in Sources */,
+				7B0A26CA2282E7220003EE51 /* JPGiftOperation.m in Sources */,
 				7B9A1BDF2243B21F00B7BFC2 /* HSSessionModel.m in Sources */,
 				7B76B8B122682BCD00153249 /* SYBaseInfoEditVC.m in Sources */,
 				263D36E11F666438007267C3 /* NSObject+SYAlert.m in Sources */,
@@ -4195,6 +4270,7 @@
 				7B76B8B422682BEE00153249 /* SYBaseInfoEditVM.m in Sources */,
 				7BE971F12260254500FF6A25 /* SYPresentModel.m in Sources */,
 				7B0E9B9E227DBA2700EF0502 /* SYFocusListVM.m in Sources */,
+				7B0A26C92282E7220003EE51 /* JPGiftCellModel.m in Sources */,
 				7B8F3622227EF03B00B210E0 /* SYMoneyInfoModel.m in Sources */,
 				7B98B9042275DA380074D0A0 /* RCCallUserCallInfoModel.m in Sources */,
 				7B8F361E227ED4E800B210E0 /* SYMoneyManageVM.m in Sources */,
@@ -4207,6 +4283,7 @@
 				26FE8E851F9514D100EC8BE0 /* NSBundle+TZImagePicker.m in Sources */,
 				7B98B948227606A60074D0A0 /* NSURLProtocol+WebKitSupport.m in Sources */,
 				7B98B9072275DA380074D0A0 /* WhiteBoardWebView.m in Sources */,
+				7B0A26C22282E7210003EE51 /* JPGiftModel.m in Sources */,
 				7B4BF4772251B09300CCD286 /* MHAssetGroupViewController.m in Sources */,
 				26225D8F1F65545E0074BFC3 /* SYTabBarViewModel.m in Sources */,
 				7B98B8FE2275DA380074D0A0 /* RCVideoMultiCallUserCollectionLayout.m in Sources */,
@@ -4215,6 +4292,7 @@
 				7B98B8F92275DA380074D0A0 /* RCCallSingleCallViewController.m in Sources */,
 				7B0E9B70227D4ABC00EF0502 /* SYUserDetail.m in Sources */,
 				26003FF31F988B81000621B0 /* SYButton.m in Sources */,
+				7B0A26C32282E7210003EE51 /* JPGiftCountLabel.m in Sources */,
 				7B4BF4782251B09300CCD286 /* UIScrollView+MHMH.m in Sources */,
 				7B0E9B96227DB47500EF0502 /* SYStatisticsVC.m in Sources */,
 				26064AB81F5D9A1400566B95 /* main.m in Sources */,
@@ -4232,7 +4310,9 @@
 				7B98B946227606A60074D0A0 /* JXBWKWebViewPool.m in Sources */,
 				263D37121F666569007267C3 /* UIImage+LCActionSheet.m in Sources */,
 				26FE8E331F95119F00EC8BE0 /* SYPhotoManager.m in Sources */,
+				7B0A26C62282E7220003EE51 /* JPGiftShowManager.m in Sources */,
 				26225D8C1F6554140074BFC3 /* SYWebVM.m in Sources */,
+				7B0A26AB22828A5B0003EE51 /* SYGiftListVM.m in Sources */,
 				7B98B949227606A60074D0A0 /* WKCallNativeMethodMessageHandler.m in Sources */,
 				263D36EE1F666438007267C3 /* UITextView+SYExtension.m in Sources */,
 				262ADA4D1FCA75C700B0F4FD /* SYConfigureManager.m in Sources */,
@@ -4301,6 +4381,7 @@
 				7B4BF4612251AE4C00CCD286 /* YLVideoPreView.m in Sources */,
 				7B98B8FA2275DA380074D0A0 /* RCCallSelectMemberViewController.m in Sources */,
 				263D36EA1F666438007267C3 /* UIImage+SYExtension.m in Sources */,
+				7B0A26C82282E7220003EE51 /* JPGiftCollectionViewCell.m in Sources */,
 				7B8F3616227ECE5C00B210E0 /* SYLiveDetailModel.m in Sources */,
 				7B4BF4882251B3BC00CCD286 /* UITableView+SDAutoTableViewCellHeight.m in Sources */,
 				7B9A1BE12243B21F00B7BFC2 /* HSDownloadManager.m in Sources */,
@@ -4323,10 +4404,12 @@
 				263D371F1F667DF2007267C3 /* SYControllerHelper.m in Sources */,
 				263D36E01F666438007267C3 /* NSError+SYExtension.m in Sources */,
 				2624CADB1F98DCAD0083923F /* SYHTTPResponse.m in Sources */,
+				7B0A26C52282E7220003EE51 /* JPHorizontalLayout.m in Sources */,
 				7B9A1BE72243CECD00B7BFC2 /* SYListVideoPlayer.m in Sources */,
 				26FE8E4D1F95143D00EC8BE0 /* IDMZoomingScrollView.m in Sources */,
+				7B0A26C42282E7210003EE51 /* JPGiftView.m in Sources */,
 				261597581FEA5E4200C6FD80 /* YYPhotoGroupView.m in Sources */,
-				7BC56A85227018A1005C1F81 /* SYGiftModel.m in Sources */,
+				7BC56A85227018A1005C1F81 /* SYGiftListModel.m in Sources */,
 				7BE971D3225F283600FF6A25 /* SYSettingVC.m in Sources */,
 				7B8F365722801D4100B210E0 /* SYWithdrawalRulesVM.m in Sources */,
 				7B4BF4872251B3BC00CCD286 /* UIView+SDAutoLayout.m in Sources */,

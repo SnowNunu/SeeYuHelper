@@ -839,7 +839,6 @@
                 CGRectMake((self.view.frame.size.width - RCCallButtonLength) / 2,
                            self.view.frame.size.height - RCCallVerticalMargin - RCCallButtonLength - RCCallExtraSpace, RCCallButtonLength,
                            RCCallButtonLength);
-            [self layoutTextUnderImageButton:self.hangupButton];
             self.hangupButton.hidden = NO;
 
             self.acceptButton.hidden = YES;
@@ -940,13 +939,12 @@
         self.speakerButton.hidden = YES;
 
         if (callStatus == RCCallDialing) {
-            self.hangupButton.frame =
-                CGRectMake((self.view.frame.size.width - RCCallButtonLength) / 2,
-                           self.view.frame.size.height - RCCallVerticalMargin - RCCallButtonLength - RCCallExtraSpace, RCCallButtonLength,
-                           RCCallButtonLength);
-            [self layoutTextUnderImageButton:self.hangupButton];
+            [self.hangupButton mas_updateConstraints:^(MASConstraintMaker *make) {
+                make.centerX.equalTo(self.view);
+                make.bottom.equalTo(self.view).offset(-90);
+                make.width.height.offset(70);
+            }];
             self.hangupButton.hidden = NO;
-
             self.acceptButton.hidden = YES;
         } else if (callStatus == RCCallIncoming || callStatus == RCCallRinging) {
 #pragma mark 正在修改这里

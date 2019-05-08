@@ -7,7 +7,8 @@
 //
 
 #import "RCCallBaseViewController.h"
-#import <Masonry/Masonry.h>
+#import "SYGiftListVM.h"
+#import "SYGiftListVC.h"
 
 @class RCloudImageView;
 
@@ -27,11 +28,6 @@
 @property(nonatomic, strong) UILabel *remoteNameLabel;
 
 /*!
- 用户状态的view
- */
-@property(nonatomic, strong) UIImageView *statusView;
-
-/*!
  全屏的视频View
  */
 @property(nonatomic, strong) UIView *mainVideoView;
@@ -40,6 +36,11 @@
  通话接通后，界面右上角的视频View
  */
 @property(nonatomic, strong) UIView *subVideoView;
+
+/*!
+ 查询已收到礼物列表按钮
+ */
+@property (nonatomic, strong) UIButton *requestGiftListBtn;
 
 #pragma mark - 初始化
 /*!

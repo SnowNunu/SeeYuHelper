@@ -107,8 +107,8 @@
     SYTabBarItemTagType tagType = viewController.tabBarItem.tag;
     if (tagType == SYTabBarItemTagTypeCustomerService) {
         id from = [cache objectForKey:@"customeServiceFrom"];
-        int tag = (int)from;
-        if (tag == SYTabBarItemTagTypeMainFrame) {
+        NSString *tag = (NSString *)from;
+        if ([tag isEqualToString:@"0"]) {
             [SYNotificationCenter postNotificationName:@"enterCSViewFromMain" object:nil];
         } else {
             [SYNotificationCenter postNotificationName:@"enterCSViewFromProfile" object:nil];

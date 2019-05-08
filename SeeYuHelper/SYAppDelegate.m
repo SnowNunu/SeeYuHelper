@@ -113,35 +113,21 @@
     [RCIM sharedRCIM].userInfoDataSource = [SYRCIMDataSource shareInstance];
     [RCIM sharedRCIM].enableTypingStatus = YES; // 开启输入状态监听
     
-//    [[RCIMClient sharedRCIMClient] setLogLevel:RC_Log_Level_Info];
-//    [self redirectNSlogToDocumentFolder];
-    
     _callWindows = [NSMutableArray new];
     
-//    [[NSNotificationCenter defaultCenter] addObserver:self
-//                                             selector:@selector(didReceiveMessageNotification:)
-//                                                 name:RCKitDispatchMessageNotification
-//                                               object:nil];
     // 使用bugly收集崩溃日志
     [Bugly startWithAppId:@"d3fb921f83"];
 //    // 初始化友盟服务
     [UMConfigure initWithAppkey:@"5ca1a3aa3fc195e05e0000df" channel:@"App Store"];
-//    UMessageRegisterEntity * entity = [[UMessageRegisterEntity alloc] init];
-//    //type是对推送的几个参数的选择，可以选择一个或者多个。默认是三个全部打开，即：声音，弹窗，角标
-//    entity.types = UMessageAuthorizationOptionBadge|UMessageAuthorizationOptionSound|UMessageAuthorizationOptionAlert;
-//    [UNUserNotificationCenter currentNotificationCenter].delegate = self;
-//    [UMessage registerForRemoteNotificationsWithLaunchOptions:launchOptions Entity:entity completionHandler:^(BOOL granted, NSError * _Nullable error) {
-//        if (granted) {
-//
-//        } else {
-//
-//        }
-//    }];
     
     // 注册推送, 用于iOS8以及iOS8之后的系统
     UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert) categories:nil];
     [application registerUserNotificationSettings:settings];
     [self registerTelephonyEvent];
+    
+    // 每次重启后将页标置为0
+    YYCache *cache = [YYCache cacheWithName:@"SeeYuHelper"];
+    [cache setObject:@"0" forKey:@"customeServiceFrom"];
 }
 
 /// 配置文件夹
@@ -335,37 +321,11 @@
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     if ([SYSocketManager shareManager].sy_socketStatus == SYSocketStatusConnected || [SYSocketManager shareManager].sy_socketStatus == SYSocketStatusReceived) {
+        // 挂断视频并断开websocket
+        [SYNotificationCenter postNotificationName:@"HangUpVideo" object:nil];
         [self stopWebSocketService];
     }
 }
-
-- (void)redirectNSlogToDocumentFolder {
-    
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    
-    NSString *documentDirectory = [paths objectAtIndex:0];
-    
-    NSDate *currentDate = [NSDate date];
-    
-    NSDateFormatter *dateformatter = [[NSDateFormatter alloc] init];
-    
-    [dateformatter setDateFormat:@"MMddHHmmss"];
-    
-    NSString *formattedDate = [dateformatter stringFromDate:currentDate];
-    
-    
-    NSString *fileName = [NSString stringWithFormat:@"rc%@.log", formattedDate];
-    
-    NSString *logFilePath = [documentDirectory stringByAppendingPathComponent:fileName];
-    
-    
-    
-    freopen([logFilePath cStringUsingEncoding:NSASCIIStringEncoding], "a+", stdout);
-    
-    freopen([logFilePath cStringUsingEncoding:NSASCIIStringEncoding], "a+", stderr);
-    
-}
-
 
 - (void)presentVC:(UIViewController *)vc withAnimation:(CATransition *)animation {
     [[[UIApplication sharedApplication] keyWindow] endEditing:YES];
@@ -420,15 +380,26 @@
                                 NSLog(@"发送了通知");
                             }
                         }
-                    } else {
-                        NSLog(@"%@",params[@"longestMinutes"]);
+                    } else if ([params[@"type"] intValue] == 2){
+                        // 开始计费
                         if (params[@"longestMinutes"] != nil) {
                             NSString *time = params[@"longestMinutes"];
-                            NSLog(@"剩余通话时长为:%@",time);
+                            // 根据服务器返回的时间启动定时器定时挂断视频
                             [[JX_GCDTimerManager sharedInstance] scheduledDispatchTimerWithName:@"HangUpVideo" timeInterval:time.doubleValue * 60 queue:dispatch_get_main_queue() repeats:NO fireInstantly:NO action:^{
                                 [SYNotificationCenter postNotificationName:@"HangUpVideo" object:nil];
                             }];
+                        } else {
+                            // 为空则立即挂断
+                            [SYNotificationCenter postNotificationName:@"HangUpVideo" object:nil];
                         }
+                    } else if ([params[@"type"] intValue] == 3){
+                        // 结束计费
+                        NSLog(@"结束计费：%@",params);
+                    } else if ([params[@"type"] intValue] == 4){
+                        // 礼物请求
+                        [SYNotificationCenter postNotificationName:@"sendGift" object:params];
+                    } else {
+                        NSLog(@"%@",params);
                     }
                 }
             } else {
@@ -453,7 +424,7 @@
 
 - (void)stopWebSocketService {
     [[SYSocketManager shareManager] sy_close:^(NSInteger code, NSString * _Nonnull reason, BOOL wasClean) {
-        NSLog(@"code:%ld,reason:%@,wasClean:%lf",(long)code,reason,wasClean);
+        NSLog(@"code:%ld,reason:%@,wasClean:%f",(long)code,reason,wasClean);
     }];
 }
 

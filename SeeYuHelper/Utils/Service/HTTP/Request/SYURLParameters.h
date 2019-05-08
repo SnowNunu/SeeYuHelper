@@ -48,6 +48,9 @@
 /// 获取主播基础资料
 #define SY_HTTTP_PATH_USER_INFO_QUERY   @"/application/user/query"
 
+/// 获取主播收到的所有礼物列表
+#define SY_HTTTP_PATH_ANCHOR_GIFT_LIST_QUERY   @"/application/anchorBase/anchorQueryGift"
+
 /// 获取主播资料(关注数、礼物和佣金)
 #define SY_HTTTP_PATH_USER_DETAIL_INFO_QUERY   @"/application/anchorBase/anchorPersonalPage"
 
