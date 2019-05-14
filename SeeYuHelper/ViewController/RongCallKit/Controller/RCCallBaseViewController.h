@@ -11,6 +11,7 @@
 #import <UIKit/UIKit.h>
 #import "SYSocketManager.h"
 #import "JX_GCDTimerManager.h"
+#import <GPUImage/GPUImage.h>
 
 /*!
  通话的ViewController基类

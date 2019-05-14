@@ -128,27 +128,12 @@ pod 'LBXScan/UI'                        ,'2.0'
 #######---------- 企业第三方 ------------------########
 # 集成腾讯bugly，用于打包测试和bug异常收集
 pod 'Bugly'
-# 极光推送
-# pod 'JPush'                             , '3.0.6'
+
 # 友盟相关
 pod 'UMCCommon'
 #pod 'UMCPush'
 pod 'UMCSecurityPlugins'
 pod 'UMCAnalytics'
-# U-Share SDK UI模块（分享面板，建议添加）
-# pod 'UMengUShare/UI'                    , '6.4.5'
-# 集成微信(完整版14.4M)
-# pod 'UMengUShare/Social/WeChat'         , '6.4.5'
-# 集成新浪微博(精简版1M)
-# pod 'UMengUShare/Social/ReducedSina'    , '6.4.5'
-# 集成QQ/QZone/TIM(精简版0.5M)
-# pod 'UMengUShare/Social/ReducedQQ'      , '6.4.5'
-
-# 高的定位地图
-# pod 'AMapLocation'                      , '2.4.0'
-
-# 文字滚动的label
-pod 'TXScrollLabelView'                 , '1.3.2'
 
 # iOS程序调试神器
 # http://neater.github.io/blog/2014/07/31/flex!iosdiao-shi-li-qi/
@@ -169,21 +154,24 @@ pod 'ActionSheetPicker-3.0'             , '2.3.0'
 pod 'RongCloudIM/IMLib'                 , '2.9.14'
 pod 'RongCloudIM/IMKit'                 , '2.9.14'
 pod 'RongCloudRTC/RongCallLib'          , '2.9.14'
-#pod 'RongCloudRTC/RongCallKit'          , '2.9.14'
 
 # 空占位
 pod 'DZNEmptyDataSet'                   , '1.8.1'
 # 图片浏览器
 pod 'YBImageBrowser'
 # 苹果内购
-#pod 'RMStore', '0.7.1'
+pod 'RMStore', '0.7.1'
 # 拍照和录视频
 pod 'PBJVision'
 pod 'JPVideoPlayer'
+# 相册选择
+pod 'TZImagePickerController'
 # 文件操作
 pod 'FCFileManager'
 # 文件下载
 pod 'HYBNetworking', '~> 3.3.0'
+# 滤镜美颜相关
+pod 'GPUImage'
 
 pod 'Reveal-SDK','~> 17',:configurations => ['Debug']
 

@@ -65,7 +65,7 @@
                 [MBProgressHUD sy_showTips:@"视频审核中,暂不能修改"];
             }
         } else {
-            if (self.viewModel.model.showVideo == nil) {
+            if (self.viewModel.model.showVideo == nil || self.viewModel.model.showVideo.length == 0) {
                 [self updateVideo];
             } else {
                 [self.viewModel.updateUserFlagCommand execute:nil];

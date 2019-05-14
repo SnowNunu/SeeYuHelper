@@ -20,7 +20,7 @@
 #define KVideoUrlPath   \
 [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"VideoURL"]
 
-@interface YLShortVideoVC ()<AVCaptureFileOutputRecordingDelegate, UIGestureRecognizerDelegate,MHAssetPickerControllerDelegate,UINavigationControllerDelegate,YLVideoPreViewDelegate>
+@interface YLShortVideoVC ()<AVCaptureFileOutputRecordingDelegate, UIGestureRecognizerDelegate,TZImagePickerControllerDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,YLVideoPreViewDelegate>
 
 @property (strong,nonatomic) AVCaptureSession *captureSession;//负责输入和输出设备之间的数据传递
 @property (strong,nonatomic) AVCaptureDeviceInput *captureDeviceInput;//负责从AVCaptureDevice获得输入数据
@@ -47,11 +47,8 @@
 @end
 
 @implementation YLShortVideoVC
--(void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-}
--(void)viewDidAppear:(BOOL)animated{
+
+- (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     if (_isFirstTime) {//第一次进入后，先判断用户权限，再创建界面
         _isFirstTime = NO;
@@ -63,7 +60,8 @@
     }
     [UIApplication sharedApplication].statusBarHidden = YES;
 }
--(void)viewDidDisappear:(BOOL)animated{
+
+- (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     [UIApplication sharedApplication].statusBarHidden = NO;
     if (_canShort) {
@@ -86,7 +84,7 @@
                 if (!has) {
                     NSLog(@"-----没有麦克风权限--------");
                 }else{
-                    _canAudioUse = YES;
+                    self.canAudioUse = YES;
                 }
                 [self setupCaptureSession];
                 [self setupView];
@@ -155,8 +153,7 @@
     [self.captureSession startRunning];
 }
 #pragma mark - 初始化各种按钮 view
--(void)setupView
-{
+-(void)setupView {
     //拍摄按钮
     self.takeButton = [UIButton buttonWithType:0];
     self.takeButton.backgroundColor = [UIColor whiteColor];
@@ -194,7 +191,7 @@
     //相册选择按钮
     self.chooseLib = [UIButton buttonWithType:0];
     [self.chooseLib setImage:[UIImage imageNamed:@"btn_pic"] forState:0];
-    [self.chooseLib addTarget:self action:@selector(chooseFromXIngce) forControlEvents:UIControlEventTouchUpInside];
+    [self.chooseLib addTarget:self action:@selector(chooseFromAlbum) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.chooseLib];
     self.chooseLib.sd_layout.centerXIs(Screen_WIDTH/2 + Width(90)+Width(25)).centerYEqualToView(self.takeButton).widthIs(Width(30)).heightIs(22);
     
@@ -407,30 +404,41 @@
     return nil;
 }
 #pragma mark - 相册选择
--(void)chooseFromXIngce
-{
-    [MHGetPermission getPhotosPermission:^(BOOL has) {
-        if (has) {
-            MHAssetPickerViewController *picker = [[MHAssetPickerViewController alloc] init];
-            picker.assetPickType = MHAssetPickTypeVideo;
-            picker.delegate=self;
-            picker.selectionFilter = [NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
-                if ([[(ALAsset*)evaluatedObject valueForProperty:ALAssetPropertyType] isEqual:ALAssetTypeVideo]) {
-                    NSTimeInterval duration = [[(ALAsset*)evaluatedObject valueForProperty:ALAssetPropertyDuration] doubleValue];
-                    return duration >= 3 && duration <= 30;
-                } else {
-                    return YES;
-                }
-            }];
-            [UIApplication sharedApplication].statusBarHidden = NO;
-            [self presentViewController:picker animated:YES completion:^{
-            }];
-        }else{
-            //无权限
-        }
+-(void)chooseFromAlbum {
+    TZImagePickerController *imagePicker = [[TZImagePickerController alloc] initWithMaxImagesCount:1 columnNumber:4 delegate:self pushPhotoPickerVc:YES];
+    imagePicker.allowTakePicture = NO; // 在内部不显示拍照按钮
+//    imagePicker.allowTakeVideo = NO;  // 在内部显示拍视频按
+    imagePicker.allowPickingVideo = YES;
+    imagePicker.allowPickingImage = NO;
+    [imagePicker setDidFinishPickingGifImageHandle:^(UIImage *animatedImage, id sourceAssets) {
+        NSLog(@"%@",sourceAssets);
     }];
-    
+    [self presentViewController:imagePicker animated:YES completion:nil];
 }
+    
+
+//    [MHGetPermission getPhotosPermission:^(BOOL has) {
+//        if (has) {
+//            MHAssetPickerViewController *picker = [[MHAssetPickerViewController alloc] init];
+//            picker.assetPickType = MHAssetPickTypeVideo;
+//            picker.delegate=self;
+//            picker.selectionFilter = [NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
+//                if ([[(ALAsset*)evaluatedObject valueForProperty:ALAssetPropertyType] isEqual:ALAssetTypeVideo]) {
+//                    NSTimeInterval duration = [[(ALAsset*)evaluatedObject valueForProperty:ALAssetPropertyDuration] doubleValue];
+//                    return duration >= 3 && duration <= 30;
+//                } else {
+//                    return YES;
+//                }
+//            }];
+//            [UIApplication sharedApplication].statusBarHidden = NO;
+//            [self presentViewController:picker animated:YES completion:^{
+//            }];
+//        } else {
+            //无权限
+            
+//        }
+//    }];
+
 #pragma mark - 选图代理
 -(void)assetPickerController:(MHAssetPickerViewController *)picker didFinishPickingVideo:(NSURL *)videoUrl
 {

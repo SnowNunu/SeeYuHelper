@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "UIView+SDAutoLayout.h"
+#import "TZImagePickerController.h"
 #define Screen_WIDTH [UIScreen mainScreen].bounds.size.width
 #define Screen_HEIGTH [UIScreen mainScreen].bounds.size.height
 #define Width(i) i*(Screen_WIDTH/375)

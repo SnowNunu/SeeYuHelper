@@ -45,6 +45,7 @@
     self = [super init];
     if (self) {
         _callSession = callSession;
+        [[RCCallClient sharedRCCallClient] setEnableBeauty:YES];
         sem = dispatch_semaphore_create(1);
         queue = dispatch_queue_create("AnswerQueue", DISPATCH_QUEUE_SERIAL);
         [self registerForegroundNotification];
@@ -67,6 +68,7 @@
                                                           mediaType:mediaType
                                                     sessionDelegate:self
                                                               extra:nil];
+        [[RCCallClient sharedRCCallClient] setEnableBeauty:YES];
         sem = dispatch_semaphore_create(1);
         queue = dispatch_queue_create("AnswerQueue", DISPATCH_QUEUE_SERIAL);
         if (mediaType == RCCallMediaAudio) {
@@ -193,6 +195,7 @@
     [self.view addSubview:self.backgroundView];
     self.backgroundView.hidden = NO;
     isOpenWhiteBoard = NO;
+
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(onOrientationChanged:)
@@ -1759,6 +1762,11 @@
 }
 
 - (void)didTapInviteUserButton {
+}
+
+- (CMSampleBufferRef)processVideoFrame:(CMSampleBufferRef)sampleBuffer {
+    NSLog(@"%@",sampleBuffer);
+    return sampleBuffer;
 }
 
 @end
