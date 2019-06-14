@@ -7,7 +7,6 @@
 //
 
 #import "SYObject.h"
-#import "SYSocketResponseModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

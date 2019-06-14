@@ -43,15 +43,15 @@
 //#define SYURL @"http://192.168.31.24:8080/"
 
 /// 正式环境后台地址
-#define SYURL @"http://103.214.147.194:8080/"
+#define SYURL @"http://seeyu.zhyst.cn:8080/"
 
 /// 线下环境websocket地址
 //#define SY_WEB_SOCKET_URL   @"ws://192.168.31.24:8089/ws"
 
 /// 正式环境websocket地址
-#define SY_WEB_SOCKET_URL   @"ws://103.214.147.194:8089/ws"
+#define SY_WEB_SOCKET_URL   @"ws://seeyu.zhyst.cn:8089/ws"
 
-#define SY_GAME_URL @"http://103.214.146.89/seeyu_game/xyx/index.html"
+#define SY_GAME_URL @"http://seeyu.zhyst.cn/seeyu_game/xyx/index.html"
 
 /// 类型相关
 #define SY_IS_IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)

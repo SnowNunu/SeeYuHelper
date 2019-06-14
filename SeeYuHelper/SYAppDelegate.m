@@ -107,7 +107,7 @@
     [self _configureFMDB];
     
     // 初始化融云服务
-    [[RCIM sharedRCIM] initWithAppKey:@"c9kqb3rdc4vbj"];
+    [[RCIM sharedRCIM] initWithAppKey:@"m7ua80gbmo03m"];    // 生产环境
     [RCIM sharedRCIM].enablePersistentUserInfoCache = YES;  // 开启用户信息持久化
     [RCIM sharedRCIM].receiveMessageDelegate = self;    // 设置接收消息代理
     [RCIM sharedRCIM].userInfoDataSource = [SYRCIMDataSource shareInstance];
