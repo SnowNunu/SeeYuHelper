@@ -121,11 +121,11 @@ PODS:
   - RMStore (0.7.1):
     - RMStore/Core (= 0.7.1)
   - RMStore/Core (0.7.1)
-  - RongCloudIM/IMKit (2.9.14):
+  - RongCloudIM/IMKit (2.9.17):
     - RongCloudIM/IMLib
-  - RongCloudIM/IMLib (2.9.14)
-  - RongCloudRTC/RongCallLib (2.9.14):
-    - RongCloudIM/IMLib (~> 2.9.14)
+  - RongCloudIM/IMLib (2.9.17)
+  - RongCloudRTC/RongCallLib (2.9.17):
+    - RongCloudIM/IMLib (~> 2.9.17)
   - SAMKeychain (1.5.2)
   - SDWebImage (5.0.2):
     - SDWebImage/Core (= 5.0.2)
@@ -207,9 +207,9 @@ DEPENDENCIES:
   - ReactiveCocoa (from `https://github.com/zhao0/ReactiveCocoa.git`, tag `2.5.2`)
   - Reveal-SDK (~> 17)
   - RMStore (= 0.7.1)
-  - RongCloudIM/IMKit (= 2.9.14)
-  - RongCloudIM/IMLib (= 2.9.14)
-  - RongCloudRTC/RongCallLib (= 2.9.14)
+  - RongCloudIM/IMKit (= 2.9.17)
+  - RongCloudIM/IMLib (= 2.9.17)
+  - RongCloudRTC/RongCallLib (= 2.9.17)
   - SAMKeychain (= 1.5.2)
   - SDWebImage
   - SocketRocket (= 0.5.1)
@@ -360,8 +360,8 @@ SPEC CHECKSUMS:
   ReactiveCocoa: 3ff25b1bd992ac79c5c79b26b6c0c1713b715bb2
   Reveal-SDK: a6df49f47319bd19a110c960c498af32df72c0af
   RMStore: 64ba13a9c040e3b7572765d169f77175cd3243e5
-  RongCloudIM: 7283628517deaf3500c004d207b2db9836458163
-  RongCloudRTC: 48112881c17b32d20bfc0c9d7caafeef555613ef
+  RongCloudIM: 9f63653ff70d91913177fcf991f7b889901fb8de
+  RongCloudRTC: b1367156635ba77775801289bada7b6a54cf7d6f
   SAMKeychain: 1865333198217411f35327e8da61b43de79b635b
   SDWebImage: 6764b5fa0f73c203728052955dbefa2bf1f33282
   SocketRocket: d57c7159b83c3c6655745cd15302aa24b6bae531
@@ -389,6 +389,6 @@ SPEC CHECKSUMS:
   ZBarSDK: 4c1b5daeb7d6cc67dc9355e690af0230a661f6ec
   ZYCornerRadius: f0af817be7805b5c63d793042ca7a03f81e14069
 
-PODFILE CHECKSUM: 623e9d3fcc1f4ab7604c7d1093baf30b4dca3aa5
+PODFILE CHECKSUM: a20dc1e8bf4dda82b5a6e12b95792af7bbc7712c
 
 COCOAPODS: 1.7.0.beta.3

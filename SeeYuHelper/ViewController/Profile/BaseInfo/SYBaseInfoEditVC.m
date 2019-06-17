@@ -38,7 +38,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.edgesForExtendedLayout = UIRectEdgeNone;
-    _dataSource = @[@{@"label":@"头像",@"kind":@"image"},@{@"label":@"昵称",@"kind":@"text"},@{@"label":@"个性签名",@"kind":@"text"},@{@"label":@"爱好",@"kind":@"text"},@{@"label":@"封面图片",@"kind":@"text"},@{@"label":@"封面视频",@"kind":@"text"}];
+    _dataSource = @[@{@"label":@"ID号",@"kind":@"label"},@{@"label":@"头像",@"kind":@"image"},@{@"label":@"昵称",@"kind":@"text"},@{@"label":@"个性签名",@"kind":@"text"},@{@"label":@"爱好",@"kind":@"text"},@{@"label":@"封面图片",@"kind":@"text"},@{@"label":@"封面视频",@"kind":@"text"}];
     [self _setupSubViews];
     [self _makeSubViewsConstraints];
 }
@@ -150,18 +150,20 @@
         make.height.offset(14);
     }];
     if (indexPath.row == 0) {
+        contentLabel.text = self.viewModel.services.client.currentUserId;
+    } else if (indexPath.row == 1) {
         if (self.viewModel.user.userHeadImg != nil && self.viewModel.user.userHeadImg.length > 0) {
             [avatarImageView yy_setImageWithURL:[NSURL URLWithString:self.viewModel.user.userHeadImg] placeholder:SYWebAvatarImagePlaceholder() options:SYWebImageOptionAutomatic completion:NULL];
         }
-    } else if (indexPath.row == 1) {
+    } else if (indexPath.row == 2) {
         if (self.viewModel.user.userName != nil && self.viewModel.user.userName.length > 0) {
             contentLabel.text = self.viewModel.user.userName;
         }
-    } else if (indexPath.row == 2) {
+    } else if (indexPath.row == 3) {
         if (self.viewModel.user.userSignature != nil && self.viewModel.user.userSignature.length > 0) {
             contentLabel.text = self.viewModel.user.userSignature;
         }
-    } else if (indexPath.row == 3) {
+    } else if (indexPath.row == 4) {
         if (self.viewModel.user.userSpecialty != nil && self.viewModel.user.userSpecialty.length > 0) {
             contentLabel.text = self.viewModel.user.userSpecialty;
         }
@@ -171,6 +173,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row == 0) {
+        
+    } else if (indexPath.row == 1) {
         @weakify(self)
         LCActionSheet *sheet = [LCActionSheet sheetWithTitle:nil cancelButtonTitle:@"取消" clicked:^(LCActionSheet * _Nonnull actionSheet, NSInteger buttonIndex) {
             @strongify(self)
@@ -195,7 +199,7 @@
             }
         } otherButtonTitles:@"拍照",@"从手机相册选择", nil];
         [sheet show];
-    } else if (indexPath.row == 1) {
+    } else if (indexPath.row == 2) {
         // 修改昵称
         NSString *value = SYStringIsNotEmpty(self.viewModel.user.userName) ? self.viewModel.user.userName : @"";
         SYNicknameModifyVM *viewModel = [[SYNicknameModifyVM alloc] initWithServices:self.viewModel.services params:@{SYViewModelUtilKey:value}];
@@ -203,7 +207,7 @@
             [self.viewModel.updateUserInfoCommand execute:@{@"userId":self.viewModel.user.userId,@"userName":text}];
         };
         [self.viewModel.services presentViewModel:viewModel animated:YES completion:NULL];
-    } else if (indexPath.row == 2) {
+    } else if (indexPath.row == 3) {
         // 修改签名
         NSString *value = SYStringIsNotEmpty(self.viewModel.user.userSignature) ? self.viewModel.user.userSignature : @"";
         SYSignatureVM *viewModel = [[SYSignatureVM alloc] initWithServices:self.viewModel.services params:@{SYViewModelUtilKey:value}];
@@ -211,10 +215,10 @@
             [self.viewModel.updateUserInfoCommand execute:@{@"userId":self.viewModel.user.userId,@"userSignature":text}];
         };
         [self.viewModel.services presentViewModel:viewModel animated:YES completion:NULL];
-    } else if (indexPath.row == 3) {
+    } else if (indexPath.row == 4) {
         // 选择爱好
         [self.viewModel.enterHobbyChooseViewCommand execute:nil];
-    } else if (indexPath.row == 4) {
+    } else if (indexPath.row == 5) {
         // 上传封面
         [self.viewModel.enterUploadCoverViewCommand execute:nil];
     } else {

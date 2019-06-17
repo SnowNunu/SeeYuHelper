@@ -121,6 +121,11 @@
  */
 @property (nonatomic, strong) UIImageView *signalImageView;
 
+/*
+ 是否为会话的主动发起方
+ */
+@property (nonatomic, assign) BOOL initiative;
+
 #pragma mark - 回调
 /*!
  通话即将接通

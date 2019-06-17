@@ -151,9 +151,9 @@ pod 'CHTCollectionViewWaterfallLayout'  , '0.9.6'
 pod 'ActionSheetPicker-3.0'             , '2.3.0'
 
 # 融云即时聊天服务
-pod 'RongCloudIM/IMLib'                 , '2.9.14'
-pod 'RongCloudIM/IMKit'                 , '2.9.14'
-pod 'RongCloudRTC/RongCallLib'          , '2.9.14'
+pod 'RongCloudIM/IMLib'                 , '2.9.17'
+pod 'RongCloudIM/IMKit'                 , '2.9.17'
+pod 'RongCloudRTC/RongCallLib'          , '2.9.17'
 
 # 空占位
 pod 'DZNEmptyDataSet'                   , '1.8.1'

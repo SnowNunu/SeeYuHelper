@@ -21,7 +21,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.edgesForExtendedLayout = UIRectEdgeNone;
-    _dataSource = @[@{@"label":@"直播数据统计",@"kind":@"arrow"},@{@"label":@"礼物数据统计",@"kind":@"arrow"}];
+    _dataSource = @[@{@"label":@"礼物数据统计",@"kind":@"arrow"}];
+//    _dataSource = @[@{@"label":@"直播数据统计",@"kind":@"arrow"},@{@"label":@"礼物数据统计",@"kind":@"arrow"}];
     [self _setupSubViews];
     [self _makeSubViewsConstraints];
 }
@@ -91,11 +92,11 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
-    if (indexPath.row == 0) {
-        [self.viewModel.enterLiveStatisticsViewCommand execute:nil];
-    } else {
-        [self.viewModel.enterPresentListViewCommand execute:nil];
-    }
+//    if (indexPath.row == 0) {
+//        [self.viewModel.enterLiveStatisticsViewCommand execute:nil];
+//    } else {
+    [self.viewModel.enterPresentListViewCommand execute:nil];
+//    }
 }
 
 @end

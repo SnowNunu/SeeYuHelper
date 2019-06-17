@@ -78,7 +78,7 @@ static NSString *reuseIdentifier = @"giftListCellIdentifier";
     layout.minimumLineSpacing = 25; // 最小行间距
     layout.minimumInteritemSpacing = margin; // 最小左右间距
     layout.scrollDirection = UICollectionViewScrollDirectionVertical;
-    layout.estimatedItemSize = CGSizeMake(50, 87.5);
+    layout.itemSize = CGSizeMake(50, 87.5);
     
     UICollectionView *giftsCollectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
     giftsCollectionView.delegate = self;

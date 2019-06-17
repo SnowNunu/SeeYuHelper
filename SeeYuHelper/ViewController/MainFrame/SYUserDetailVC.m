@@ -74,6 +74,14 @@
     [self.viewModel.requestUserDetailInfoCommand execute:nil];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    _marryInfoLabel.hidden = YES;
+    _diamondsInfoLabel.hidden = YES;
+    _rechargeInfoLabel.hidden = YES;
+    _vipStatusInfoLabel.hidden = YES;
+}
+
 - (void)bindViewModel {
     [super bindViewModel];
     @weakify(self)

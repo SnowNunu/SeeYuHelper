@@ -29,7 +29,7 @@
 //#import "RetainCycleLoggerPlugin.h"
 #endif
 
-@interface SYAppDelegate () <RCIMReceiveMessageDelegate>
+@interface SYAppDelegate () <RCIMReceiveMessageDelegate,RCIMConnectionStatusDelegate>
 
 @property (nonatomic, strong) CTCallCenter *callCenter;
 
@@ -112,6 +112,7 @@
     [RCIM sharedRCIM].receiveMessageDelegate = self;    // 设置接收消息代理
     [RCIM sharedRCIM].userInfoDataSource = [SYRCIMDataSource shareInstance];
     [RCIM sharedRCIM].enableTypingStatus = YES; // 开启输入状态监听
+    [RCIM sharedRCIM].connectionStatusDelegate = self;  // 设置连接状态代理
     
     _callWindows = [NSMutableArray new];
     
@@ -299,6 +300,30 @@
     }
 }
 
+// 监听融云连接状态
+- (void)onRCIMConnectionStatusChanged:(RCConnectionStatus)status {
+    if (status == ConnectionStatus_KICKED_OFFLINE_BY_OTHER_CLIENT) {
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"检测到您的帐号在别的设备上登录，您被迫下线！" preferredStyle:UIAlertControllerStyleAlert];
+        [alertController addAction:[UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                // 退出融云
+                [[RCIMClient sharedRCIMClient] logout];
+                // 断开websocket
+                [SYSharedAppDelegate stopWebSocketService];
+                // 切换至登录页面
+                [SAMKeychain setRawLogin:nil];
+                // 发送通知进行页面跳转
+                [SYNotificationCenter postNotificationName:SYSwitchRootViewControllerNotification object:nil userInfo:@{SYSwitchRootViewControllerUserInfoKey:@(SYSwitchRootViewControllerFromTypeLogout)}];
+            });
+        }]];
+        UIWindow *alertWindow = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+        alertWindow.rootViewController = [[UIViewController alloc] init];
+        alertWindow.windowLevel = UIWindowLevelAlert + 1;
+        [alertWindow makeKeyAndVisible];
+        [alertWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
+    }
+}
+
 - (void)applicationWillResignActive:(UIApplication *)application {
     RCConnectionStatus status = [[RCIMClient sharedRCIMClient] getConnectionStatus];
     if (status != ConnectionStatus_SignUp) {
@@ -317,7 +342,6 @@
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
-
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     if ([SYSocketManager shareManager].sy_socketStatus == SYSocketStatusConnected || [SYSocketManager shareManager].sy_socketStatus == SYSocketStatusReceived) {

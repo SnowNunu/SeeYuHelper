@@ -52,6 +52,7 @@
         [_callSession setDelegate:self];
         [RCCallKitUtility setScreenForceOn];    // 设置不自动锁屏
         self.needPlayingRingAfterForeground = YES;
+        self.initiative = NO;
     }
     return self;
 }
@@ -85,6 +86,7 @@
         }
         [self registerForegroundNotification];
         [RCCallKitUtility setScreenForceOn];
+        self.initiative = YES;
     }
     return self;
 }
@@ -565,7 +567,7 @@
 - (UIButton *)acceptButton {
     if (!_acceptButton) {
         _acceptButton = [[UIButton alloc] init];
-        [_acceptButton setImage:SYImageNamed(@"call_icon_answer") forState:UIControlStateNormal];
+        [_acceptButton setImage:[RCCallKitUtility imageFromVoIPBundle:@"voip/answer.png"] forState:UIControlStateNormal];
         [_acceptButton addTarget:self
                           action:@selector(acceptButtonClicked)
                 forControlEvents:UIControlEventTouchUpInside];
@@ -591,7 +593,7 @@
 - (UIButton *)hangupButton {
     if (!_hangupButton) {
         _hangupButton = [[UIButton alloc] init];
-        [_hangupButton setImage:SYImageNamed(@"call_icon_hangUp") forState:UIControlStateNormal];
+        [_hangupButton setImage:[RCCallKitUtility imageFromVoIPBundle:@"voip/hang_up.png"] forState:UIControlStateNormal];
         [_hangupButton addTarget:self
                           action:@selector(hangupButtonClicked)
                 forControlEvents:UIControlEventTouchUpInside];
@@ -846,23 +848,24 @@
 
             self.acceptButton.hidden = YES;
         } else if (callStatus == RCCallIncoming || callStatus == RCCallRinging) {
-            [self.hangupButton mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.width.height.offset(60);
+            [self.hangupButton mas_updateConstraints:^(MASConstraintMaker *make) {
+                make.width.height.offset(65);
                 make.left.equalTo(self.view).offset(60);
                 make.bottom.equalTo(self.view).offset(-45);
             }];
             self.hangupButton.hidden = NO;
-            [self.acceptButton mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.width.height.offset(60);
+            [self.acceptButton mas_updateConstraints:^(MASConstraintMaker *make) {
+                make.width.height.offset(65);
                 make.right.equalTo(self.view).offset(-60);
                 make.bottom.equalTo(self.view).offset(-45);
             }];
             self.acceptButton.hidden = NO;
         } else if (callStatus == RCCallActive) {
-            self.hangupButton.frame =
-                CGRectMake((self.view.frame.size.width - RCCallButtonLength) / 2,
-                           self.view.frame.size.height - RCCallVerticalMargin - RCCallButtonLength - RCCallExtraSpace, RCCallButtonLength,
-                           RCCallButtonLength);
+            [self.hangupButton mas_updateConstraints:^(MASConstraintMaker *make) {
+                make.width.height.offset(65);
+                make.centerX.equalTo(self.view);
+                make.bottom.equalTo(self.view).offset(- RCCallVerticalMargin - RCCallExtraSpace);
+            }];
             [self layoutTextUnderImageButton:self.hangupButton];
             self.hangupButton.hidden = NO;
 
@@ -873,8 +876,6 @@
         self.cameraSwitchButton.hidden = YES;
 
     } else if (mediaType == RCCallMediaVideo && !isMultiCall) {
-        
-        
         // 单聊视频
         self.backgroundView.hidden = NO;
 
@@ -950,24 +951,24 @@
             self.hangupButton.hidden = NO;
             self.acceptButton.hidden = YES;
         } else if (callStatus == RCCallIncoming || callStatus == RCCallRinging) {
-#pragma mark 正在修改这里
             [self.hangupButton mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.width.height.offset(60);
+                make.width.height.offset(65);
                 make.left.equalTo(self.view).offset(60);
                 make.bottom.equalTo(self.view).offset(-45);
             }];
             self.hangupButton.hidden = NO;
             [self.acceptButton mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.width.height.offset(60);
+                make.width.height.offset(65);
                 make.right.equalTo(self.view).offset(-60);
                 make.bottom.equalTo(self.view).offset(-45);
             }];
             self.acceptButton.hidden = NO;
         } else if (callStatus == RCCallActive) {
-            self.hangupButton.frame =
-                CGRectMake((self.view.frame.size.width - RCCallButtonLength) / 2,
-                           self.view.frame.size.height - RCCallVerticalMargin - RCCallButtonLength - RCCallExtraSpace, RCCallButtonLength,
-                           RCCallButtonLength);
+            [self.hangupButton mas_updateConstraints:^(MASConstraintMaker *make) {
+                make.width.height.offset(65);
+                make.centerX.equalTo(self.view);
+                make.bottom.equalTo(self.view).offset(- RCCallVerticalMargin - RCCallExtraSpace);
+            }];
             [self layoutTextUnderImageButton:self.hangupButton];
             self.hangupButton.hidden = NO;
 
@@ -1727,7 +1728,9 @@
             id userId = [cache objectForKey:@"videoUserId"];
             id receiveUserId = [cache objectForKey:@"videoReceiveUserId"];
             NSDictionary *params = @{@"type":@"3",@"userId":(NSString *)userId,@"receiveUserId":(NSString *)receiveUserId};
-            [[SYAppDelegate sharedDelegate] sendMessageByWebSocketService:[params yy_modelToJSONString]];
+            if (_initiative) {
+                [[SYAppDelegate sharedDelegate] sendMessageByWebSocketService:[params yy_modelToJSONString]];
+            }
         } else {
             [MBProgressHUD sy_showError:@"客户端异常，请联系客服!"];
         }

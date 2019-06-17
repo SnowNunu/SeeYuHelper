@@ -21,7 +21,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.edgesForExtendedLayout = UIRectEdgeNone;
-    _dataSource = @[@{@"label":@"清除缓存",@"kind":@"arrow"},@{@"label":@"关于",@"kind":@"arrow"}];
+    _dataSource = @[@{@"label":@"清除缓存",@"kind":@"arrow"},@{@"label":@"关于",@"kind":@"arrow"},@{@"label":@"退出登录",@"kind":@"arrow"}];
     [self _setupSubViews];
     [self _makeSubViewsConstraints];
 }
@@ -107,6 +107,18 @@
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     if (indexPath.row == 1) {
         [self.viewModel.enterAboutViewCommand execute:nil];
+    } else if (indexPath.row == 2) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            // 退出融云
+            [[RCIMClient sharedRCIMClient] logout];
+            // 断开websocket
+            [SYSharedAppDelegate stopWebSocketService];
+            // 切换至登录页面
+            [self.viewModel.services.client saveUser:nil];
+            [SAMKeychain setRawLogin:nil];
+            // 发送通知进行页面跳转
+            [SYNotificationCenter postNotificationName:SYSwitchRootViewControllerNotification object:nil userInfo:@{SYSwitchRootViewControllerUserInfoKey:@(SYSwitchRootViewControllerFromTypeLogout)}];
+        });
     }
 }
 
