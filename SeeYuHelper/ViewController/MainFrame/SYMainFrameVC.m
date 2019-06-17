@@ -8,6 +8,7 @@
 
 #import "SYMainFrameVC.h"
 #import "SYUserListModel.h"
+#import "UIScrollView+SYRefresh.h"
 
 @interface SYMainFrameVC () <UITableViewDelegate,UITableViewDataSource>
 
@@ -50,6 +51,14 @@
             [self.tableView reloadData];
         }
     }];
+    [self.viewModel.requestUserListInfoCommand.executionSignals.switchToLatest.deliverOnMainThread subscribeNext:^(NSArray *array) {
+        self.viewModel.datasource = array;
+        [self.tableView.mj_header endRefreshing];
+    }];
+    [self.viewModel.requestUserListInfoCommand.errors subscribeNext:^(NSError *error) {
+        [MBProgressHUD sy_showErrorTips:error];
+        [self.tableView.mj_header endRefreshing];
+    }];
     [SYNotificationCenter addObserver:self selector:@selector(enterCustomerServiceView) name:@"enterCSViewFromMain" object:nil];
 }
 
@@ -62,6 +71,15 @@
     tableView.separatorInset = UIEdgeInsetsZero;
     _tableView = tableView;
     [self.view addSubview:tableView];
+    
+    // 添加下拉刷新控件
+    @weakify(self);
+    [_tableView sy_addHeaderRefresh:^(MJRefreshNormalHeader *header) {
+        /// 加载下拉刷新的数据
+        @strongify(self);
+        [self.viewModel.requestUserListInfoCommand execute:nil];
+    }];
+    [_tableView.mj_header beginRefreshing];
 }
 
 - (void)_makeSubViewsConstraints {

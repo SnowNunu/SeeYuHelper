@@ -393,17 +393,16 @@
                 if (response.code == 0) {
                     if ([params[@"type"] intValue] == 1) {
                         // 登录相关的响应
-                        if ([params[@"isFirst"] intValue] == 1) {
-                            // 首次登录
-                            [SYNotificationCenter postNotificationName:@"login" object:@{@"code":@"200"}];
-                        } else {
-                            // 这个时候需要判断
-                            if ([SAMKeychain rawLogin] == nil) {
-                                // 这种情况出现的可能是：主播已经完成了首次信息填充，但是卸载过app导致记录丢失
-                                [SYNotificationCenter postNotificationName:@"login" object:@{@"code":@"288"}];
-                                NSLog(@"发送了通知");
-                            }
-                        }
+//                        if ([params[@"isFirst"] intValue] == 1) {
+//                            // 首次登录
+                        [SYNotificationCenter postNotificationName:@"login" object:@{@"code":@"200"}];
+//                        } else {
+//                            // 这个时候需要判断
+//                            if ([SAMKeychain rawLogin] == nil) {
+//                                // 这种情况出现的可能是：主播已经完成了首次信息填充，但是卸载过app导致记录丢失
+//                                [SYNotificationCenter postNotificationName:@"login" object:@{@"code":@"288"}];
+//                            }
+//                        }
                     } else if ([params[@"type"] intValue] == 2){
                         // 开始计费
                         if (params[@"longestMinutes"] != nil) {

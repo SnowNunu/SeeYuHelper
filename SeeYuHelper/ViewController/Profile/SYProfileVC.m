@@ -177,7 +177,7 @@
     commissionTitleLabel.textAlignment = NSTextAlignmentCenter;
     commissionTitleLabel.font = SYRegularFont(14);
     commissionTitleLabel.textColor = SYColor(51, 51, 51);
-    commissionTitleLabel.text = @"佣金";
+    commissionTitleLabel.text = @"总金额";
     _commissionTitleLabel = commissionTitleLabel;
     [commissionBgView addSubview:commissionTitleLabel];
 }

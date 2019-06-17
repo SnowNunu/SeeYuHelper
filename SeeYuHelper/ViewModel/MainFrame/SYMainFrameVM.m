@@ -42,12 +42,6 @@
     [self.requestCustomerServiceCommand.errors subscribeNext:^(NSError *error) {
         [MBProgressHUD sy_showErrorTips:error];
     }];
-    [self.requestUserListInfoCommand.executionSignals.switchToLatest.deliverOnMainThread subscribeNext:^(NSArray *array) {
-        self.datasource = array;
-    }];
-    [self.requestUserListInfoCommand.errors subscribeNext:^(NSError *error) {
-        [MBProgressHUD sy_showErrorTips:error];
-    }];
     self.enterUserInfoViewCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(NSString *userId) {
         SYUserDetailVM *vm = [[SYUserDetailVM alloc] initWithServices:self.services params:@{SYViewModelIDKey:userId}];
         [self.services pushViewModel:vm animated:YES];
