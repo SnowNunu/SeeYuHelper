@@ -408,9 +408,7 @@
                         if (params[@"longestMinutes"] != nil) {
                             NSString *time = params[@"longestMinutes"];
                             // 根据服务器返回的时间启动定时器定时挂断视频
-                            [[JX_GCDTimerManager sharedInstance] scheduledDispatchTimerWithName:@"HangUpVideo" timeInterval:time.doubleValue * 60 queue:dispatch_get_main_queue() repeats:NO fireInstantly:NO action:^{
-                                [SYNotificationCenter postNotificationName:@"HangUpVideo" object:nil];
-                            }];
+                            [SYNotificationCenter postNotificationName:@"HangUpVideo" object:@{@"time":time}];
                         } else {
                             // 为空则立即挂断
                             [SYNotificationCenter postNotificationName:@"HangUpVideo" object:nil];
@@ -421,6 +419,10 @@
                     } else if ([params[@"type"] intValue] == 4){
                         // 礼物请求
                         [SYNotificationCenter postNotificationName:@"sendGift" object:params];
+                    } else if ([params[@"type"] intValue] == 5){
+                        // 更新挂断时间
+                        NSString *time = params[@"longestMinutes"];
+                        [SYNotificationCenter postNotificationName:@"HangUpVideo" object:@{@"time":time}];
                     } else {
                         NSLog(@"%@",params);
                     }

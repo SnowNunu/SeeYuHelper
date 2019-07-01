@@ -107,6 +107,8 @@
 
 - (void)sy_reconnect {
     // 计数+1
+    [SYNotificationCenter postNotificationName:@"HangUpVideo" object:nil];
+    NSLog(@"websocket重连导致视频挂断");
     if (_reconnectCounter < self.reconnectCount - 1) {
         _reconnectCounter ++;
         // 开启定时器

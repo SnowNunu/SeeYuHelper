@@ -205,7 +205,7 @@
                                                object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(hangupButtonClicked)
+                                             selector:@selector(hangupByTimer:)
                                                  name:@"HangUpVideo"
                                                object:nil];
     [self registerTelephonyEvent];
@@ -612,6 +612,22 @@
         [self callDidDisconnect];
     } else {
         [self.callSession hangup];
+    }
+}
+
+- (void)hangupByTimer:(NSNotification *)notification {
+    NSDictionary *dict = notification.object;
+    if (dict != nil) {
+        int minutes = [dict[@"time"] intValue];
+        int seconds = 60 - (int)([[NSDate date] timeIntervalSince1970] - self.callSession.connectedTime / 1000) % 60 + 60 *minutes;
+        NSLog(@"实际挂断时间间隔为:%d",seconds);
+        [[JX_GCDTimerManager sharedInstance] scheduledDispatchTimerWithName:@"HangUpVideo" timeInterval:seconds queue:dispatch_get_main_queue() repeats:NO fireInstantly:NO action:^{
+            [self hangupButtonClicked];
+        }];
+    } else {
+        [[JX_GCDTimerManager sharedInstance] scheduledDispatchTimerWithName:@"HangUpVideo" timeInterval:0 queue:dispatch_get_main_queue() repeats:NO fireInstantly:NO action:^{
+            [self hangupButtonClicked];
+        }];
     }
 }
 
@@ -1768,7 +1784,6 @@
 }
 
 - (CMSampleBufferRef)processVideoFrame:(CMSampleBufferRef)sampleBuffer {
-    NSLog(@"%@",sampleBuffer);
     return sampleBuffer;
 }
 
